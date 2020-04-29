@@ -122,8 +122,8 @@ public class GlobalBoard {
 			fabrique[fab][3] != color)//missing color
 			return -2;
 
-		if(plyr.isLineFull(line)) return -3;//player line full
-		if(!plyr.canLineBeColor(line, color)) return -4;//this color can't go on this line
+		if(PB[plyr].isLineFull(line)) return -3;//player line full
+		if(!PB[plyr].canLineBeColor(line, color)) return -4;//this color can't go on this line
 
 		for(int i = 0; i < 4; i++){
 			if(fabrique[fab][i] == color)
@@ -151,8 +151,8 @@ public class GlobalBoard {
 		//line : [0 - 4]
 
 		if(!centerContainsColor(color)) return -2;
-		if(plyr.isLineFull(line)) return -3;
-		if(!plyr.canLineBeColor(line, color)) return -4;
+		if(PB[plyr].isLineFull(line)) return -3;
+		if(!PB[plyr].canLineBeColor(line, color)) return -4;
 
 		if(futureFirstPlayer == -1){
 			futureFirstPlayer = plyr;
