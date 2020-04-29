@@ -30,16 +30,16 @@ public class PlayerBoard {
 		this.floor = new int[7];
 	}
 
-	public getScore(){return score;}
+	public int getScore(){return score;}
 
 	public boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
 	//return true if line 'line' can't contain more tiles
 
 	public boolean isLineColor(int line, int color){ return (linesColor[line] == color); }
-	//return true if line 'line' accept 'color' tiles
 	
 	public boolean canLineBeColor(int line, int color){ return linesColor[line] == color ||
 		(linesColor[line] == 0 && !wall[line][ (linesColor[line] + line) % 5 ] ); }
+	//return true if line 'line' accept 'color' tiles
 
 	public int addTileToLine(int line, int color){
 		//line : line where to add new tiles 0-4
@@ -49,33 +49,29 @@ public class PlayerBoard {
 			linesColor[line] = color;
 			linesNb[line] = 0;
 		}
-
-		linesNb[line] ++;
 		
-		if(linesNb[line] > line + 1){//excess tiles sent to floor
-			addTileToFloor(int color);
-			linesNb[line] = line + 1;
-		}
+		if(linesNb[line] >= line + 1){//full line
+			addTileToFloor(color);
+		}else linesNb[line]++;
 
 		return 0;
 	}
 
 	public void addTileToFloor(int color){
 		if(nfloor < 7) floor[nfloor++] = color;
-		else if(color != 6) GB.addTileToLid(int color);//excess tiles sent back to lid
+		else if(color != 6) GB.addTileToLid(color);//excess tiles sent back to lid
 	}
 
 	public void decoration(){
 		int i, col;
 		for(i = 0; i < 5; i++)
-			if(linesNb[i] == i+1){
+			if(linesNb[i] == i+1){//completed line
 				col = (linesColor[i] + i) % 5;
 				wall[i][col] = true;
 				updatePoints(i, col);
 				GB.addTilesToLid(linesColor[i], i);
 			}
 		for(i = 0; i < nfloor; i++){
-			//score -= 1 + (i>=2?1:0) + (i>=5?1:0);
 			score -= (i+4)/3;
 			if(floor[i] != 6) GB.addTileToLid(floor[i]);	
 		}
@@ -93,4 +89,17 @@ public class PlayerBoard {
 		if(x < 0 || x > 4 || y < 0 || y > 4 || !wall[x][y]) return 0;
 		return 1 + neighbors(x + dx, y + dy, dx, dy);
 	}
+
+	private boolean isLineCompleted(int line){
+		for(int i = 0; i < 5; i++)
+			if(!wall[line][i]) return false;
+		return true;
+	}
+
+	public boolean endOfGame(){
+		for(int i = 0; i < 5; i++)
+			if(isLineCompleted(i)) return true;
+		return false;
+	}
+
 }
