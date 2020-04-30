@@ -28,9 +28,19 @@ public class PlayerBoard {
 		
 		this.nfloor = 0;
 		this.floor = new int[7];
+		for(int i = 0; i < 7; i++)
+			this.floor[i] = 0;
 	}
 
 	public int getScore(){return score;}
+	public int[] getLinesColor(){return linesColor;}
+	public int[] getLinesNb(){return linesNb;}
+	public int[][] getWall(){return wall;}
+	public int[] getFloor(){return floor;}
+
+	private boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
+	private void setWallLineColor(int line, int color, boolean val){ wall[line][ (line + color-1) % 5 ] = val; }
+	//get and set a 'wall' cell with a given line and color instead of line and column
 
 	public boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
 	//return true if line 'line' can't contain more tiles
@@ -38,7 +48,7 @@ public class PlayerBoard {
 	public boolean isLineColor(int line, int color){ return (linesColor[line] == color); }
 	
 	public boolean canLineBeColor(int line, int color){ return linesColor[line] == color ||
-		(linesColor[line] == 0 && !wall[line][ (linesColor[line] + line) % 5 ] ); }
+		(linesColor[line] == 0 && !getWallLineColor(line, color) ); }
 	//return true if line 'line' accept 'color' tiles
 
 	public int addTileToLine(int line, int color){
@@ -66,14 +76,14 @@ public class PlayerBoard {
 		int i, col;
 		for(i = 0; i < 5; i++)
 			if(linesNb[i] == i+1){//completed line
-				col = (linesColor[i] + i) % 5;
-				wall[i][col] = true;
-				updatePoints(i, col);
+				setWallLineColor(i, linesColor[i], true);
+				updatePoints(i, (linesColor[i] + i) % 5);
 				GB.addTilesToLid(linesColor[i], i);
 			}
 		for(i = 0; i < nfloor; i++){
 			score -= (i+4)/3;
 			if(floor[i] != 6) GB.addTileToLid(floor[i]);	
+			floor[i] = 0;
 		}
 	}
 
@@ -96,10 +106,31 @@ public class PlayerBoard {
 		return true;
 	}
 
+	private boolean isColumnCompleted(int col){
+		for(int i = 0; i < 5; i++)
+			if(!wall[i][col]) return false;
+		return true;
+	}
+
+	private boolean isColorCompleted(int color){
+		for(int i = 0; i < 5; i++)
+			if(!getWallLineColor(i, color)) return false;
+		return true;
+
 	public boolean endOfGame(){
+		//return true if this player meets the end of game requirement
 		for(int i = 0; i < 5; i++)
 			if(isLineCompleted(i)) return true;
 		return false;
 	}
+
+	private void updatePointsFinal(){
+		int i;
+		for(i = 0; i < 5; i++){
+			if(isLineCompleted(i)) score += 2;
+			if(isColumnCompleted(i)) score += 7;
+			if(isColorCompleted(i+1)) score += 10;
+		}
+
 
 }

@@ -25,26 +25,22 @@ public class GlobalBoard {
 		for(i = 0; i < nPlayers; i++) PB[i] = new PlayerBoard(this);
 
 		fabrique = new int[nFabrique()][4];
-		for(i = 0; i < nFabrique(); i++)
-			for(int j = 0; j < 4; j++)
-				fabrique[i][j] = 0;
 
 		iCenter = 0;
 		center = new int[100];
 
 		rnd = new Random();
 		bag = new int[100];
+		initBag();
 
 		iLid = 0;
 		lid = new int[100];
 
 		futureFirstPlayer = 0;
+		initFabriques();
 	}
 
 	public int nFabrique() {return 2*nPlayers + 1;}
-
-	public void initGame(){
-	}
 
 	public void initBag(){
 		iBag = 0;
@@ -88,6 +84,7 @@ public class GlobalBoard {
 	}
 
 	private void lidToBag(){
+		if(iLid == 0) System.err.println("Warning : no tiles available !");
 		nBag = iLid;
 		for(int i = 0; i < nBag; i++) bag[i] = lid[i]
 		iBag = 0;
@@ -113,15 +110,7 @@ public class GlobalBoard {
 		//color : [1 - 5]
 		//line : [0 - 4]
 
-		if(fabrique[fab][0] == 0)//empty fabrique
-			return -1;
-
-		if(fabrique[fab][0] != color &&
-			fabrique[fab][1] != color &&
-			fabrique[fab][2] != color &&
-			fabrique[fab][3] != color)//missing color
-			return -2;
-
+		if(!fabriqueContainsColor(fab, color)) return -2;//missing color
 		if(PB[plyr].isLineFull(line)) return -3;//player line full
 		if(!PB[plyr].canLineBeColor(line, color)) return -4;//this color can't go on this line
 
@@ -136,6 +125,12 @@ public class GlobalBoard {
 
 	private void addTileToCenter(color){
 		center[iCenter++] = color;
+	}
+
+	private boolean fabriqueContainsColor(int fab, int color){
+		for(int i = 0; i < 4; i++)
+			if(fabrique[fab][i] == color) return true;
+		return false;
 	}
 
 	public boolean centerContainsColor(int color){
@@ -166,6 +161,5 @@ public class GlobalBoard {
 			}
 		return 0;
 	}
-	
 
 }	
