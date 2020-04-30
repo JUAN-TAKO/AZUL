@@ -1,5 +1,7 @@
 package Modele;
 
+import java.util.*;
+
 public class GlobalBoard {
 
 	int nPlayers;
@@ -11,6 +13,7 @@ public class GlobalBoard {
 
 	Random rnd;
 	int iBag;
+	int nBag;
 	int[] bag;
 
 	int iLid;
@@ -22,7 +25,7 @@ public class GlobalBoard {
 		//np : number of players [2 - 4]
 		this.nPlayers = np;
 		PB = new PlayerBoard[nPlayers];
-		for(i = 0; i < nPlayers; i++) PB[i] = new PlayerBoard(this);
+		for(int i = 0; i < nPlayers; i++) PB[i] = new PlayerBoard(this);
 
 		fabrique = new int[nFabrique()][4];
 
@@ -51,7 +54,7 @@ public class GlobalBoard {
 
 	private void shuffleBag(){
 		for(int i = 0; i < nBag; i++){
-			j = rnd.nextInt(nBag);
+			int j = rnd.nextInt(nBag);
 			int tmp = bag[i];
 			bag[i] = bag[j];
 			bag[j] = tmp;
@@ -86,7 +89,7 @@ public class GlobalBoard {
 	private void lidToBag(){
 		if(iLid == 0) System.err.println("Warning : no tiles available !");
 		nBag = iLid;
-		for(int i = 0; i < nBag; i++) bag[i] = lid[i]
+		for(int i = 0; i < nBag; i++) bag[i] = lid[i];
 		iBag = 0;
 		iLid = 0;
 		shuffleBag();
@@ -123,7 +126,7 @@ public class GlobalBoard {
 		return 0;
 	}
 
-	private void addTileToCenter(color){
+	private void addTileToCenter(int color){
 		center[iCenter++] = color;
 	}
 

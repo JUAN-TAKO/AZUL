@@ -1,5 +1,7 @@
 package Modele;
 
+import java.lang.*;
+
 public class PlayerBoard {
 
 	private GlobalBoard GB;
@@ -35,7 +37,7 @@ public class PlayerBoard {
 	public int getScore(){return score;}
 	public int[] getLinesColor(){return linesColor;}
 	public int[] getLinesNb(){return linesNb;}
-	public int[][] getWall(){return wall;}
+	public boolean[][] getWall(){return wall;}
 	public int[] getFloor(){return floor;}
 
 	private boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
@@ -78,7 +80,7 @@ public class PlayerBoard {
 			if(linesNb[i] == i+1){//completed line
 				setWallLineColor(i, linesColor[i], true);
 				updatePoints(i, (linesColor[i] + i) % 5);
-				GB.addTilesToLid(linesColor[i], i);
+				for(int j = 0; j < i; j++) GB.addTileToLid(linesColor[i]);
 			}
 		for(i = 0; i < nfloor; i++){
 			score -= (i+4)/3;
@@ -92,7 +94,7 @@ public class PlayerBoard {
 		if(horizLine > 0) horizLine++;
 		int vertLine = neighbors(x, y-1, 0, -1) + neighbors(x, y+1, 0, 1);
 		if(vertLine > 0) vertLine++;
-		score += max(1, horizLine + vertLine);
+		score += Math.max(1, horizLine + vertLine);
 	}
 
 	private int neighbors(int x, int y, int dx, int dy){
@@ -116,6 +118,7 @@ public class PlayerBoard {
 		for(int i = 0; i < 5; i++)
 			if(!getWallLineColor(i, color)) return false;
 		return true;
+	}
 
 	public boolean endOfGame(){
 		//return true if this player meets the end of game requirement
@@ -131,6 +134,7 @@ public class PlayerBoard {
 			if(isColumnCompleted(i)) score += 7;
 			if(isColorCompleted(i+1)) score += 10;
 		}
+	}
 
 
 }
