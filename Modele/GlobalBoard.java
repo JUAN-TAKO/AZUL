@@ -4,22 +4,22 @@ import java.util.*;
 
 public class GlobalBoard {
 
-	int nPlayers;
-	PlayerBoard[] PB;
-	int[][] fabrique;
+	private int nPlayers;
+	private PlayerBoard[] PB;
+	private int[][] fabrique;
 
-	int iCenter;
-	int[] center;
+	private int iCenter;
+	private int[] center;
 
-	Random rnd;
-	int iBag;
-	int nBag;
-	int[] bag;
+	private Random rnd;
+	private int iBag;
+	private int nBag;
+	private int[] bag;
 
-	int iLid;
-	int[] lid;
+	private int iLid;
+	private int[] lid;
 
-	int futureFirstPlayer;
+	private int futureFirstPlayer;
 
 	public GlobalBoard(int np){
 		//np : number of players [2 - 4]
@@ -27,7 +27,7 @@ public class GlobalBoard {
 		PB = new PlayerBoard[nPlayers];
 		for(int i = 0; i < nPlayers; i++) PB[i] = new PlayerBoard(this);
 
-		fabrique = new int[nFabrique()][4];
+		fabrique = new int[getNFabriques()][4];
 
 		iCenter = 0;
 		center = new int[100];
@@ -43,7 +43,13 @@ public class GlobalBoard {
 		initFabriques();
 	}
 
-	public int nFabrique() {return 2*nPlayers + 1;}
+	public int getNPlayers() {return nPlayers;}
+	public int getNFabriques() {return 2*nPlayers + 1;}
+	public int[][] getFabriques() {return fabrique;}
+	public PlayerBoard[] getPlayerBoards() {return PB;}
+	public int getICenter() {return iCenter;}
+	public int[] getCenter() {return center;}
+	public int getFutureFirstPlayer() {return futureFirstPlayer;}
 
 	public void initBag(){
 		iBag = 0;
@@ -63,7 +69,7 @@ public class GlobalBoard {
 
 	private boolean endOfRound(){
 		int i;
-		for(i = 0; i < nFabrique(); i++)
+		for(i = 0; i < getNFabriques(); i++)
 			if(fabrique[i][0] != 0) return false;
 
 		for(i = 0; i < iCenter; i++)
@@ -100,7 +106,7 @@ public class GlobalBoard {
 	}
 
 	private void initFabriques(){
-		for(int i = 0; i < nFabrique(); i++)
+		for(int i = 0; i < getNFabriques(); i++)
 			for(int j = 0; j < 4; j++)
 				fabrique[i][j] = drawFromBag();
 	}
