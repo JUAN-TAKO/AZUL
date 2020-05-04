@@ -141,7 +141,27 @@ public class GlobalBoard {
 			if(fabrique[fab][i] == color) return true;
 		return false;
 	}
-
+        
+        public boolean fabriqueIsEmpty(int f){
+            for (int i=0; i<fabrique[f].length; i++){
+                if (fabrique[f][i]!=0){
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        public boolean fabriquesAreEmpty(){
+            for (int i=0; i<fabrique.length; i++){
+                for (int j=0; j<fabrique[i].length; j++){
+                    if (fabrique[i][j]!=0){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        
 	public boolean centerContainsColor(int color){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
