@@ -1,4 +1,4 @@
-package Controleur;
+package Patterns;
 /*
  * Morpion pédagogique
 
@@ -26,29 +26,11 @@ package Controleur;
  *          38401 Saint Martin d'Hères
  */
 
-import java.util.Random;
-import Modele.Jeu;
-
-class JoueurIA extends Joueur {
-	Random r;
-
-	JoueurIA(int n, Jeu p) {
-		super(n, p);
-		r = new Random();
-	}
-
-	@Override
-	boolean tempsEcoule() {
-		// Pour cette IA, on selectionne aléatoirement une case libre
-		int i, j;
-
-		i = r.nextInt(plateau.hauteur());
-		j = r.nextInt(plateau.largeur());
-		while (!plateau.libre(i, j)) {
-			i = r.nextInt(plateau.hauteur());
-			j = r.nextInt(plateau.largeur());
-		}
-		plateau.jouer(i, j);
-		return true;
-	}
+/*
+ * Pattern Observateur tel que présenté dans le livre de Gamma et Al.
+ * Ce pattern existe déjà dans la bibliothèque standard de Java sous une forme
+ * légèrement différente. Il est réimplémenté ici à des fins pédagogiques
+ */
+public interface Observer {
+	void miseAJour();
 }

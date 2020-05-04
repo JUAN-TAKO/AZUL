@@ -1,4 +1,4 @@
-package Modele;
+package Model;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ public class GlobalBoard {
 
 	private int nPlayers;
 	private PlayerBoard[] PB;
-	private int[][] fabrique;
+	private int[][] factories;
 
 	private int iCenter;
 	private int[] center;
@@ -27,7 +27,7 @@ public class GlobalBoard {
 		PB = new PlayerBoard[nPlayers];
 		for(int i = 0; i < nPlayers; i++) PB[i] = new PlayerBoard(this);
 
-		fabrique = new int[getNFabriques()][4];
+		factories = new int[getNFactories()][4];
 
 		iCenter = 0;
 		center = new int[100];
@@ -40,12 +40,12 @@ public class GlobalBoard {
 		lid = new int[100];
 
 		futureFirstPlayer = 0;
-		initFabriques();
+		initFactories();
 	}
 
 	public int getNPlayers() {return nPlayers;}
-	public int getNFabriques() {return 2*nPlayers + 1;}
-	public int[][] getFabriques() {return fabrique;}
+	public int getNFactories() {return 2*nPlayers + 1;}
+	public int[][] getFactories() {return factories;}
 	public PlayerBoard[] getPlayerBoards() {return PB;}
 	public int getICenter() {return iCenter;}
 	public int[] getCenter() {return center;}
@@ -69,8 +69,8 @@ public class GlobalBoard {
 
 	private boolean endOfRound(){
 		int i;
-		for(i = 0; i < getNFabriques(); i++)
-			if(fabrique[i][0] != 0) return false;
+		for(i = 0; i < getNFactories(); i++)
+			if(factories[i][0] != 0) return false;
 
 		for(i = 0; i < iCenter; i++)
 			if(center[i] != 0) return false;
@@ -105,29 +105,29 @@ public class GlobalBoard {
 		lid[iLid++] = color;
 	}
 
-	private void initFabriques(){
-		for(int i = 0; i < getNFabriques(); i++)
+	private void initFactories(){
+		for(int i = 0; i < getNFactories(); i++)
 			for(int j = 0; j < 4; j++)
-				fabrique[i][j] = drawFromBag();
+				factories[i][j] = drawFromBag();
 	}
 
-	public int playerDrawFromFabrique(int plyr, int fab, int color, int line){
-		//Player 'plyr' draw all 'color' tiles from fabrique 'fab' to his line 'line'.
-		//All others tiles from same fabrique are discarded to center.
+	public int playerDrawFromFactory(int plyr, int fab, int color, int line){
+		//Player 'plyr' draw all 'color' tiles from factory 'fab' to his line 'line'.
+		//All others tiles from same factory are discarded to center.
 		//plyr : [0 - (nPlayers-1)]
-		//fabrique : [0 - (nFabrique-1)]
+		//factory : [0 - (nFactory-1)]
 		//color : [1 - 5]
 		//line : [0 - 4]
 
-		if(!fabriqueContainsColor(fab, color)) return -2;//missing color
+		if(!factoryContainsColor(fab, color)) return -2;//missing color
 		if(PB[plyr].isLineFull(line)) return -3;//player line full
 		if(!PB[plyr].canLineBeColor(line, color)) return -4;//this color can't go on this line
 
 		for(int i = 0; i < 4; i++){
-			if(fabrique[fab][i] == color)
+			if(factories[fab][i] == color)
 				PB[plyr].addTileToLine(line, color);
 			else addTileToCenter(color); 
-			fabrique[fab][i] = 0;
+			factories[fab][i] = 0;
 		}
 		return 0;
 	}
@@ -136,9 +136,9 @@ public class GlobalBoard {
 		center[iCenter++] = color;
 	}
 
-	private boolean fabriqueContainsColor(int fab, int color){
+	private boolean factoryContainsColor(int fab, int color){
 		for(int i = 0; i < 4; i++)
-			if(fabrique[fab][i] == color) return true;
+			if(factories[fab][i] == color) return true;
 		return false;
 	}
 

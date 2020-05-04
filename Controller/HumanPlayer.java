@@ -1,7 +1,6 @@
-package Patterns;
+package Controller;
 /*
  * Morpion pédagogique
-
  * Copyright (C) 2016 Guillaume Huard
 
  * Ce programme est libre, vous pouvez le redistribuer et/ou le
@@ -26,11 +25,15 @@ package Patterns;
  *          38401 Saint Martin d'Hères
  */
 
-/*
- * Pattern Observateur tel que présenté dans le livre de Gamma et Al.
- * Ce pattern existe déjà dans la bibliothèque standard de Java sous une forme
- * légèrement différente. Il est réimplémenté ici à des fins pédagogiques
- */
-public interface Observateur {
-	void miseAJour();
+import Model.GlobalBoard;
+
+class HumanPlayer extends Player {
+	HumanPlayer(int n, GlobalBoard p) {
+		super(n, p);
+	}
+
+	@Override
+	boolean click(int i, int j) {
+		return true;
+	}
 }

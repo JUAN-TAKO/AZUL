@@ -24,10 +24,10 @@
  *          Domaine universitaire
  *          38401 Saint Martin d'Hères
  */
-package Vue;
+package View;
 
-public interface CollecteurEvenements {
-	void clicSouris(int l, int c);
-	void tictac();
+public interface EventCollector {
+	void click(int l, int c);
+	void tick();
 
 }

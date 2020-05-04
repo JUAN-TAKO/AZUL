@@ -36,22 +36,22 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Observable {
-	List<Observateur> observateurs;
+	List<Observer> observateurs;
 
 	public Observable() {
 		observateurs = new ArrayList<>();
 	}
 
-	public void ajouteObservateur(Observateur o) {
+	public void ajouteObservateur(Observer o) {
 		observateurs.add(o);
 	}
 
 	public void metAJour() {
-		Iterator<Observateur> it;
+		Iterator<Observer> it;
 
 		it = observateurs.iterator();
 		while (it.hasNext()) {
-			Observateur o = it.next();
+			Observer o = it.next();
 			o.miseAJour();
 		}
 	}

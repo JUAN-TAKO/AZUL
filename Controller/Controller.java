@@ -1,4 +1,4 @@
-package Controleur;
+package Controller;
 
 /*
  * Morpion pédagogique
@@ -27,53 +27,53 @@ package Controleur;
  *          38401 Saint Martin d'Hères
  */
 
-import Modele.Jeu;
-import Vue.CollecteurEvenements;
+import Model.GlobalBoard;
+import View.EventCollector;
 
-public class ControleurMediateur implements CollecteurEvenements {
-	Jeu jeu;
-	Joueur[] joueurs;
-	int joueurCourant;
-	final int lenteurAttente = 50;
-	int decompte;
+public class Controller implements EventCollector {
+	GlobalBoard board;
+	Player[] players;
+	int currentPlayer;
+	final int delay = 50;
+	int countdown;
 
-	public ControleurMediateur(Jeu j, boolean[] IA) {
-		jeu = j;
-		joueurs = new Joueur[IA.length];
-		for (int i = 0; i < joueurs.length; i++)
-			if (IA[i])
-				joueurs[i] = new JoueurIA(i, jeu);
+	public Controller(GlobalBoard b, boolean[] AI) {
+		board = b;
+		players = new Player[AI.length];
+		for (int i = 0; i < players.length; i++)
+			if (AI[i])
+				players[i] = new AIPlayer(i, board);
 			else
-				joueurs[i] = new JoueurHumain(i, jeu);
+				players[i] = new HumanPlayer(i, board);
 	}
 
 	@Override
-	public void clicSouris(int l, int c) {
+	public void click(int l, int c) {
 		// Lors d'un clic, on le transmet au joueur courant.
 		// Si un coup a effectivement été joué (humain, coup valide), on change de joueur.
-		if (joueurs[joueurCourant].jeu(l, c))
+		if (players[currentPlayer].click(l, c))
 			changeJoueur();
 	}
 
 	void changeJoueur() {
-		joueurCourant = (joueurCourant + 1) % joueurs.length;
-		decompte = lenteurAttente;
+		currentPlayer = (currentPlayer + 1) % players.length;
+		countdown = delay;
 	}
 
-	public void tictac() {
-		if (jeu.enCours()) {
-			if (decompte == 0) {
+	public void tick() {
+		if (board.enCours()) {
+			if (countdown == 0) {
 				// Lorsque le temps est écoulé on le transmet au joueur courant.
 				// Si un coup a été joué (IA) on change de joueur.
-				if (joueurs[joueurCourant].tempsEcoule()) {
+				if (players[currentPlayer].tick()) {
 					changeJoueur();
 				} else {
 				// Sinon on indique au joueur qui ne réagit pas au temps (humain) qu'on l'attend.
-					System.out.println("On vous attend, joueur " + joueurs[joueurCourant].num());
-					decompte = lenteurAttente;
+					System.out.println("On vous attend, joueur " + players[currentPlayer].num());
+					countdown = delay;
 				}
 			} else {
-				decompte--;
+				countdown--;
 			}
 		}
 	}
