@@ -1,4 +1,4 @@
-package Modele;
+package Model;
 
 import java.util.*;
 
@@ -58,7 +58,7 @@ public class GlobalBoard {
 		shuffleBag();
 	}	
 
-	private void shuffleBag(){
+	public void shuffleBag(){
 		for(int i = 0; i < nBag; i++){
 			int j = rnd.nextInt(nBag);
 			int tmp = bag[i];
@@ -67,7 +67,7 @@ public class GlobalBoard {
 		}
 	}
 
-	private boolean endOfRound(){
+	public boolean endOfRound(){
 		int i;
 		for(i = 0; i < getNFabriques(); i++)
 			if(fabrique[i][0] != 0) return false;
@@ -77,7 +77,7 @@ public class GlobalBoard {
 		return true;
 	}
 
-	private boolean endOfGame(){
+	public boolean endOfGame(){
 		for(int i = 0; i < nPlayers; i++)
 			if(PB[i].endOfGame()) return true;
 		return false;
@@ -86,13 +86,13 @@ public class GlobalBoard {
 	public void nextRound(){
 	}		
 
-	private int drawFromBag(){
+	public int drawFromBag(){
 		if(iBag >= nBag)
 			lidToBag();
 		return bag[iBag++];
 	}
 
-	private void lidToBag(){
+	public void lidToBag(){
 		if(iLid == 0) System.err.println("Warning : no tiles available !");
 		nBag = iLid;
 		for(int i = 0; i < nBag; i++) bag[i] = lid[i];
@@ -105,7 +105,7 @@ public class GlobalBoard {
 		lid[iLid++] = color;
 	}
 
-	private void initFabriques(){
+	public void initFabriques(){
 		for(int i = 0; i < getNFabriques(); i++)
 			for(int j = 0; j < 4; j++)
 				fabrique[i][j] = drawFromBag();
@@ -132,11 +132,11 @@ public class GlobalBoard {
 		return 0;
 	}
 
-	private void addTileToCenter(int color){
+	public void addTileToCenter(int color){
 		center[iCenter++] = color;
 	}
-
-	private boolean fabriqueContainsColor(int fab, int color){
+        
+	public boolean fabriqueContainsColor(int fab, int color){
 		for(int i = 0; i < 4; i++)
 			if(fabrique[fab][i] == color) return true;
 		return false;
