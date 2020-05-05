@@ -32,5 +32,5 @@ package Patterns;
  * légèrement différente. Il est réimplémenté ici à des fins pédagogiques
  */
 public interface Observer {
-	void miseAJour();
+	void update();
 }
