@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import Controller.Controller;
 import Model.GlobalBoard;
 
 
@@ -71,7 +72,9 @@ public class JavaHTTPServer implements Runnable{
                     switch(url) {
                         case "/getBoard":
 //                            jsonString = "{\"Teste\":\"valeur teste\"}";
-                        	jsonObject.put("GlobalBoard", GlobalBoard.getInstance().toJSON());
+                        	GlobalBoard gb = Controller.getInstance().getBoard();
+                        	if(gb != null) 
+                        		jsonObject.put("GlobalBoard",gb.toJSON());
                             break;
                         default:
 //                            jsonString = "{\"404\":\"Demande inconnue\"}";
@@ -120,10 +123,15 @@ public class JavaHTTPServer implements Runnable{
                     input = new String(cbuf);
 
                     JSONObject jsonObject = new JSONObject(input);
-
-                    System.out.println(jsonObject.get("teste"));
-
-                    System.out.println(jsonObject.toString());
+                    
+                    switch(url) {
+                    	case "/startGame":
+                    		int nPlayers = (int) jsonObject.get("nPlayers");
+                    		JSONArray jsonArray = jsonObject.getJSONArray("AI");
+                    		boolean[] AI = Utils.Utils.toBooleanArray(jsonArray);
+                    		Controller.getInstance().startGame(nPlayers, AI);
+                    		break;
+                    }
 
                 } else if(method.equals("OPTIONS")) {
 

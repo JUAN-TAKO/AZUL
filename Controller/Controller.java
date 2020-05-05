@@ -4,14 +4,25 @@ import Model.GlobalBoard;
 import View.EventCollector;
 
 public class Controller {
+	private static final Controller instance = new Controller();
 	GlobalBoard board;
 	Player[] players;
 	int currentPlayer;
 	final int delay = 50;
 	int countdown;
 
-	public Controller(GlobalBoard b, boolean[] AI) {
-		board = b;
+	public Controller() {}
+	
+	public static final Controller getInstance() {
+		return instance;
+	}
+	
+	public GlobalBoard getBoard() {
+		return board;
+	}
+	
+	public void startGame(int nPlayers, boolean[] AI) {
+		this.board = new GlobalBoard(nPlayers);
 		players = new Player[AI.length];
 		for (int i = 0; i < players.length; i++)
 			if (AI[i])

@@ -4,8 +4,6 @@ import java.util.*;
 import Controller.Server.*;
 
 public class GlobalBoard {
-
-	private static final GlobalBoard instance = new GlobalBoard();
 	
 	private int nPlayers;
 	private PlayerBoard[] PB;
@@ -24,11 +22,11 @@ public class GlobalBoard {
 
 	private int futureFirstPlayer;
 
-	public GlobalBoard(){
-		try {
-			setNPlayers(2);			
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
+	public GlobalBoard(int np){
+		this.nPlayers = np;			
+		PB = new PlayerBoard[nPlayers];
+		for(int i = 0; i < nPlayers; i++) {
+			PB[i] = new PlayerBoard(this);
 		}
 		
 		factories = new int[getNFactories()][4];
@@ -47,45 +45,26 @@ public class GlobalBoard {
 		initFactories();
 	}
 	
-	public static final GlobalBoard getInstance() {
-		return instance;
-	}
-	
-	public void setNPlayers(int np) throws Exception {
-		if(np <= 4 && np >= 2) {
-			this.nPlayers = np;			
-			PB = new PlayerBoard[nPlayers];
-			for(int i = 0; i < nPlayers; i++) {
-				PB[i] = new PlayerBoard(this);
-			}
-		} else {
-			throw new Exception("Nombre de joueurs incorrect.");
-		}
-	}
 
-	/*
-	 * Il s'agit d'un singleton, donc pas besoin de clone.
-	 * 
 	public GlobalBoard globalBoardClone(){
-        	GlobalBoard clone=new GlobalBoard();
-        	clone.PB=this.PB.clone();
-        	// clone.fabrique=this.fabrique.clone();
+    	GlobalBoard clone=new GlobalBoard(nPlayers);
+    	clone.PB=this.PB.clone();
+    	// clone.fabrique=this.fabrique.clone();
 
-        	clone.iCenter=new Integer(this.iCenter);
-        	clone.center=this.center.clone();
+    	clone.iCenter=new Integer(this.iCenter);
+    	clone.center=this.center.clone();
 
-        	clone.iBag=new Integer(this.iBag);
-        	clone.nBag=new Integer(this.nBag);
-        	clone.bag=this.bag.clone();
+    	clone.iBag=new Integer(this.iBag);
+    	clone.nBag=new Integer(this.nBag);
+    	clone.bag=this.bag.clone();
 
-        	clone.iLid=new Integer(this.iLid);
-        	clone.lid=this.lid.clone();
+    	clone.iLid=new Integer(this.iLid);
+    	clone.lid=this.lid.clone();
 
-        	clone.futureFirstPlayer=new Integer(futureFirstPlayer);
-        
-        	return clone;
-        }
-     */
+    	clone.futureFirstPlayer=new Integer(futureFirstPlayer);
+    
+    	return clone;
+    }
 
 	public int getNPlayers() {return nPlayers;}
 	public int getNFactories() {return 2*nPlayers + 1;}
