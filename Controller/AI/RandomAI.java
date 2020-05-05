@@ -30,11 +30,11 @@ class RandomAI extends AIPlayer {
                    }
                
                         
-		l = r.nextInt((playerBoard.getLinesNb()).length);
+		l = r.nextInt(5);
 		while (!playerBoard.isLineFull(l)) {
-			l = r.nextInt((playerBoard.getLinesNb()).length);
+			l = r.nextInt(5);
 		}
-		globalBoard.playerDrawFromFactory(num, f, c, l);
+		globalBoard.playerDrawFromFabrique(num, f, c, l);
 		return true;
 	}
 }

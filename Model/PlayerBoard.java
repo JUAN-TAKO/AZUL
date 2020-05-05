@@ -4,8 +4,6 @@ import java.lang.*;
 
 public class PlayerBoard {
 
-	private GlobalBoard GB;
-
 	private int score;
 	private int[] linesColor;
 	private int[] linesNb;
@@ -13,8 +11,7 @@ public class PlayerBoard {
 	private int nfloor;
 	private int[] floor;
 	
-	public PlayerBoard(GlobalBoard gb){
-		this.GB = gb;
+	public PlayerBoard(){
 
 		this.score = 0;
 		
@@ -33,6 +30,17 @@ public class PlayerBoard {
 		for(int i = 0; i < 7; i++)
 			this.floor[i] = 0;
 	}
+        
+        public PlayerBoard playerBoardClone(){
+            PlayerBoard clone=new PlayerBoard();
+            clone.score=new Integer(this.score);
+            clone.linesColor=this.linesColor.clone();
+            clone.linesNb=this.linesNb.clone();
+            clone.wall=this.wall.clone();
+            clone.nfloor=new Integer(this.nfloor);
+            clone.floor=this.floor.clone();
+            return clone;
+        }
 
 	public int getScore(){return score;}
 	public int[] getLinesColor(){return linesColor;}
@@ -53,7 +61,7 @@ public class PlayerBoard {
 		(linesColor[line] == 0 && !getWallLineColor(line, color) ); }
 	//return true if line 'line' accept 'color' tiles
 
-	public int addTileToLine(int line, int color){
+	public int addTileToLine(GlobalBoard GB, int line, int color){
 		//line : line where to add new tiles 0-4
 		//color : color of the new tiles 1-5
 		
@@ -63,18 +71,18 @@ public class PlayerBoard {
 		}
 		
 		if(linesNb[line] >= line + 1){//full line
-			addTileToFloor(color);
+			addTileToFloor(GB, color);
 		}else linesNb[line]++;
 
 		return 0;
 	}
 
-	public void addTileToFloor(int color){
+	public void addTileToFloor(GlobalBoard GB, int color){
 		if(nfloor < 7) floor[nfloor++] = color;
 		else if(color != 6) GB.addTileToLid(color);//excess tiles sent back to lid
 	}
 
-	public void decoration(){
+	public void decoration(GlobalBoard GB){
 		int i, col;
 		for(i = 0; i < 5; i++)
 			if(linesNb[i] == i+1){//completed line
@@ -138,3 +146,4 @@ public class PlayerBoard {
 
 
 }
+
