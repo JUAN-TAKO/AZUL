@@ -1,9 +1,12 @@
 package Model;
 
 import java.util.*;
+import Controller.Server.*;
 
 public class GlobalBoard {
 
+	private static final GlobalBoard instance = new GlobalBoard();
+	
 	private int nPlayers;
 	private PlayerBoard[] PB;
 	private int[][] factories;
@@ -21,12 +24,13 @@ public class GlobalBoard {
 
 	private int futureFirstPlayer;
 
-	public GlobalBoard(int np){
-		//np : number of players [2 - 4]
-		this.nPlayers = np;
-		PB = new PlayerBoard[nPlayers];
-		for(int i = 0; i < nPlayers; i++) PB[i] = new PlayerBoard(this);
-
+	public GlobalBoard(){
+		try {
+			setNPlayers(2);			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 		factories = new int[getNFactories()][4];
 
 		iCenter = 0;
@@ -42,26 +46,46 @@ public class GlobalBoard {
 		futureFirstPlayer = 0;
 		initFactories();
 	}
+	
+	public static final GlobalBoard getInstance() {
+		return instance;
+	}
+	
+	public void setNPlayers(int np) throws Exception {
+		if(np <= 4 && np >= 2) {
+			this.nPlayers = np;			
+			PB = new PlayerBoard[nPlayers];
+			for(int i = 0; i < nPlayers; i++) {
+				PB[i] = new PlayerBoard(this);
+			}
+		} else {
+			throw new Exception("Nombre de joueurs incorrect.");
+		}
+	}
 
+	/*
+	 * Il s'agit d'un singleton, donc pas besoin de clone.
+	 * 
 	public GlobalBoard globalBoardClone(){
-            	GlobalBoard clone=new GlobalBoard(nPlayers);
-            	clone.PB=this.PB.clone();
-            	clone.fabrique=this.fabrique.clone();
+        	GlobalBoard clone=new GlobalBoard();
+        	clone.PB=this.PB.clone();
+        	// clone.fabrique=this.fabrique.clone();
 
-	        clone.iCenter=new Integer(this.iCenter);
-            	clone.center=this.center.clone();
+        	clone.iCenter=new Integer(this.iCenter);
+        	clone.center=this.center.clone();
 
-            	clone.iBag=new Integer(this.iBag);
-            	clone.nBag=new Integer(this.nBag);
-            	clone.bag=this.bag.clone();
+        	clone.iBag=new Integer(this.iBag);
+        	clone.nBag=new Integer(this.nBag);
+        	clone.bag=this.bag.clone();
 
-            	clone.iLid=new Integer(this.iLid);
-            	clone.lid=this.lid.clone();
+        	clone.iLid=new Integer(this.iLid);
+        	clone.lid=this.lid.clone();
 
-            	clone.futureFirstPlayer=new Integer(futureFirstPlayer);
-            
-            	return clone;
+        	clone.futureFirstPlayer=new Integer(futureFirstPlayer);
+        
+        	return clone;
         }
+     */
 
 	public int getNPlayers() {return nPlayers;}
 	public int getNFactories() {return 2*nPlayers + 1;}
@@ -210,5 +234,28 @@ public class GlobalBoard {
 			}
 		return 0;
 	}
+	
+	public JSONObject toJSON() {
+		String json = "";
+        try {
+			JSONObject jsonObject = new JSONObject("{}");
+			jsonObject.put("nPlayers",nPlayers);
+			jsonObject.put("PB", PB);
+			jsonObject.put("factories", factories);
+			jsonObject.put("iCenter", iCenter);
+			jsonObject.put("center", center);
+			jsonObject.put("iBag", iBag);
+			jsonObject.put("nBag", nBag);
+			jsonObject.put("bag", bag);
+			jsonObject.put("iLid", iLid);
+			jsonObject.put("lid", lid);
+			jsonObject.put("futureFirstPlayer", futureFirstPlayer);
+			json = jsonObject.toString();
+			return jsonObject;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+        return null;
+    }
 
 }	

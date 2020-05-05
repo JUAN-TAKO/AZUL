@@ -3,6 +3,8 @@ package Controller.Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import Model.GlobalBoard;
+
 public class JavaHTTPServerLauncher implements Runnable {
 
 //    private Controller jeu; a ajouter le controller du jeu

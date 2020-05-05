@@ -5,6 +5,8 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import Model.GlobalBoard;
+
 
 public class JavaHTTPServer implements Runnable{
 
@@ -39,7 +41,7 @@ public class JavaHTTPServer implements Runnable{
             StringTokenizer parse = new StringTokenizer(input);
             String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
             // we get file requested
-            url = parse.nextToken().toLowerCase();
+            url = parse.nextToken();
 
             System.out.println(method);
 
@@ -67,9 +69,9 @@ public class JavaHTTPServer implements Runnable{
                     //CREATION OF JSON IN FUNCTION OF THE URL
                     //!!! LES URL SONT TOUJOURS EN MINISCULE DU COTE SERVER MEME SI L'URL DU NAVIGATEUR EST EN MAJUSCULE Teste => teste
                     switch(url) {
-                        case "/teste":
+                        case "/getBoard":
 //                            jsonString = "{\"Teste\":\"valeur teste\"}";
-                            jsonObject.put("Teste","valeur testé");
+                        	jsonObject.put("GlobalBoard", GlobalBoard.getInstance().toJSON());
                             break;
                         default:
 //                            jsonString = "{\"404\":\"Demande inconnue\"}";
@@ -145,7 +147,10 @@ public class JavaHTTPServer implements Runnable{
 
         } catch (IOException | JSONException ioe) {
             System.err.println("Server error : " + ioe);
-        } finally {
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
             try {
                 in.close();
                 out.close();
