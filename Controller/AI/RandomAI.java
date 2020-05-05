@@ -14,27 +14,27 @@ class RandomAI extends AIPlayer {
 
 	@Override
 	protected boolean tick() {
-		// Pour cette IA, on selectionne aléatoirement une factory, puis un groupe de couleur, puis une ligne libre
-                int f;
-                int c;
-				int l;
-
-                f=r.nextInt(globalBoard.getNFactories());
-                while (globalBoard.factoryIsEmpty(f)){
-                    f=r.nextInt(globalBoard.getNFactories());
-                }
-                
-                c=r.nextInt(5);
-                while (globalBoard.factoryContainsColor(f, c)==false){
-                        c=r.nextInt(5);
-                   }
-               
-                        
-		l = r.nextInt(5);
-		while (!playerBoard.isLineFull(l)) {
-			l = r.nextInt(5);
-		}
-		globalBoard.playerDrawFromFabrique(num, f, c, l);
+//		// Pour cette IA, on selectionne aléatoirement une factory, puis un groupe de couleur, puis une ligne libre
+//                int f;
+//                int c;
+//				int l;
+//
+//                f=r.nextInt(globalBoard.getNFactories());
+//                while (globalBoard.factoryIsEmpty(f)){
+//                    f=r.nextInt(globalBoard.getNFactories());
+//                }
+//
+//                c=r.nextInt(5);
+//                while (globalBoard.factoryContainsColor(f, c)==false){
+//                        c=r.nextInt(5);
+//                   }
+//
+//
+//		l = r.nextInt(5);
+//		while (!playerBoard.isLineFull(l)) {
+//			l = r.nextInt(5);
+//		}
+//		globalBoard.playerDrawFromFabrique(num, f, c, l);
 		return true;
 	}
 }
