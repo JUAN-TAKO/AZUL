@@ -2,9 +2,13 @@ package Controller;
 
 import Model.GlobalBoard;
 
-class AIPlayer extends Player {
+public class AIPlayer extends Player {
 
-	AIPlayer(int n, GlobalBoard b) {
+	protected AIPlayer(int n, GlobalBoard b) {
 		super(n, b);
 	}
+
+	protected boolean tick() {
+		return true;
+	};
 }

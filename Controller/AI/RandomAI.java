@@ -1,6 +1,7 @@
 package Controller.AI;
-
 import java.util.Random;
+
+import Controller.AIPlayer;
 import Model.*;
 
 class RandomAI extends AIPlayer {
@@ -12,19 +13,19 @@ class RandomAI extends AIPlayer {
 	}
 
 	@Override
-	boolean tick() {
+	protected boolean tick() {
 		// Pour cette IA, on selectionne aléatoirement une factory, puis un groupe de couleur, puis une ligne libre
                 int f;
                 int c;
-		int l;
+				int l;
 
-                f=r.nextInt(globalBoard.getNFabriques());
-                while (globalBoard.fabriqueIsEmpty(f)){
-                    f=r.nextInt(globalBoard.getNFabriques());
+                f=r.nextInt(globalBoard.getNFactories());
+                while (globalBoard.factoryIsEmpty(f)){
+                    f=r.nextInt(globalBoard.getNFactories());
                 }
                 
                 c=r.nextInt(5);
-                while (globalBoard.fabriqueContainsColor(f, c)==false){
+                while (globalBoard.factoryContainsColor(f, c)==false){
                         c=r.nextInt(5);
                    }
                
@@ -33,7 +34,7 @@ class RandomAI extends AIPlayer {
 		while (!playerBoard.isLineFull(l)) {
 			l = r.nextInt((playerBoard.getLinesNb()).length);
 		}
-		globalBoard.playerDrawFromFabrique(num, f, c, l);
+		globalBoard.playerDrawFromFactory(num, f, c, l);
 		return true;
 	}
 }

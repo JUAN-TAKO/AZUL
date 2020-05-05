@@ -11,15 +11,15 @@ import Model.PlayerBoard;
 // - provoquer une temporisation (utilisé dans une IA)
 // - tenir compte d'une temporisation écoulée (utilisé dans une IA)
 // - tenir compte d'un coup joué à la souris (utilisé par un joueur humain)
-abstract class Player {
-	GlobalBoard globalBoard;
-	PlayerBoard playerBoard;
-	int num;
+public abstract class Player {
+	protected GlobalBoard globalBoard;
+	protected PlayerBoard playerBoard;
+	protected int num;
 
 	// Le joueur connait son numéro, cela lui permet d'inspecter le plateau en
 	// sachant
 	// repérer ses pions et évaluer où il en est
-	Player(int n, GlobalBoard b) {
+	protected Player(int n, GlobalBoard b) {
 		num = n;
 		globalBoard = b;
 		playerBoard = b.getPlayerBoards()[num];
