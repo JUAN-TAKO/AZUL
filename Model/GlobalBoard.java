@@ -45,6 +45,20 @@ public class GlobalBoard {
 		initFactories();
 	}
 	
+	public GlobalBoard(GlobalBoard gb){
+		this.nPlayers = gb.nPlayers;
+		this.PB = gb.PB.clone();
+		this.factories = gb.factories.clone();
+		this.iCenter = gb.iCenter;
+		this.center = gb.center.clone();
+		this.rnd = new Random();
+		this.iBag = gb.iBag;
+		this.nBag = gb.nBag;
+		this.bag = gb.bag.clone();
+		this.iLid = gb.iLid;
+		this.lid = gb.lid.clone();
+		this.futureFirstPlayer = gb.futureFirstPlayer;
+	}
 
 	public GlobalBoard globalBoardClone(){
     	GlobalBoard clone=new GlobalBoard(nPlayers);
@@ -166,22 +180,12 @@ public class GlobalBoard {
 	}
         
 	public boolean factoryIsEmpty(int f){
-		for (int i=0; i<factories[f].length; i++){
-			if (factories[f][i]!=0){
-				return false;
-			}
-		}
-		return true;
+		return factories[f][0] == 0;
 	}
 	
 	public boolean factoriesAreEmpty(){
-		for (int i=0; i<factories.length; i++){
-			for (int j=0; j<factories[i].length; j++){
-				if (factories[i][j]!=0){
-					return false;
-				}
-			}
-		}
+		for (int i = 0; i < getNFactories(); i++)
+			if(!factoryIsEmpty(i)) return false;
 		return true;
 	}
         
