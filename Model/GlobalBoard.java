@@ -108,24 +108,33 @@ public class GlobalBoard {
 		}
 	}
 
-	public boolean endOfRound(){
+	public boolean isRoundOver(){
 		return factoriesAreEmpty() && centerIsEmpty();
 	}
 
-	public boolean endOfGame(){
+	public boolean isGameOver(){
 		for(int i = 0; i < nPlayers; i++)
-			if(PB[i].endOfGame()) return true;
+			if(PB[i].isGameOver()) return true;
 		return false;
 	}
 
-	public void nextRound(){
-	}		
+	private void endOfGame(){
+		//NOT IMPLEMENTED YET
+	}
 
-	public void startOfRound(){
+	public void initRound(){
+		if(isGameOver())
+			endOfGame();
 		currentPlayer = futureFirstPlayer;
 		futureFirstPlayer = -1;
 		initFactories();
 		iCenter = 0;
+	}
+
+	private void endOfTurn(){
+		nextPlayer();
+		if(isRoundOver())
+			initRound();
 	}
 
 	public void nextPlayer(){
@@ -155,6 +164,16 @@ public class GlobalBoard {
 		for(int i = 0; i < getNFactories(); i++)
 			for(int j = 0; j < 4; j++)
 				factories[i][j] = drawFromBag();
+	}
+
+	public int currentPlayerDraw(int whereToDraw, int color, int line){
+		return playerDraw(currentPlayer, whereToDraw, color, line);
+	}
+
+	public int playerDraw(int plyr, int whereToDraw, int color, int line){
+		if(whereToDraw >= 0 && whereToDraw < getNFactories() )
+			return playerDrawFromFactory(plyr, whereToDraw, color, line);
+		else return playerDrawFromCenter(plyr, color, line);
 	}
 
 	public int currentPlayerDrawFromFactory(int fab, int color, int line){
