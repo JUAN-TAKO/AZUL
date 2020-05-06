@@ -70,6 +70,9 @@ public class JavaHTTPServer implements Runnable{
                     //CREATION OF JSON IN FUNCTION OF THE URL
                     //!!! LES URL SONT TOUJOURS EN MINISCULE DU COTE SERVER MEME SI L'URL DU NAVIGATEUR EST EN MAJUSCULE Teste => teste
                     switch(url) {
+                    	case "/getGameStatus":
+                    		jsonObject.put("onGoing", Controller.getInstance().isOnGoing());
+                    		break;
                         case "/getBoard":
 //                            jsonString = "{\"Teste\":\"valeur teste\"}";
                         	GlobalBoard gb = Controller.getInstance().getBoard();
