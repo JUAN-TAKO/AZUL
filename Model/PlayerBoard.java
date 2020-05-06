@@ -42,17 +42,6 @@ public class PlayerBoard {
 		this.floor = pb.floor.clone();
 	}
         
-        public PlayerBoard playerBoardClone(){
-            PlayerBoard clone=new PlayerBoard(gb);
-            clone.score=new Integer(this.score);
-            clone.linesColor=this.linesColor.clone();
-            clone.linesNb=this.linesNb.clone();
-            clone.wall=this.wall.clone();
-            clone.nfloor=new Integer(this.nfloor);
-            clone.floor=this.floor.clone();
-            return clone;
-        }
-
 	public int getScore(){return score;}
 	public int[] getLinesColor(){return linesColor;}
 	public int[] getLinesNb(){return linesNb;}
