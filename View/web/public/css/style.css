@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+    /*max-height: 100vh;*/
+}
+
+html {
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+}
+
+.ligne {
+    display : flex;
+    /*flex-direction: row-reverse;*/
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin:0;
+    padding: 0;
+}
+
+.loading {
+    background: center no-repeat url("/img/fond.png"), radial-gradient(white,#5ac5d4) !important;
+    height:100%;
+    width:100%;
+    position: absolute;
+    z-index: 99;
+}
+
+.azul-bg {
+    background: center no-repeat url("/img/fond.png"), radial-gradient(white,#5ac5d4) !important;
+    height:100%;
+}
+
+.overlay {
+    position: absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    background-color: rgba(110,110,110,0.3);
+    z-index: 10;
+}
+
+.player-slots {
+    display:flex;
+    justify-content: center;
+    padding:5px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.player-slot {
+    margin: 5px;
+}
+
+.not-selected {
+    filter: grayscale(1);
+}
