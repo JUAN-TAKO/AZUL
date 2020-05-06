@@ -100,8 +100,10 @@ public class PlayerBoard {
 		int i, col;
 		for(i = 0; i < 5; i++)
 			if(linesNb[i] == i+1){//completed line
+				linesColor[i] = 0;
+				linesNb[i] = 0;
 				setWallLineColor(i, linesColor[i], true);
-				updatePoints(i, (linesColor[i] + i) % 5);
+				updatePoints(i, (i + linesColor[i]-1) % 5);
 				for(int j = 0; j < i; j++) GB.addTileToLid(linesColor[i]);
 			}
 		for(i = 0; i < nfloor; i++){
