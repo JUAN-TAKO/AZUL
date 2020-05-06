@@ -31,6 +31,16 @@ public class PlayerBoard {
 		for(int i = 0; i < 7; i++)
 			this.floor[i] = 0;
 	}
+
+	public PlayerBoard(PlayerBoard pb, GlobalBoard gb){
+		this.gb = gb;
+		this.score = pb.score;
+		this.linesColor = pb.linesColor.clone();
+		this.linesNb = pb.linesNb.clone();
+		this.wall = pb.wall.clone();
+		this.nfloor = pb.nfloor;
+		this.floor = pb.floor.clone();
+	}
         
         public PlayerBoard playerBoardClone(){
             PlayerBoard clone=new PlayerBoard(gb);
@@ -52,6 +62,9 @@ public class PlayerBoard {
 	private boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
 	private void setWallLineColor(int line, int color, boolean val){ wall[line][ (line + color-1) % 5 ] = val; }
 	//get and set a 'wall' cell with a given line and color instead of line and column
+	
+	public int getWallColor(int line, int column){ return 1 + (line - column) % 5; }
+	//return the color of a given cell in 'wall'
 
 	public boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
 	//return true if line 'line' can't contain more tiles

@@ -47,7 +47,9 @@ public class GlobalBoard {
 	
 	public GlobalBoard(GlobalBoard gb){
 		this.nPlayers = gb.nPlayers;
-		this.PB = gb.PB.clone();
+		this.PB = new PlayerBoard[nPlayers];
+		for(int i = 0; i < nPlayers; i++)
+			this.PB[i] = new PlayerBoard(gb.PB[i], this);
 		this.factories = gb.factories.clone();
 		this.iCenter = gb.iCenter;
 		this.center = gb.center.clone();
