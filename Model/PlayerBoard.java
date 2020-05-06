@@ -145,7 +145,7 @@ public class PlayerBoard {
 		return true;
 	}
 
-	public boolean endOfGame(){
+	public boolean isGameOver(){
 		//return true if this player meets the end of game requirement
 		for(int i = 0; i < 5; i++)
 			if(isLineCompleted(i)) return true;
