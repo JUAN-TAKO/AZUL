@@ -31,7 +31,7 @@ public class Controller {
 			else
 				players[i] = new HumanPlayer(i, board);
 		this.setOnGoing(true);
-		this.board.startOfRound();
+		this.board.initRound();
 	}
 
 	void changeJoueur() {
