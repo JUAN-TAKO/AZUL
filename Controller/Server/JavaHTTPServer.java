@@ -87,6 +87,7 @@ public class JavaHTTPServer implements Runnable{
                     out.println("Server: Java HTTP Server");
                     out.println("Date: " + new Date());
                     out.println("Content-type: " + "application/json");
+                    out.println("Access-Control-Allow-Origin: *");
                     out.println(); // blank line between headers and content, VERY IMPORTANT !
                     out.flush(); // flush character output stream buffer
 
@@ -99,7 +100,7 @@ public class JavaHTTPServer implements Runnable{
                     out.println("Server: Java HTTP Server");
                     out.println("Date: " + new Date());
                     out.println("Content-type: text/plain, application/json");
-                    out.println("Access-Control-Allow-Origin: http://localhost:8080");
+                    out.println("Access-Control-Allow-Origin: *");
                     out.println("Vary: Accept-Encoding, Origin");
                     out.println("Content-Encoding: gzip");
                     out.println("Keep-Alive: timeout=2, max=100");
