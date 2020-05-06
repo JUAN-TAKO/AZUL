@@ -158,7 +158,7 @@ public class GlobalBoard {
 	}
 
 	public int currentPlayerDrawFromFactory(int fab, int color, int line){
-		playerDrawFromFactory(currentPlayer, fab, color, line);
+		return playerDrawFromFactory(currentPlayer, fab, color, line);
 	}
 
 	public int playerDrawFromFactory(int plyr, int fab, int color, int line){
@@ -215,7 +215,7 @@ public class GlobalBoard {
 	}
 
 	public int currentPlayerDrawFromCenter(int color, int line){
-		playerDrawFromCenter(currentPlayer, color, line);
+		return playerDrawFromCenter(currentPlayer, color, line);
 	}
 
 	public int playerDrawFromCenter(int plyr, int color, int line){

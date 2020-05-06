@@ -101,14 +101,17 @@ public class PlayerBoard {
 		for(i = 0; i < 5; i++)
 			if(linesNb[i] == i+1){//completed line
 				setWallLineColor(i, linesColor[i], true);
-				updatePoints(i, (linesColor[i] + i) % 5);
+				updatePoints(i, (i + linesColor[i]-1) % 5);
 				for(int j = 0; j < i; j++) GB.addTileToLid(linesColor[i]);
+				linesColor[i] = 0;
+				linesNb[i] = 0;
 			}
 		for(i = 0; i < nfloor; i++){
 			score -= (i+4)/3;
 			if(floor[i] != 6) GB.addTileToLid(floor[i]);	
 			floor[i] = 0;
 		}
+		nfloor = 0;
 	}
 
 	private void updatePoints(int x, int y){
