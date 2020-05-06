@@ -57,6 +57,7 @@ public class TestPlayerBoard {
         
         
         
+        
         //PLAYERBOARD TEST3 test de placement de trop de dalles dans une ligne dans le triangle            OK
         //met le surplus dans le floor
         PlayerBoard playerboard3=new PlayerBoard(playerboard1, globalboard0);
@@ -130,8 +131,38 @@ public class TestPlayerBoard {
         //display(playerboard4);              //affichage du test
         playerboard4.decoration(globalboard0);
         //display(playerboard4);
+
+
         
-       
+       //PLAYERBOARD TEST10 wall comptage des points  (n'en compte que 37)
+        //     X X X X X
+        //     X X 0 0 0
+        //     X 0 X 0 0         (10 pts + 7 pts + 2 pts = 19 pts bonus à rajouter au 37 à la fin)
+        //     X 0 0 X 0                (tous les pts de même couleur+colonne+ligne)
+        //     X 0 0 0 X
+        PlayerBoard p5=new PlayerBoard(globalboard1);
+        //remplissage de la diagonale
+        p5.addTileToLine(0,1);
+        p5.addTileToLine(1,1); p5.addTileToLine(1,1);
+        p5.addTileToLine(2,1); p5.addTileToLine(2,1); p5.addTileToLine(2,1);
+        p5.addTileToLine(3,1); p5.addTileToLine(3,1); p5.addTileToLine(3,1); p5.addTileToLine(3,1);
+        p5.addTileToLine(4,1); p5.addTileToLine(4,1); p5.addTileToLine(4,1);
+        p5.addTileToLine(4,1); p5.addTileToLine(4,1);
+        p5.decoration(globalboard1);
+        //remplissage de la colonne
+        p5.addTileToLine(1,5); p5.addTileToLine(1,5);
+        p5.addTileToLine(2,4); p5.addTileToLine(2,4); p5.addTileToLine(2,4);
+        p5.addTileToLine(3,3); p5.addTileToLine(3,3); p5.addTileToLine(3,3); p5.addTileToLine(3,3);
+        p5.addTileToLine(4,2); p5.addTileToLine(4,2); p5.addTileToLine(4,2); p5.addTileToLine(4,2); p5.addTileToLine(4,2);
+        p5.decoration(globalboard1);
+        //remplissage de la ligne
+        p5.addTileToLine(0,2); p5.decoration(globalboard1);
+        p5.addTileToLine(0,3); p5.decoration(globalboard1);
+        p5.addTileToLine(0,4); p5.decoration(globalboard1);
+        p5.addTileToLine(0,5); p5.decoration(globalboard1);
+        p5.decoration(globalboard1);
+        
+        display(p5);
         
     }
     
