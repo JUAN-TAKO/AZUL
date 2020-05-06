@@ -6,6 +6,7 @@ import View.EventCollector;
 public class Controller {
 	private static final Controller instance = new Controller();
 	GlobalBoard board;
+	private boolean onGoing = false;
 	Player[] players;
 	int currentPlayer;
 	final int delay = 50;
@@ -29,6 +30,8 @@ public class Controller {
 				players[i] = new AIPlayer(i, board);
 			else
 				players[i] = new HumanPlayer(i, board);
+		this.setOnGoing(true);
+		this.board.startOfRound();
 	}
 
 	void changeJoueur() {
@@ -52,5 +55,13 @@ public class Controller {
 //				countdown--;
 //			}
 //		}
+	}
+
+	public boolean isOnGoing() {
+		return onGoing;
+	}
+
+	public void setOnGoing(boolean onGoing) {
+		this.onGoing = onGoing;
 	}
 }
