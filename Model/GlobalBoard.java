@@ -20,6 +20,7 @@ public class GlobalBoard {
 	private int iLid;
 	private int[] lid;
 
+	private int currentPlayer;
 	private int futureFirstPlayer;
 
 	public GlobalBoard(int np){
@@ -42,7 +43,6 @@ public class GlobalBoard {
 		lid = new int[100];
 
 		futureFirstPlayer = 0;
-		initFactories();
 	}
 	
 	public GlobalBoard(GlobalBoard gb){
@@ -57,6 +57,7 @@ public class GlobalBoard {
 		this.bag = gb.bag.clone();
 		this.iLid = gb.iLid;
 		this.lid = gb.lid.clone();
+		this.currentPlayer = gb.currentPlayer;
 		this.futureFirstPlayer = gb.futureFirstPlayer;
 	}
 
@@ -86,6 +87,7 @@ public class GlobalBoard {
 	public PlayerBoard[] getPlayerBoards() {return PB;}
 	public int getICenter() {return iCenter;}
 	public int[] getCenter() {return center;}
+	public int getCurrentPlayer() {return currentPlayer;}
 	public int getFutureFirstPlayer() {return futureFirstPlayer;}
 
 	public void initBag(){
@@ -105,13 +107,7 @@ public class GlobalBoard {
 	}
 
 	public boolean endOfRound(){
-		int i;
-		for(i = 0; i < getNFactories(); i++)
-			if(factories[i][0] != 0) return false;
-
-		for(i = 0; i < iCenter; i++)
-			if(center[i] != 0) return false;
-		return true;
+		return factoriesAreEmpty() && centerIsEmpty();
 	}
 
 	public boolean endOfGame(){
@@ -122,6 +118,17 @@ public class GlobalBoard {
 
 	public void nextRound(){
 	}		
+
+	public void startOfRound(){
+		currentPlayer = futureFirstPlayer;
+		futureFirstPlayer = -1;
+		initFactories();
+		iCenter = 0;
+	}
+
+	public void nextPlayer(){
+		currentPlayer = (currentPlayer+1) % nPlayers;
+	}
 
 	public int drawFromBag(){
 		if(iBag >= nBag)
@@ -146,6 +153,10 @@ public class GlobalBoard {
 		for(int i = 0; i < getNFactories(); i++)
 			for(int j = 0; j < 4; j++)
 				factories[i][j] = drawFromBag();
+	}
+
+	public int currentPlayerDrawFromFactory(int fab, int color, int line){
+		playerDrawFromFactory(currentPlayer, fab, color, line);
 	}
 
 	public int playerDrawFromFactory(int plyr, int fab, int color, int line){
@@ -188,11 +199,21 @@ public class GlobalBoard {
 			if(!factoryIsEmpty(i)) return false;
 		return true;
 	}
+
+	public boolean centerIsEmpty(){
+		for(int i = 0; i < iCenter; i++)
+			if(center[i] != 0) return false;
+		return true;
+	}
         
 	public boolean centerContainsColor(int color){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
 		return false;
+	}
+
+	public int currentPlayerDrawFromCenter(int color, int line){
+		playerDrawFromCenter(currentPlayer, color, line);
 	}
 
 	public int playerDrawFromCenter(int plyr, int color, int line){
