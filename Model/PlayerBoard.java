@@ -111,6 +111,7 @@ public class PlayerBoard {
 			if(floor[i] != 6) GB.addTileToLid(floor[i]);	
 			floor[i] = 0;
 		}
+		nfloor = 0;
 	}
 
 	private void updatePoints(int x, int y){
