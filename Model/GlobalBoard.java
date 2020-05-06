@@ -118,13 +118,7 @@ public class GlobalBoard {
 		return false;
 	}
 
-	private void endOfGame(){
-		//NOT IMPLEMENTED YET
-	}
-
 	public void initRound(){
-		if(isGameOver())
-			endOfGame();
 		currentPlayer = futureFirstPlayer;
 		futureFirstPlayer = -1;
 		initFactories();
@@ -134,7 +128,21 @@ public class GlobalBoard {
 	private void endOfTurn(){
 		nextPlayer();
 		if(isRoundOver())
-			initRound();
+			endOfRound();
+	}
+
+	private void endOfRound(){
+		for(int i = 0; i < nPlayers; i++)
+			PB[i].decoration();
+		if(isGameOver())
+			endOfGame();
+		else initRound();
+	}
+
+	private void endOfGame(){
+		for(int i = 0; i < nPlayers; i++)
+			PB[i].updatePointsFinal();
+
 	}
 
 	public void nextPlayer(){
@@ -274,7 +282,7 @@ public class GlobalBoard {
 			jsonObject.put("bag", bag);
 			jsonObject.put("iLid", iLid);
 			jsonObject.put("lid", lid);
-			jsonObject.put("currentPlayer", currentPlayer);
+			jsonObject.put("futureFirstPlayer", futureFirstPlayer);
 			json = jsonObject.toString();
 			return jsonObject;
 		} catch (JSONException e) {

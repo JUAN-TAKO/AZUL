@@ -152,7 +152,7 @@ public class PlayerBoard {
 		return false;
 	}
 
-	private void updatePointsFinal(){
+	public void updatePointsFinal(){
 		int i;
 		for(i = 0; i < 5; i++){
 			if(isLineCompleted(i)) score += 2;
