@@ -14,7 +14,7 @@
 <script>
     import Mozaique from '@/components/Mozaique'
     export default {
-        name: "Fabrique",
+        name: "Center",
         components: {
             Mozaique
         },
@@ -54,7 +54,9 @@
 
 <style scoped>
     .fabrique {
-        background: center / contain no-repeat url("/img/fabrique.png");
+        /*background: center / contain no-repeat url("/img/fabrique.png");*/
+        bakcround: radial-gradient(rgba(213,78,101,0.8),rgba(213,78,101,0.3));
+        border-radius: 50%;
     }
 
     .container-fabrique-mozaiques {

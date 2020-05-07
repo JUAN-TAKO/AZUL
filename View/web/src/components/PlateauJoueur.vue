@@ -73,6 +73,7 @@
         /*border: solid 1px black;*/
         background: center / contain no-repeat url("/img/plateau-joueur.png");
         position: relative;
+        border-radius: 3%;
     }
 
     .mozaiques {
