@@ -39,8 +39,22 @@ export default new Vuex.Store({
             selection.line  = ligne
             Axios.post("http://localhost:8000/playMove",selection)
                 .then(function(response) {
-                    console.log("Response",response);
-                    context.state.coupJouer = true;
+                    switch(response.data.value) {
+                        case 0:
+                            context.state.coupJouer = true;
+                            break;
+                        case -2:
+                            context.state.retourCoup = "La couleur jouer n'est pas présente dans la fabrique selectionnée";
+                            break;
+                        case -3:
+                            context.state.retourCoup = "La ligne selectionner est déjà pleine";
+                            break;
+                        case -4:
+                            context.state.retourCoup = "La couleur choisi ne peut pas aller sur la ligne selectionnée";
+                            break;
+                        default:
+                            break;
+                    }
                 })
                 .catch(function(error) {
                     console.log("Error",error);
