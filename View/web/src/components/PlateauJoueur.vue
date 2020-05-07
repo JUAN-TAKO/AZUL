@@ -53,12 +53,12 @@
                 if(this.plancherAjout !== 0) {
                     let cpt = this.plancherAjout;
                     let i = 0;
-                    while( i < plancher.length && cpt > 0) {
+                    while(i < plancher.length && cpt > 0) {
                         if(plancher[i] === 0) {
                             plancher[i] = this.couleurPlancherAjout
                             cpt--;
-                            i++;
                         }
+                            i++;
                     }
                 }
                 return plancher
