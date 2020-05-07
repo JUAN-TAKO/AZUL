@@ -282,7 +282,7 @@ public class GlobalBoard {
 			jsonObject.put("bag", bag);
 			jsonObject.put("iLid", iLid);
 			jsonObject.put("lid", lid);
-			jsonObject.put("futureFirstPlayer", futureFirstPlayer);
+			jsonObject.put("currentPlayer", currentPlayer);
 			json = jsonObject.toString();
 			return jsonObject;
 		} catch (JSONException e) {
