@@ -10,7 +10,8 @@ export default new Vuex.Store({
             selectionner:false,
             donnees: {
 
-            }
+            },
+            coupJouer : false
         },
         board: null,
         charge: false,
@@ -18,6 +19,11 @@ export default new Vuex.Store({
     mutations: {
         setBoard(state, data) {
             this.state.board = data.GlobalBoard;
+            if(this.state.coupJouer) {
+                this.state.coupJouer = false
+                this.state.selection.donnees = {}
+                this.state.selection.selectionner = false
+            }
         }
     },
     actions: {
@@ -27,6 +33,18 @@ export default new Vuex.Store({
             .then( q => {
                 context.commit("setBoard", q)
             })
+        },
+        jouerCoup(context,ligne) {
+            let selection = context.state.selection.donnees;
+            selection.line  = ligne
+            Axios.post("http://localhost:8000/playMove",selection)
+                .then(function(response) {
+                    console.log("Response",response);
+                    context.state.coupJouer = true;
+                })
+                .catch(function(error) {
+                    console.log("Error",error);
+                })
         }
     }
 })
