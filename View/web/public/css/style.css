@@ -59,3 +59,23 @@ body {
 .not-selected {
     filter: grayscale(1);
 }
+
+.mozaique-selected{
+    text-align: center;
+    position: relative;
+    width:100% !important;
+    justify-content: center;
+}
+
+.mozaique-selected > .mozaique {
+    width: 10% !important;
+}
+
+.close {
+    z-index:99;
+    font-size: 3rem !important;
+}
+
+.close > span {
+    vertical-align: super;
+}
