@@ -63,25 +63,7 @@ public class GlobalBoard {
 		this.futureFirstPlayer = gb.futureFirstPlayer;
 	}
 
-	public GlobalBoard globalBoardClone(){
-    	GlobalBoard clone=new GlobalBoard(nPlayers);
-    	clone.PB=this.PB.clone();
-    	// clone.fabrique=this.fabrique.clone();
 
-    	clone.iCenter=new Integer(this.iCenter);
-    	clone.center=this.center.clone();
-
-    	clone.iBag=new Integer(this.iBag);
-    	clone.nBag=new Integer(this.nBag);
-    	clone.bag=this.bag.clone();
-
-    	clone.iLid=new Integer(this.iLid);
-    	clone.lid=this.lid.clone();
-
-    	clone.futureFirstPlayer=new Integer(futureFirstPlayer);
-    
-    	return clone;
-    }
 
 	public int getNPlayers() {return nPlayers;}
 	public int getNFactories() {return 2*nPlayers + 1;}
