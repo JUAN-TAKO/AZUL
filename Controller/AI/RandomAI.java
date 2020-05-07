@@ -20,22 +20,24 @@ class RandomAI extends AIPlayer {
                 int l;
 		
 
-                f=r.nextInt(globalBoard.getNFactories()+1);
-                while (globalBoard.factoryIsEmpty(f)){
+                f=r.nextInt(globalBoard.getNFactories()+1);  //la valeur NFactories étant la valeur symbolique de la factory centrale 
+                while ( (f!=globalBoard.getNFactories()) && (globalBoard.factoryIsEmpty(f) )
+                        || ( (f==globalBoard.getNFactories()) && globalBoard.centerIsEmpty() )  ){
                     f=r.nextInt(globalBoard.getNFactories()+1);
                 }
 
                 c=r.nextInt(5);
-                while (globalBoard.factoryContainsColor(f, c)==false){
+                while (   ( (f!=globalBoard.getNFactories()) && (globalBoard.factoryContainsColor(f, c)==false) )
+                        || ((f==globalBoard.getNFactories()) && (globalBoard.centerContainsColor(c)==false) )    ){
                         c=r.nextInt(5);
                    }
 
 
 		l = r.nextInt(5);
-		while (!playerBoard.isLineFull(l)) {
+		while (playerBoard.isLineFull(l)) {
 			l = r.nextInt(5);
 		}
-                if (f==globalBoard.getNFactories()){
+                if (f==globalBoard.getNFactories()){   //la valeur NFactories étant la valeur symbolique de la factory centrale
                     globalBoard.playerDrawFromCenter(num, c, l);
                     return true;
                 }
