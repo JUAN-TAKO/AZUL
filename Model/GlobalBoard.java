@@ -175,7 +175,10 @@ public class GlobalBoard {
 	}
 
 	public int currentPlayerDraw(int whereToDraw, int color, int line){
-		return playerDraw(currentPlayer, whereToDraw, color, line);
+		int r;
+		if((r = playerDraw(currentPlayer, whereToDraw, color, line)) == 0)
+			endOfTurn();
+		return r;
 	}
 
 	public int playerDraw(int plyr, int whereToDraw, int color, int line){

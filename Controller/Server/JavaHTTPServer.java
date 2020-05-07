@@ -49,15 +49,17 @@ public class JavaHTTPServer implements Runnable{
             // we support only GET and HEAD methods, we check
             if (!method.equals("GET")  &&  !method.equals("HEAD") && !method.equals("POST") && !method.equals("OPTIONS") ) {
                 // we send HTTP Headers with data to client
-                out.println("HTTP/1.1 501 Not Implemented");
-                out.println("Server: Java HTTP Server");
-                out.println("Date: " + new Date());
-                out.println("Content-type: application/json");
-                out.println(); // blank line between headers and content, VERY IMPORTANT !
-                out.flush();
-                // file
-                dataOut.write("{\"501\":\"Not Implemented\"}".getBytes());
-                dataOut.flush();
+//                out.println("HTTP/1.1 501 Not Implemented");
+//                out.println("Server: Java HTTP Server");
+//                out.println("Date: " + new Date());
+//                out.println("Content-type: application/json");
+//                out.println(); // blank line between headers and content, VERY IMPORTANT !
+//                out.flush();
+//                // file
+//                dataOut.write("{\"501\":\"Not Implemented\"}".getBytes());
+//                dataOut.flush();
+
+                send501(out, dataOut);
 
             } else {
 
@@ -70,45 +72,35 @@ public class JavaHTTPServer implements Runnable{
                     //!!! LES URL SONT TOUJOURS EN MINISCULE DU COTE SERVER MEME SI L'URL DU NAVIGATEUR EST EN MAJUSCULE Teste => teste
                     switch(url) {
                     	case "/getGameStatus":
+                            send200(out);
                     		jsonObject.put("onGoing", Controller.getInstance().isOnGoing());
                     		break;
                         case "/getBoard":
+                            send200(out);
 //                            jsonString = "{\"Teste\":\"valeur teste\"}";
                         	GlobalBoard gb = Controller.getInstance().getBoard();
                         	if(gb != null) 
                         		jsonObject.put("GlobalBoard",gb.toJSON());
                             break;
                         default:
+                            send404(out);
 //                            jsonString = "{\"404\":\"Demande inconnue\"}";
                             jsonObject.put("404","Demande inconnue");
                             break;
                     }
 
-                    // send HTTP Headers
-                    out.println("HTTP/1.1 200 OK");
-                    out.println("Server: Java HTTP Server");
-                    out.println("Date: " + new Date());
-                    out.println("Content-type: " + "application/json");
-                    out.println("Access-Control-Allow-Origin: *");
-                    out.println(); // blank line between headers and content, VERY IMPORTANT !
-                    out.flush(); // flush character output stream buffer
+//                    // send HTTP Headers
+//                    out.println("HTTP/1.1 200 OK");
+//                    out.println("Server: Java HTTP Server");
+//                    out.println("Date: " + new Date());
+//                    out.println("Content-type: " + "application/json");
+//                    out.println("Access-Control-Allow-Origin: *");
+//                    out.println(); // blank line between headers and content, VERY IMPORTANT !
+//                    out.flush(); // flush character output stream buffer
 
                     dataOut.write(jsonObject.toString().getBytes());
                     dataOut.flush();
                 } else if(method.equals("POST")) {
-                    
-                    // send HTTP Headers
-                    out.println("HTTP/1.1 200 OK");
-                    out.println("Server: Java HTTP Server");
-                    out.println("Date: " + new Date());
-                    out.println("Content-type: text/plain, application/json");
-                    out.println("Access-Control-Allow-Origin: *");
-                    out.println("Vary: Accept-Encoding, Origin");
-                    out.println("Keep-Alive: timeout=2, max=100");
-                    out.println("Connection: Keep-Alive");
-                    out.println(); // blank line between headers and content, VERY IMPORTANT !
-                    out.flush(); // flush character output stream buffer
-
                     int contentLength = 0;
 
                     while(!input.equals("")) {
@@ -133,13 +125,18 @@ public class JavaHTTPServer implements Runnable{
                     		JSONArray jsonArray = jsonObjectIn.getJSONArray("AI");
                     		boolean[] AI = Utils.Utils.toBooleanArray(jsonArray);
                     		Controller.getInstance().startGame(nPlayers, AI);
+                            send200(out);
                     		break;
                     	case "/playMove":
                     		int factory = (int) jsonObjectIn.get("factory");
                     		int color = (int) jsonObjectIn.get("color");
                     		int line = (int) jsonObjectIn.get("line");
                     		jsonObjectOut.put("value", Controller.getInstance().playMove(factory, color, line));
+                            send200(out);
                     		break;
+                        default :
+                            send404(out);
+                            break;
                     }
 
                     dataOut.write(jsonObjectOut.toString().getBytes());
@@ -180,5 +177,43 @@ public class JavaHTTPServer implements Runnable{
                 System.err.println("Error closing stream : " + e.getMessage());
             }
         }
+    }
+
+    public void send501(PrintWriter out, BufferedOutputStream dataOut) throws IOException {
+        out.println("HTTP/1.1 501 Not Implemented");
+        out.println("Server: Java HTTP Server");
+        out.println("Date: " + new Date());
+        out.println("Content-type: application/json");
+        out.println(); // blank line between headers and content, VERY IMPORTANT !
+        out.flush();
+        // file
+        dataOut.write("{\"501\":\"Not Implemented\"}".getBytes());
+        dataOut.flush();
+    }
+
+    public void send404(PrintWriter out) throws IOException {
+        out.println("HTTP/1.0 404 Not Found");
+        out.println("Server: Java HTTP Server");
+        out.println("Date: " + new Date());
+        out.println(); // blank line between headers and content, VERY IMPORTANT !
+        out.flush(); // flush character output stream buffer
+    }
+
+    public void send200(PrintWriter out) throws IOException {
+
+        // send HTTP Headers
+        out.println("HTTP/1.1 200 OK");
+        out.println("Server: Java HTTP Server");
+        out.println("Date: " + new Date());
+        out.println("Content-type: text/plain, application/json");
+        out.println("Access-Control-Allow-Origin: *");
+
+        out.println("Vary: Accept-Encoding, Origin");
+        out.println("Keep-Alive: timeout=2, max=100");
+        out.println("Connection: Keep-Alive");
+
+
+        out.println(); // blank line between headers and content, VERY IMPORTANT !
+        out.flush(); // flush character output stream buffer
     }
 }
