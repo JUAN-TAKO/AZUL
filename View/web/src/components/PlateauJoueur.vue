@@ -1,12 +1,17 @@
 <template>
-    <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
-        <div class="embed-responsive-item">
-            <div class="mozaiques d-flex">
-                <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
-                <MozaiquesDroite :mur="plateauJoueur.wall"></MozaiquesDroite>
-            </div>
-            <div class="plancher d-flex">
-                <Mozaique v-for="(mozaiqueFloor, index) in plancher" :key="index" :couleur="mozaiqueFloor"></Mozaique>
+    <div>
+        <div>
+            <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">Score : {{ plateauJoueur.score }}</h3>
+        </div>
+        <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
+            <div class="embed-responsive-item">
+                <div class="mozaiques d-flex">
+                    <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
+                    <MozaiquesDroite :mur="plateauJoueur.wall"></MozaiquesDroite>
+                </div>
+                <div class="plancher d-flex">
+                    <Mozaique v-for="(mozaiqueFloor, index) in plancher" :key="index" :couleur="mozaiqueFloor"></Mozaique>
+                </div>
             </div>
         </div>
     </div>
@@ -65,7 +70,7 @@
 
 <style scoped>
     .plateau-joueur {
-        border: solid 1px black;
+        /*border: solid 1px black;*/
         background: center / contain no-repeat url("/img/plateau-joueur.png");
         position: relative;
     }

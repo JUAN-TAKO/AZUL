@@ -1,5 +1,5 @@
 <template>
-    <div id="board" class="col-5 m-0 p-0 row d-flex flex-wrap">
+    <div id="board" class="col-5 m-0 p-0 row d-flex">
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
             <div class="container">
                 <button type="button" class="close" aria-label="Close" @click="annullerSelection()">
@@ -56,6 +56,5 @@
 <style scoped>
     #board {
         background: center no-repeat url("/img/fond.png"), radial-gradient(white,#5ac5d4);
-        max-height: 100vh;
     }
 </style>

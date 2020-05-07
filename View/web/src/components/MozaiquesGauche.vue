@@ -1,5 +1,5 @@
 <template>
-    <div class="mozaiques-gauche">
+    <div class="mozaiques-gauche" :class="{ 'light-around' : this.$store.state.selection.selectionner && isCurrent }">
         <div class="ligne flex-row-reverse" @click="mouseClick()" @mouseover="mouseOver(index)" @mouseleave="mouseOut()" v-for="(nbMozaiques, index) in this.lignes" :key="index">
             <Mozaique v-for="(mozaique,i) in getNbMozaiqueLigne(nbMozaiques,couleurs[index],index)" :key="i" :couleur="getCouleurMozaiqueLigne(couleurs[index])"></Mozaique>
         </div>
@@ -61,7 +61,6 @@
             }
         },
         computed: {
-
         }
     }
 </script>
@@ -78,5 +77,23 @@
     .ligne {
         /*border: 3px solid pink;*/
         height: 20%;
+    }
+
+    .light-around {
+        animation: clignotage 1.5s infinite;
+    }
+    
+    @keyframes clignotage {
+        0% {
+            box-shadow: 0px 0px 5px yellow;
+        }
+
+        50% {
+            box-shadow: 0px 0px 75px yellow;
+        }
+
+        100% {
+            box-shadow: 0px 0px 5px yellow;
+        }
     }
 </style>
