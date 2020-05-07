@@ -1,11 +1,9 @@
 <template>
-    <div class="col-3 m-0 p-0 align-self-center">
-        <div class="embed-responsive embed-responsive-1by1">
-            <div class="container-fabrique-mozaiques fabrique embed-responsive-item d-flex">
-                <div class="row m-auto p-0 col-8">
-                    <div class="col-6 m-0 p-0 p-md-1" v-for="(mozaique, index) in mozaiques" :key="index" @mouseover="mouseOver(mozaique)" @mouseout="mouseOut()" @click="clickMozaique()">
-                        <Mozaique :scale="getScale(index)" :couleur="mozaique"></Mozaique>
-                    </div>
+    <div class="col m-0 p-0 align-self-center">
+        <div class="container-fabrique-mozaiques center d-flex ">
+            <div class="row m-auto p-0 col-12">
+                <div class="col-2 m-0 p-0 p-md-1" v-for="(mozaique, index) in mozaiques" :key="index" @mouseover="mouseOver(mozaique)" @mouseout="mouseOut()" @click="clickMozaique()">
+                    <Mozaique :scale="getScale(index)" :couleur="mozaique"></Mozaique>
                 </div>
             </div>
         </div>
@@ -53,10 +51,7 @@
 </script>
 
 <style scoped>
-    .fabrique {
-        /*background: center / contain no-repeat url("/img/fabrique.png");*/
-        bakcround: radial-gradient(rgba(213,78,101,0.8),rgba(213,78,101,0.3));
-        border-radius: 50%;
+    .center {
     }
 
     .container-fabrique-mozaiques {
