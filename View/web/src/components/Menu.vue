@@ -1,5 +1,8 @@
 <template>
     <div id="menu" class="col-7 m-0 p-0 d-flex flex-column">
+        <div v-if="this.$store.state.retourCoup" class="alert alert-danger" role="alert">
+            {{this.$store.state.retourCoup}}
+        </div>
         <div class="flex-grow-1">
 
         </div>
