@@ -60,7 +60,7 @@
 
 <style scoped>
     .mozaique {
-        border: 3px blue solid !important;
+        /*border: 3px blue solid !important;*/
     }
 
     .ligne > .mozaique {

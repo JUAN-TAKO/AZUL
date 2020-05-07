@@ -1,6 +1,6 @@
 <template>
     <div class="mozaiques-gauche">
-        <div class="ligne flex-row-reverse" @mouseover="mouseOver(index)" @mouseout="mouseOut()" v-for="(nbMozaiques, index) in this.lignes" :key="index">
+        <div class="ligne flex-row-reverse" @click="mouseClick()" @mouseover="mouseOver(index)" @mouseleave="mouseOut()" v-for="(nbMozaiques, index) in this.lignes" :key="index">
             <Mozaique v-for="(mozaique,i) in getNbMozaiqueLigne(nbMozaiques,couleurs[index],index)" :key="i" :couleur="getCouleurMozaiqueLigne(couleurs[index])"></Mozaique>
         </div>
     </div>
@@ -30,16 +30,17 @@
             },
             mouseOut () {
                 this.ligneOver = 5
+                this.$emit("ajoutplancher")
             },
             getNbMozaiqueLigne(nombre,couleur,ligne) {
                 let retour;
                 let selection = this.$store.state.selection
-                if(selection.selectionner && (couleur === selection.donnees.couleur || couleur === 0) && this.ligneOver === ligne) {
-                    retour = nombre + selection.donnees.nbSelection;
+                if(selection.selectionner && (couleur === selection.donnees.color || couleur === 0) && this.ligneOver === ligne) {
+                    retour = nombre + selection.donnees.nSelected;
                     if(retour > ligne + 1) {
                         let plancher = retour - (ligne+1)
                         retour = ligne + 1;
-                        this.$emit("ajoutplancher",plancher)
+                        this.$emit("ajoutplancher",plancher,selection.donnees.color)
                     }
                 } else {
                     retour = nombre;
@@ -48,13 +49,15 @@
             },
             getCouleurMozaiqueLigne(couleur) {
                 if(couleur === 0) {
-                    return this.$store.state.selection.donnees.couleur
+                    return this.$store.state.selection.donnees.color
                 } else {
                     return 0
                 }
             },
-            testAjoutPlancher() {
-                console.log("teste")
+            mouseClick() {
+                if(this.$store.state.selection.selectionner) {
+                    console.log(this.$store.state.selection.donnees)
+                }
             }
         },
         computed: {
@@ -73,7 +76,7 @@
     }
 
     .ligne {
-        border: 3px solid pink;
+        /*border: 3px solid pink;*/
         height: 20%;
     }
 </style>

@@ -6,7 +6,7 @@
                 <MozaiquesDroite :mur="plateauJoueur.wall"></MozaiquesDroite>
             </div>
             <div class="plancher d-flex">
-                <Mozaique v-for="(mozaiqueFloor, index) in plateauJoueur.floor" :key="index" :couleur="mozaiqueFloor"></Mozaique>
+                <Mozaique v-for="(mozaiqueFloor, index) in plancher" :key="index" :couleur="mozaiqueFloor"></Mozaique>
             </div>
         </div>
     </div>
@@ -25,6 +25,8 @@
         },
         data() {
             return {
+                plancherAjout : 0,
+                couleurPlancherAjout : 0
             }
         },
         props: {
@@ -32,13 +34,29 @@
             id : Number
         },
         methods: {
-            ajoutPlancher(valeur) {
-                console.log(valeur)
+            ajoutPlancher(valeur,couleur) {
+                this.plancherAjout = valeur
+                this.couleurPlancherAjout = couleur
             }
         },
         computed: {
             isCurrent() {
                 return this.$store.state.board.currentPlayer === this.id
+            },
+            plancher() {
+                let plancher = Array.from(this.$store.state.board.PB[this.id].floor)
+                if(this.plancherAjout !== 0) {
+                    let cpt = this.plancherAjout;
+                    let i = 0;
+                    while( i < plancher.length && cpt > 0) {
+                        if(plancher[i] === 0) {
+                            plancher[i] = this.couleurPlancherAjout
+                            cpt--;
+                            i++;
+                        }
+                    }
+                }
+                return plancher
             }
         }
 
@@ -47,7 +65,7 @@
 
 <style scoped>
     .plateau-joueur {
-        /*border: solid 1px black;*/
+        border: solid 1px black;
         background: center / contain no-repeat url("/img/plateau-joueur.png");
         position: relative;
     }
@@ -71,8 +89,6 @@
     }
 
     .not-current-player {
-        background: linear-gradient(black, black),center / contain no-repeat url("/img/plateau-joueur.png");
-        background-size: cover;
-        background-blend-mode: saturation;
+        background: center / contain no-repeat url("/img/plateau-joueur-not-current.png");
     }
 </style>

@@ -33,10 +33,10 @@
         },
         computed:{
             nbMozaique () {
-                return this.$store.state.selection.donnees.nbSelection;
+                return this.$store.state.selection.donnees.nSelected;
             },
             couleurMozaique () {
-                return this.$store.state.selection.donnees.couleur;
+                return this.$store.state.selection.donnees.color;
             }
         },
         methods: {

@@ -1,11 +1,11 @@
 <template>
-    <div class="row h-100">
+    <div class="row h-100 m-0">
         <div class="col-4 p-5">
             <button class="btn btn-primary w-100" @click="startGame">Commencer la partie</button>
         </div>
         <div class="col azul-bg pt-5">
-            <div class="player-slots">
-                <div v-for="player in availablePlayers" v-bind:key="player" class="player-slot">
+            <div class="player-slots row m-0">
+                <div v-for="player in availablePlayers" v-bind:key="player" class="player-slot col-3">
                     <div class="input-group">
                         <input type="text" class="form-control" v-model="player.name" :disabled="!player.selected || player.AI" style="border-radius:0.25rem 0 0 0">
                         <div class="input-group-append">

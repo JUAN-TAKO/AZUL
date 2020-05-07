@@ -41,9 +41,9 @@
             clickMozaique() {
                 let selection = {
                     donnees:{
-                        fabrique : this.id, 
-                        couleur : this.over,
-                        nbSelection :  Array.from(this.mozaiques).filter(el => el === this.over).length
+                        factory : this.id,
+                        color : this.over,
+                        nSelected :  Array.from(this.mozaiques).filter(el => el === this.over).length
                     },
                     selectionner: true
                 }

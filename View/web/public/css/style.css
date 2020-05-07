@@ -45,15 +45,15 @@ body {
 }
 
 .player-slots {
-    display:flex;
-    justify-content: center;
+    /*display:flex;*/
+    /*justify-content: center;*/
     padding:5px;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     cursor: pointer;
 }
 
 .player-slot {
-    margin: 5px;
+    /*margin: 5px;*/
 }
 
 .not-selected {
