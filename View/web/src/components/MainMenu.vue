@@ -3,11 +3,19 @@
         <div class="col-4 p-5">
             <button class="btn btn-primary w-100" @click="startGame">Commencer la partie</button>
         </div>
-        <div class="col azul-bg p-5">
+        <div class="col azul-bg pt-5">
             <div class="player-slots">
-                <div v-for="player in availablePlayers" v-bind:key="player" class="player-slot" @click="selectPlayer(player)">
-                    <div><input type="text" class="w-100 mb-2" v-model="player.name" :disabled="!player.selected"></div>
-                    <img src="/img/plateau-joueur.jpeg" class="player-card" :class="!player.selected ? 'not-selected': ''"/>
+                <div v-for="player in availablePlayers" v-bind:key="player" class="player-slot">
+                    <div class="input-group">
+                        <input type="text" class="form-control" v-model="player.name" :disabled="!player.selected || player.AI" style="border-radius:0.25rem 0 0 0">
+                        <div class="input-group-append">
+                            <button @click="toggleAI(player)" class="btn btn-sm btn-primary" :disabled="!player.selected" v-html="player.AI ? 'AI' : 'Humain'" style="border-radius:0 0.25rem 0 0"/>
+                        </div>
+                    </div>
+                    <div class="player-card" @click="selectPlayer(player)">
+                        <img src="/img/plateau-joueur.jpeg" class="w-100" :class="!player.selected ? 'not-selected': ''"/>
+                        <p class="tooltip" v-html="player.selected ? 'Supprimer le joueur' : 'Ajouter le joueur'"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -21,21 +29,25 @@
             return {
                 availablePlayers: [
                     {
+                        id:1,
                         selected: true,
                         name: "Joueur 1",
                         AI: false,
                     },
                     {
+                        id:2,
                         selected: true,
                         name: "Joueur 2",
                         AI: false,
                     },
                     {
+                        id:3,
                         selected: false,
                         name: "Joueur 3",
                         AI: false,
                     },
                     {
+                        id:4,
                         selected: false,
                         name: "Joueur 4",
                         AI: false,
@@ -62,6 +74,13 @@
                         player.selected = false;
                     }
                 }
+            },
+            toggleAI(player){
+                player.AI = !player.AI;
+                if(player.AI)
+                    player.name = "AI " + player.id;
+                else
+                    player.name = "Joueur " + player.id;
             },
             startGame () {
                 let json = {

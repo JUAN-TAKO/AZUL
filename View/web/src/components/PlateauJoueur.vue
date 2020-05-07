@@ -2,7 +2,7 @@
     <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
         <div class="embed-responsive-item">
             <div class="mozaiques d-flex">
-                <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher"></MozaiquesGauche>
+                <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
                 <MozaiquesDroite :mur="plateauJoueur.wall"></MozaiquesDroite>
             </div>
             <div class="plancher d-flex">

@@ -1,5 +1,5 @@
 <template>
-    <div class="col-3 m-0 p-0">
+    <div class="col-3 m-0 p-0 align-self-center">
         <div class="embed-responsive embed-responsive-1by1">
             <div class="container-fabrique-mozaiques fabrique embed-responsive-item d-flex">
                 <div class="row m-auto p-0 col-8">

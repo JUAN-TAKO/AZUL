@@ -10,6 +10,11 @@
     import Mozaique from '@/components/Mozaique'
     export default {
         name: "MozaiquesGauche",
+        props: {
+            couleurs : {},
+            lignes : {},
+            isCurrent: Boolean,
+        },
         data() {
             return {
                 ligneOver : 5
@@ -20,7 +25,8 @@
         },
         methods: {
             mouseOver (i) {
-                this.ligneOver = i
+                if(this.isCurrent)
+                    this.ligneOver = i
             },
             mouseOut () {
                 this.ligneOver = 5
@@ -50,10 +56,6 @@
             testAjoutPlancher() {
                 console.log("teste")
             }
-        },
-        props: {
-            couleurs : {},
-            lignes : {}
         },
         computed: {
 
