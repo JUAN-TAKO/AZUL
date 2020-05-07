@@ -1,13 +1,14 @@
 <template>
     <div class="mozaiques-gauche" :class="{ 'light-around' : this.$store.state.selection.selectionner && isCurrent }">
-        <div class="ligne flex-row-reverse" @click="mouseClick()" @mouseover="mouseOver(index)" @mouseleave="mouseOut()" v-for="(nbMozaiques, index) in this.lignes" :key="index">
+        <div class="ligne flex-row-reverse" @click="mouseClick(index)" @mouseover="mouseOver(index)" @mouseleave="mouseOut()" v-for="(nbMozaiques, index) in this.lignes" :key="index">
             <Mozaique v-for="(mozaique,i) in getNbMozaiqueLigne(nbMozaiques,couleurs[index],index)" :key="i" :couleur="getCouleurMozaiqueLigne(couleurs[index])"></Mozaique>
         </div>
     </div>
 </template>
 
 <script>
-    import Mozaique from '@/components/Mozaique'
+    import Mozaique from '@/components/Mozaique';
+    import Axios from 'axios'
     export default {
         name: "MozaiquesGauche",
         props: {
@@ -54,9 +55,17 @@
                     return 0
                 }
             },
-            mouseClick() {
+            mouseClick(ligne) {
                 if(this.$store.state.selection.selectionner) {
-                    console.log(this.$store.state.selection.donnees)
+                    let selection = this.$store.state.selection.donnees;
+                    selection.line  = ligne
+                    Axios.post("http://localhost:8000/playMove",selection)
+                    .then(function(response) {
+                        console.log("Response",response);
+                    })
+                    .catch(function(error) {
+                        console.log("Error",error);
+                    })
                 }
             }
         },
