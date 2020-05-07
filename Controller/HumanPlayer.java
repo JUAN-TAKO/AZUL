@@ -9,7 +9,6 @@ class HumanPlayer extends Player {
         
 	@Override
 	int click(int factory, int color, int line) {
-        while (globalBoard.playerDrawFromFactory(num, factory, color, line)!=0);
-        return 0;
+        return globalBoard.currentPlayerDraw(factory, color, line);
 	}
 }

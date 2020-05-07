@@ -22,6 +22,13 @@ public class Controller {
 		return board;
 	}
 	
+	public int playMove(int factory, int color, int line) {
+		int r = players[currentPlayer].click(factory,color,line);
+		if(r == 0)
+			changeJoueur();
+		return r;
+	}
+	
 	public void startGame(int nPlayers, boolean[] AI) {
 		this.board = new GlobalBoard(nPlayers);
 		players = new Player[AI.length];
@@ -32,6 +39,7 @@ public class Controller {
 				players[i] = new HumanPlayer(i, board);
 		this.setOnGoing(true);
 		this.board.initRound();
+		currentPlayer = 0;
 	}
 
 	void changeJoueur() {

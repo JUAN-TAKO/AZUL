@@ -7,8 +7,6 @@ import Model.GlobalBoard;
 
 public class JavaHTTPServerLauncher implements Runnable {
 
-//    private Controller jeu; a ajouter le controller du jeu
-
     // port to listen connection
     static final int PORT = 8000;
 

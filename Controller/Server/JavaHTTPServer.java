@@ -63,7 +63,6 @@ public class JavaHTTPServer implements Runnable{
 
                 if (method.equals("GET")) { // GET method so we return content
 
-                    String jsonString;
                     JSONObject jsonObject = new JSONObject("{}");
                     System.out.println(url);
 
@@ -97,7 +96,7 @@ public class JavaHTTPServer implements Runnable{
                     dataOut.write(jsonObject.toString().getBytes());
                     dataOut.flush();
                 } else if(method.equals("POST")) {
-
+                    
                     // send HTTP Headers
                     out.println("HTTP/1.1 200 OK");
                     out.println("Server: Java HTTP Server");
@@ -105,7 +104,6 @@ public class JavaHTTPServer implements Runnable{
                     out.println("Content-type: text/plain, application/json");
                     out.println("Access-Control-Allow-Origin: *");
                     out.println("Vary: Accept-Encoding, Origin");
-                    out.println("Content-Encoding: gzip");
                     out.println("Keep-Alive: timeout=2, max=100");
                     out.println("Connection: Keep-Alive");
                     out.println(); // blank line between headers and content, VERY IMPORTANT !
@@ -126,17 +124,27 @@ public class JavaHTTPServer implements Runnable{
                     in.read(cbuf,0,contentLength);
                     input = new String(cbuf);
 
-                    JSONObject jsonObject = new JSONObject(input);
-                    
+                    JSONObject jsonObjectIn = new JSONObject(input);
+                    JSONObject jsonObjectOut = new JSONObject("{}");
+
                     switch(url) {
                     	case "/startGame":
-                    		int nPlayers = (int) jsonObject.get("nPlayers");
-                    		JSONArray jsonArray = jsonObject.getJSONArray("AI");
+                    		int nPlayers = (int) jsonObjectIn.get("nPlayers");
+                    		JSONArray jsonArray = jsonObjectIn.getJSONArray("AI");
                     		boolean[] AI = Utils.Utils.toBooleanArray(jsonArray);
                     		Controller.getInstance().startGame(nPlayers, AI);
                     		break;
+                    	case "/playMove":
+                    		int factory = (int) jsonObjectIn.get("factory");
+                    		int color = (int) jsonObjectIn.get("color");
+                    		int line = (int) jsonObjectIn.get("line");
+                    		jsonObjectOut.put("value", Controller.getInstance().playMove(factory, color, line));
+                    		break;
                     }
 
+                    dataOut.write(jsonObjectOut.toString().getBytes());
+                    dataOut.flush();
+                    
                 } else if(method.equals("OPTIONS")) {
 
                     // send HTTP Headers
