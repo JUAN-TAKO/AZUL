@@ -1,11 +1,11 @@
 <template>
     <div class="row h-100 m-0">
-        <div class="col-4 p-5">
+        <div class="col-4 p-sm-3 p-1 p-xl-5">
             <button class="btn btn-primary w-100" @click="startGame">Commencer la partie</button>
         </div>
         <div class="col azul-bg pt-5">
             <div class="player-slots row m-0">
-                <div v-for="(player,index) in availablePlayers" v-bind:key="index" class="player-slot col-3">
+                <div v-for="(player,index) in availablePlayers" v-bind:key="index" class="player-slot col-sm-6 col-xl-3 mb-3">
                     <div class="input-group">
                         <input type="text" class="form-control" v-model="player.name" :disabled="!player.selected || player.AI" style="border-radius:0.25rem 0 0 0">
                         <div class="input-group-append">
@@ -86,15 +86,15 @@
                 let json = {
                     nPlayers: this.numberOfPlayers,
                     AI: this.availablePlayers.filter(a => a.selected).map(a => a.AI),
-                }
+                    names: this.availablePlayers.filter(a => a.selected).map(a => a.name),
+                };
                 axios.post('http://localhost:8000/startGame', json)
-                .then((response) => {
+                .then(() => {
                     this.$emit("gameStarted");
-                    console.log(response)
                 })
-                .catch(function (error) {
-                    console.log(error)
-                })
+                .catch(() => {
+                });
+                
             }
         }
     }

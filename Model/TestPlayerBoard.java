@@ -35,8 +35,8 @@ public class TestPlayerBoard {
     public static void main(String[] args){
         
         //PLAYERBOARD TEST0 triangle joueur vide     OK!
-        GlobalBoard globalboard0= new GlobalBoard(2);
-        PlayerBoard playerboard1= new PlayerBoard(globalboard0);
+        GlobalBoard globalboard0= new GlobalBoard(2, new String[] {"Joueur 1", "Joueur 2"});
+        PlayerBoard playerboard1= new PlayerBoard(globalboard0, "Joueur 1");
         
         //display(playerboard1);        //affichage du test
         
@@ -84,10 +84,10 @@ public class TestPlayerBoard {
         //PlayerBoard pbexces=new PlayerBoard(globalboard0);
         
         
-        GlobalBoard globalboard1=new GlobalBoard(4);
+        GlobalBoard globalboard1=new GlobalBoard(4, new String[] {"Joueur 1", "Joueur 2", "Joueur 3", "Joueur 4"});
         
         //PLAYERBOARD TEST6 modification du clone pour vérifier si cela ne modifie pas l'original   OK!
-        PlayerBoard pb=new PlayerBoard(globalboard1);
+        PlayerBoard pb=new PlayerBoard(globalboard1, "Joueur 1");
         PlayerBoard pbclone=new PlayerBoard(pb, globalboard1);
         pbclone.addTileToLine(0, 1);
         
@@ -100,7 +100,7 @@ public class TestPlayerBoard {
         //PLAYERBOARD TEST7 test de decoration           comptage des points OK
         //décore le carré avec les cases correspondant aux lignes remplies du triangle
         //met à jour les points
-        PlayerBoard pb2= new PlayerBoard(globalboard1);
+        PlayerBoard pb2= new PlayerBoard(globalboard1, "Joueur 2");
         pb2.addTileToLine(3, 1); pb2.addTileToLine(3, 1); pb2.addTileToLine(3, 1); pb2.addTileToLine(3, 1);
         //display(pb2);          //affichage du test
         pb2.decoration();
@@ -120,7 +120,7 @@ public class TestPlayerBoard {
         
         
         //PLAYERBOARD TEST9 retest avec autre grille                    comptage OK
-        PlayerBoard playerboard4=new PlayerBoard(globalboard1);
+        PlayerBoard playerboard4=new PlayerBoard(globalboard1, "Joueur 3");
         playerboard4.addTileToLine(1,3); playerboard4.addTileToLine(1,2);
         playerboard4.addTileToLine(2,3);
         playerboard4.addTileToLine(3,5); playerboard4.addTileToLine(3,5);
@@ -140,7 +140,7 @@ public class TestPlayerBoard {
         //     X 0 X 0 0         (10 pts + 7 pts + 2 pts = 19 pts bonus à rajouter au 37 à la fin)
         //     X 0 0 X 0                (tous les pts de même couleur+colonne+ligne)
         //     X 0 0 0 X
-        PlayerBoard p5=new PlayerBoard(globalboard1);
+        PlayerBoard p5=new PlayerBoard(globalboard1, "Joueur 4");
         //remplissage de la diagonale
         p5.addTileToLine(0,1);
         p5.addTileToLine(1,1); p5.addTileToLine(1,1);

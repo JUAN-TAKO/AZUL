@@ -32,7 +32,7 @@ public class TestGlobalBoard {
     
     public static void main(String[] args){
         
-        GlobalBoard gb=new GlobalBoard(4);
+        GlobalBoard gb=new GlobalBoard(4, new String[] {"Joueur 1", "Joueur 2", "Joueur 3", "Joueur 4"});
         
         
         

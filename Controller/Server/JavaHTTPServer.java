@@ -77,7 +77,6 @@ public class JavaHTTPServer implements Runnable{
                     		break;
                         case "/getBoard":
                             send200(out);
-//                            jsonString = "{\"Teste\":\"valeur teste\"}";
                         	GlobalBoard gb = Controller.getInstance().getBoard();
                         	if(gb != null) 
                         		jsonObject.put("GlobalBoard",gb.toJSON());
@@ -124,7 +123,8 @@ public class JavaHTTPServer implements Runnable{
                     		int nPlayers = (int) jsonObjectIn.get("nPlayers");
                     		JSONArray jsonArray = jsonObjectIn.getJSONArray("AI");
                     		boolean[] AI = Utils.Utils.toBooleanArray(jsonArray);
-                    		Controller.getInstance().startGame(nPlayers, AI);
+                    		String[] names = Utils.Utils.toStringArray(jsonObjectIn.getJSONArray("names"));
+                    		Controller.getInstance().startGame(nPlayers, names, AI);
                             send200(out);
                     		break;
                     	case "/playMove":
