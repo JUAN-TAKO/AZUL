@@ -1,5 +1,5 @@
 <template>
-    <div id="board" class="col-5 m-0 p-0 px-3 row d-flex justify-content-center">
+    <div v-if="this.$store.state.board" id="board" class="col-5 m-0 p-0 row d-flex">
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
             <div class="container d-flex mozaique-selected">
                 <Mozaique v-for="i in nbMozaique" :key="i" :couleur="couleurMozaique"></Mozaique>
@@ -9,17 +9,20 @@
             </div>
         </div>
         <Fabrique v-for="(fabrique,index) in fabriques" :mozaiques="fabrique" :key="index" :id="index"></Fabrique>
+        <Center :mozaiques="Array.from(this.$store.state.board.center).filter(element => element != 0)"></Center>
     </div>
 </template>
 
 <script>
     import Fabrique from "./Fabrique";
     import Mozaique from "./Mozaique"
+    import Center from "./Center"
     export default {
         name: "Board",
         components: {
             Fabrique,
-            Mozaique
+            Mozaique,
+            Center
         },
         data() {
             return {

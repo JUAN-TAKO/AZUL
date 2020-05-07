@@ -52,7 +52,7 @@
                 if(couleur === 0) {
                     return this.$store.state.selection.donnees.color
                 } else {
-                    return 0
+                    return couleur
                 }
             },
             mouseClick(ligne) {

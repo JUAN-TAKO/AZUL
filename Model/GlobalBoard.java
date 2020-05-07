@@ -206,7 +206,7 @@ public class GlobalBoard {
 		for(int i = 0; i < 4; i++){
 			if(factories[fab][i] == color)
 				PB[plyr].addTileToLine(line, color);
-			else addTileToCenter(color); 
+			else addTileToCenter(factories[fab][i]); 
 			factories[fab][i] = 0;
 		}
 		return 0;

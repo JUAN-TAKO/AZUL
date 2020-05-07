@@ -4,7 +4,7 @@
 
         </div>
         <div class="row mx-auto p-0 col-10">
-            <PlateauJoueur v-for="(player, index) in players" :key="index" class="col-6" :plateauJoueur="player" :id="index"></PlateauJoueur>
+            <PlateauJoueur v-for="(player, index) in players" :key="index" class="col-6 p-1" :plateauJoueur="player" :id="index"></PlateauJoueur>
         </div>
     </div>
 </template>

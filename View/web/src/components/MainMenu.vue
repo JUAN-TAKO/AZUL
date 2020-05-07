@@ -5,7 +5,7 @@
         </div>
         <div class="col azul-bg pt-5">
             <div class="player-slots row m-0">
-                <div v-for="player in availablePlayers" v-bind:key="player" class="player-slot col-3">
+                <div v-for="(player,index) in availablePlayers" v-bind:key="index" class="player-slot col-3">
                     <div class="input-group">
                         <input type="text" class="form-control" v-model="player.name" :disabled="!player.selected || player.AI" style="border-radius:0.25rem 0 0 0">
                         <div class="input-group-append">
@@ -88,8 +88,9 @@
                     AI: this.availablePlayers.filter(a => a.selected).map(a => a.AI),
                 }
                 axios.post('http://localhost:8000/startGame', json)
-                .then(() => {
+                .then((response) => {
                     this.$emit("gameStarted");
+                    console.log(response)
                 })
                 .catch(function (error) {
                     console.log(error)
