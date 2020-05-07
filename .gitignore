@@ -1,6 +1,0 @@
-**/*.class
-**/*.swp
-**/*~
-.classpath
-.project
-/View/web/.gitignore
