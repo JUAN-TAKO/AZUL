@@ -96,19 +96,19 @@ public class PlayerBoard {
 		else if(color != 6) this.gb.addTileToLid(color);//excess tiles sent back to lid
 	}
 
-	public void decoration(GlobalBoard GB){
+	public void decoration(){
 		int i, col;
 		for(i = 0; i < 5; i++)
 			if(linesNb[i] == i+1){//completed line
 				setWallLineColor(i, linesColor[i], true);
 				updatePoints(i, (i + linesColor[i]-1) % 5);
-				for(int j = 0; j < i; j++) GB.addTileToLid(linesColor[i]);
+				for(int j = 0; j < i; j++) gb.addTileToLid(linesColor[i]);
 				linesColor[i] = 0;
 				linesNb[i] = 0;
 			}
 		for(i = 0; i < nfloor; i++){
 			score -= (i+4)/3;
-			if(floor[i] != 6) GB.addTileToLid(floor[i]);	
+			if(floor[i] != 6) gb.addTileToLid(floor[i]);	
 			floor[i] = 0;
 		}
 		nfloor = 0;
@@ -152,7 +152,7 @@ public class PlayerBoard {
 		return false;
 	}
 
-	private void updatePointsFinal(){
+	public void updatePointsFinal(){
 		int i;
 		for(i = 0; i < 5; i++){
 			if(isLineCompleted(i)) score += 2;

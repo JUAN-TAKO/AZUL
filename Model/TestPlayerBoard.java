@@ -51,8 +51,9 @@ public class TestPlayerBoard {
         playerboard1.addTileToFloor(1);
         
         //display(playerboard1);       //affichage du test
-        playerboard1.decoration(globalboard0);
+        playerboard1.decoration();
         //display(playerboard1);       //affichage du test
+        
         
         
         
@@ -102,7 +103,7 @@ public class TestPlayerBoard {
         PlayerBoard pb2= new PlayerBoard(globalboard1);
         pb2.addTileToLine(3, 1); pb2.addTileToLine(3, 1); pb2.addTileToLine(3, 1); pb2.addTileToLine(3, 1);
         //display(pb2);          //affichage du test
-        pb2.decoration(globalboard1);
+        pb2.decoration();
         
         //display(pb2);          //affichage du test
         
@@ -113,7 +114,7 @@ public class TestPlayerBoard {
         pb2.addTileToLine(4, 1); pb2.addTileToLine(4, 1); pb2.addTileToLine(4, 1);
         pb2.addTileToLine(4, 1); pb2.addTileToLine(4, 1); pb2.addTileToLine(4, 1); 
         //display(pb2);          //affichage du test
-        pb2.decoration(globalboard1);
+        pb2.decoration();
         
         //display(pb2);          //affichage du test
         
@@ -128,10 +129,40 @@ public class TestPlayerBoard {
         playerboard4.addTileToLine(4,4); playerboard4.addTileToLine(4,4);
         
         //display(playerboard4);              //affichage du test
-        playerboard4.decoration(globalboard0);
+        playerboard4.decoration();
         //display(playerboard4);
+
+
         
-       
+       //PLAYERBOARD TEST10 wall comptage des points  (n'en compte que 37)
+        //     X X X X X
+        //     X X 0 0 0
+        //     X 0 X 0 0         (10 pts + 7 pts + 2 pts = 19 pts bonus à rajouter au 37 à la fin)
+        //     X 0 0 X 0                (tous les pts de même couleur+colonne+ligne)
+        //     X 0 0 0 X
+        PlayerBoard p5=new PlayerBoard(globalboard1);
+        //remplissage de la diagonale
+        p5.addTileToLine(0,1);
+        p5.addTileToLine(1,1); p5.addTileToLine(1,1);
+        p5.addTileToLine(2,1); p5.addTileToLine(2,1); p5.addTileToLine(2,1);
+        p5.addTileToLine(3,1); p5.addTileToLine(3,1); p5.addTileToLine(3,1); p5.addTileToLine(3,1);
+        p5.addTileToLine(4,1); p5.addTileToLine(4,1); p5.addTileToLine(4,1);
+        p5.addTileToLine(4,1); p5.addTileToLine(4,1);
+        p5.decoration();
+        //remplissage de la colonne
+        p5.addTileToLine(1,5); p5.addTileToLine(1,5);
+        p5.addTileToLine(2,4); p5.addTileToLine(2,4); p5.addTileToLine(2,4);
+        p5.addTileToLine(3,3); p5.addTileToLine(3,3); p5.addTileToLine(3,3); p5.addTileToLine(3,3);
+        p5.addTileToLine(4,2); p5.addTileToLine(4,2); p5.addTileToLine(4,2); p5.addTileToLine(4,2); p5.addTileToLine(4,2);
+        p5.decoration();
+        //remplissage de la ligne
+        p5.addTileToLine(0,2); p5.decoration();
+        p5.addTileToLine(0,3); p5.decoration();
+        p5.addTileToLine(0,4); p5.decoration();
+        p5.addTileToLine(0,5); p5.decoration();
+        p5.decoration();
+        
+        display(p5);
         
     }
     
