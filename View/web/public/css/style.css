@@ -47,13 +47,28 @@ body {
 .player-slots {
     /*display:flex;*/
     /*justify-content: center;*/
-    padding:5px;
     /*justify-content: space-between;*/
+}
+
+.player-card {
+    position: relative;
+}
+
+.player-card > img{
     cursor: pointer;
 }
 
-.player-slot {
-    /*margin: 5px;*/
+.player-card:hover .tooltip {
+    transition: 0.2s all ease;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    color : white;
+    padding: 2px 0px;
+    text-align: center;
+    opacity: 0.8;
 }
 
 .not-selected {
@@ -79,6 +94,7 @@ body {
 .close > span {
     vertical-align: super;
 }
+
 
 
 

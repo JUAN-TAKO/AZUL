@@ -7,7 +7,7 @@ import Controller.AIPlayer;
 class EasyAI extends AIPlayer {
 	Random r;
 
-	EasyAI(int n, GlobalBoard g) {
+	public EasyAI(int n, GlobalBoard g) {
 		super(n, g);
 		r = new Random();
 	}

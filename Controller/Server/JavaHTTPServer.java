@@ -44,7 +44,7 @@ public class JavaHTTPServer implements Runnable{
             // we get file requested
             url = parse.nextToken();
 
-            System.out.println(method);
+            //System.out.println(method);
 
             // we support only GET and HEAD methods, we check
             if (!method.equals("GET")  &&  !method.equals("HEAD") && !method.equals("POST") && !method.equals("OPTIONS") ) {
@@ -66,7 +66,7 @@ public class JavaHTTPServer implements Runnable{
                 if (method.equals("GET")) { // GET method so we return content
 
                     JSONObject jsonObject = new JSONObject("{}");
-                    System.out.println(url);
+                    //System.out.println(url);
 
                     //CREATION OF JSON IN FUNCTION OF THE URL
                     //!!! LES URL SONT TOUJOURS EN MINISCULE DU COTE SERVER MEME SI L'URL DU NAVIGATEUR EST EN MAJUSCULE Teste => teste
@@ -80,22 +80,13 @@ public class JavaHTTPServer implements Runnable{
                         	GlobalBoard gb = Controller.getInstance().getBoard();
                         	if(gb != null) 
                         		jsonObject.put("GlobalBoard",gb.toJSON());
+                        	jsonObject.put("hasAIPlayed", Controller.getInstance().hasAIPlayed());
                             break;
                         default:
                             send404(out);
-//                            jsonString = "{\"404\":\"Demande inconnue\"}";
                             jsonObject.put("404","Demande inconnue");
                             break;
                     }
-
-//                    // send HTTP Headers
-//                    out.println("HTTP/1.1 200 OK");
-//                    out.println("Server: Java HTTP Server");
-//                    out.println("Date: " + new Date());
-//                    out.println("Content-type: " + "application/json");
-//                    out.println("Access-Control-Allow-Origin: *");
-//                    out.println(); // blank line between headers and content, VERY IMPORTANT !
-//                    out.flush(); // flush character output stream buffer
 
                     dataOut.write(jsonObject.toString().getBytes());
                     dataOut.flush();
@@ -132,6 +123,10 @@ public class JavaHTTPServer implements Runnable{
                     		int color = (int) jsonObjectIn.get("color");
                     		int line = (int) jsonObjectIn.get("line");
                     		jsonObjectOut.put("value", Controller.getInstance().playMove(factory, color, line));
+                            send200(out);
+                    		break;
+                    	case "/setFrontUpdated":
+                    		Controller.getInstance().setFrontUpdated(true);
                             send200(out);
                     		break;
                         default :

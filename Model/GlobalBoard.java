@@ -268,6 +268,8 @@ public class GlobalBoard {
 			jsonObject.put("iLid", iLid);
 			jsonObject.put("lid", lid);
 			jsonObject.put("currentPlayer", currentPlayer);
+			jsonObject.put("futureFirstPlayer", futureFirstPlayer);
+			jsonObject.put("isGameOver", isGameOver());
 			json = jsonObject.toString();
 			return jsonObject;
 		} catch (JSONException e) {
