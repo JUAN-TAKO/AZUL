@@ -74,7 +74,6 @@ export default new Vuex.Store({
                 })
         },
         setFrontUpdated() {
-            console.log("oui !");
             Axios.post("http://localhost:8000/setFrontUpdated", {})
                 .then()
                 .catch(function(error) {
