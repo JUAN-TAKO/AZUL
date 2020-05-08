@@ -1,7 +1,14 @@
 <template>
     <div class="mozaiques-droite">
         <div v-for="(ligne, index) in mur" :key="index" class="ligne">
-            <Mozaique v-for="(mozaique, indexMozaique) in ligne" :key="indexMozaique" :couleur="mozaiqueCouleur(index,indexMozaique)"></Mozaique>
+            <Mozaique
+                    v-for="(mozaique, indexMozaique) in ligne"
+                    :key="indexMozaique"
+                    :couleur="mozaiqueCouleur(index,indexMozaique)"
+                    :style="{
+                        boxShadow : '0 0 5px ' + getCouleur(index,indexMozaique)
+                    }">
+            </Mozaique>
         </div>
     </div>
 </template>
@@ -21,6 +28,28 @@
         methods: {
             mozaiqueCouleur(y,x) {
                 return this.mur[y][x] ? (((x)-y)+5)%5+1 : 0;
+            },
+            getCouleur(y,x) {
+                let retour = "none";
+                if(!this.mur[y][x])
+                    return retour;
+                switch((((x)-y)+5)%5+1) {
+                    case 1:
+                    case 5:
+                        retour = "blue";
+                        break;
+                    case 2:
+                        retour = "yellow";
+                        break;
+                    case 3:
+                        retour = "red";
+                        break;
+                    case 4:
+                        retour = "white";
+                        break;
+
+                }
+                return retour;
             }
         }
     }
@@ -33,5 +62,9 @@
         width: 48%;
         left:5%;
         height:100%;
+    }
+
+    .valoriserMozaique {
+        box-shadow: 0 0 5px red;
     }
 </style>
