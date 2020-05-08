@@ -4,10 +4,7 @@
             <Mozaique
                     v-for="(mozaique, indexMozaique) in ligne"
                     :key="indexMozaique"
-                    :couleur="mozaiqueCouleur(index,indexMozaique)"
-                    :style="{
-                        boxShadow : '0 0 5px ' + getCouleur(index,indexMozaique)
-                    }">
+                    :couleur="mozaiqueCouleur(index,indexMozaique)">
             </Mozaique>
         </div>
     </div>
@@ -62,9 +59,5 @@
         width: 48%;
         left:5%;
         height:100%;
-    }
-
-    .valoriserMozaique {
-        box-shadow: 0 0 5px red;
     }
 </style>

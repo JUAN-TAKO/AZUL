@@ -1,16 +1,26 @@
 <template>
-    <div class="embed-responsive embed-responsive-1by1 mozaique" v-bind:style="styleObject">
-        <div class="embed-responsive-item "></div>
+    <div class="embed-responsive embed-responsive-1by1 mozaique"
+         v-bind:style="{
+            scale : this.scale
+        }"
+    >
+        <img
+            v-if="this.src !== null"
+            class="embed-responsive-item"
+            :src="this.src"
+            :style="{
+                filter : 'drop-shadow(2px 2px 0 black) drop-shadow(-1px -1px 0 black)'
+            }"
+        >
     </div>
 </template>
-
 <script>
     export default {
         name: "Mozaique",
         data() {
             return {
-                libre : false
-
+                libre : false,
+                src :  null,
             }
         },
         props: {
@@ -24,53 +34,43 @@
             }
         },
         computed: {
-            styleObject() {
-                let couleur;
-                switch (this.couleur) {
-                    case 0:
-                        couleur = "none"
-                        break;
-                    case 1:
-                        couleur = "bleu"
-                        break;
-                    case 2:
-                        couleur = "jaune"
-                        break;
-                    case 3:
-                        couleur = "rouge"
-                        break;
-                    case 4:
-                        couleur = "noir"
-                        break;
-                    case 5:
-                        couleur = "sion"
-                        break;
-                    case 6 :
-                        couleur = "premier"
-                        break;
-                }
-                let back = this.libre ? "none" : (couleur !=  "none" ? 'center / contain no-repeat url(img/mozaique-' + couleur + '.png)' : 'none')
-                // let boxShadow = "0px 0px 2px black";
-                // let border = "none"
-                // if(back != "none"){
-                //     boxShadow = "0px 0px 10px black";
-                //     // border = "2px solid black"
-                // }
-                return {
-                    background : back,
-                    transform : 'scale(' + this.scale + ')',
-                    // boxShadow : boxShadow
-                }
-            }
         },
         methods: {
+        },
+        created() {
+            let couleur;
+            switch (this.couleur) {
+                case 0:
+                    couleur = null
+                    break;
+                case 1:
+                    couleur = "bleu"
+                    break;
+                case 2:
+                    couleur = "jaune"
+                    break;
+                case 3:
+                    couleur = "rouge"
+                    break;
+                case 4:
+                    couleur = "noir"
+                    break;
+                case 5:
+                    couleur = "sion"
+                    break;
+                case 6 :
+                    couleur = "premier"
+                    break;
+                }
+                if(couleur != null)
+                    this.src = 'img/mozaique-' + couleur + '.png';
         }
     }
 </script>
 
 <style scoped>
     .mozaique {
-        border-radius: 8%;
+        overflow: visible;
     }
 
     .ligne > .mozaique {
