@@ -9,7 +9,9 @@
             </div>
         </div>
         <Fabrique v-for="(fabrique,index) in fabriques" :mozaiques="fabrique" :key="index" :id="index"></Fabrique>
-        <Center :mozaiques="Array.from(this.$store.state.board.center).filter(element => element != 0)" :id="-1"></Center>
+<!--        <div class="col-12 row m-0 p-0">-->
+            <Center :mozaiques="this.$store.state.board.center" :id="-1"></Center>
+<!--        </div>-->
     </div>
 </template>
 
