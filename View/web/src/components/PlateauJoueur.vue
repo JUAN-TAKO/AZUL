@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">Score : {{ plateauJoueur.score }}</h3>
+            <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{plateauJoueur.name}} - Score : {{ plateauJoueur.score }}</h3>
         </div>
         <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
             <div class="embed-responsive-item">

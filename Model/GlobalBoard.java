@@ -23,11 +23,11 @@ public class GlobalBoard {
 	private int currentPlayer;
 	private int futureFirstPlayer;
 
-	public GlobalBoard(int np){
+	public GlobalBoard(int np, String[] names){
 		this.nPlayers = np;			
 		PB = new PlayerBoard[nPlayers];
 		for(int i = 0; i < nPlayers; i++) {
-			PB[i] = new PlayerBoard(this);
+			PB[i] = new PlayerBoard(this, names[i]);
 		}
 		
 		factories = new int[getNFactories()][4];

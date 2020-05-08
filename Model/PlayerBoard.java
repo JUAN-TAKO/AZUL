@@ -4,6 +4,7 @@ import java.lang.*;
 
 public class PlayerBoard {
 
+	private String name;
 	private int score;
 	private int[] linesColor;
 	private int[] linesNb;
@@ -12,10 +13,10 @@ public class PlayerBoard {
 	private int[] floor;
 	GlobalBoard gb;
 	
-	public PlayerBoard(GlobalBoard gb){
+	public PlayerBoard(GlobalBoard gb, String name){
 		this.gb = gb;
 		this.score = 0;
-		
+		this.name = name;
 		this.linesColor = new int[5];
 		this.linesNb = new int[5];
 		this.wall = new boolean[5][5];
@@ -49,6 +50,7 @@ public class PlayerBoard {
 	public int[] getLinesNb(){return linesNb;}
 	public boolean[][] getWall(){return wall;}
 	public int[] getFloor(){return floor;}
+	public String getName(){return name;}
 
 	private boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
 	private void setWallLineColor(int line, int color, boolean val){ wall[line][ (line + color-1) % 5 ] = val; }

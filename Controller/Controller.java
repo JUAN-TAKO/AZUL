@@ -29,8 +29,8 @@ public class Controller {
 		return r;
 	}
 	
-	public void startGame(int nPlayers, boolean[] AI) {
-		this.board = new GlobalBoard(nPlayers);
+	public void startGame(int nPlayers, String[] names, boolean[] AI) {
+		this.board = new GlobalBoard(nPlayers, names);
 		players = new Player[AI.length];
 		for (int i = 0; i < players.length; i++)
 			if (AI[i])

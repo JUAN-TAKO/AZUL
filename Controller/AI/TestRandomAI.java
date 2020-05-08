@@ -7,7 +7,7 @@ public class TestRandomAI {
     public static void main (String[] args){
         
         
-        GlobalBoard gb=new GlobalBoard(2);
+        GlobalBoard gb=new GlobalBoard(2, new String[] {"Joueur 1", "Joueur 2"});
         
         //TEST0  une IA joue indépendemment (début de partie) OK
         RandomAI pb0=new RandomAI(0, gb);
