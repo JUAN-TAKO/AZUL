@@ -31,11 +31,9 @@
 
         mounted(){
             setInterval(() => {
-                this.$store.dispatch('getBoard')
-                },1000)
-            setInterval(() => {
-                this.$store.dispatch("getAIPlayed")
-            },6000)
+                this.$store.dispatch('getBoard');
+                },1000);
+            this.$store.dispatch("setFrontUpdated");
         }
 
     }

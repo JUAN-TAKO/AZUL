@@ -15,14 +15,14 @@ export default new Vuex.Store({
         coupJouer : false,
         board: null,
         charge: false,
-        AIJouer : false
+        hasAIPlayed : false
     },
     mutations: {
         setBoard(state, data) {
             this.state.board = data.GlobalBoard;
-            if(this.state.AIJouer) {
-                this.sendReceveAIMove()
-                this.AIJouer = false
+            if(this.state.hasAIPlayed) {
+                this.dispatch("setFrontUpdated");
+                this.hasAIPlayed = false
             }
             if(this.state.coupJouer) {
                 this.state.coupJouer = false
@@ -31,15 +31,19 @@ export default new Vuex.Store({
             }
         },
         setAIPlayed(state, data) {
-            this.state.AIJouer = data.played
+            this.state.hasAIPlayed = data;
         }
     },
     actions: {
         getBoard(context) {
             Axios.get('http://localhost:8000/getBoard')
-            .then(response => response.data )
+            .then(response => response.data)
             .then( q => {
-                context.commit("setBoard", q)
+                if(q != context.state.board){
+                    context.commit("setBoard", q)
+                    if(q.hasAIPlayed != context.state.hasAIPlayed)
+                        context.commit("setAIPlayed", q.hasAIPlayed);
+                }
             })
         },
         jouerCoup(context,ligne) {
@@ -69,17 +73,9 @@ export default new Vuex.Store({
                     console.log("Error",error);
                 })
         },
-        getAIPlayed(context) {
-            Axios.get("http://localhost:8000/getAIPlayed")
-                .then(response => response.data)
-                .then(data => {
-                    context.commit("setAIPlayed",data)
-                }).catch(error => {
-                    console.log(error)
-                })
-        },
-        sendReceveAIMove() {
-            Axios.post("http://localhost:8000/AIUpdatedMove",{updated : true})
+        setFrontUpdated() {
+            console.log("oui !");
+            Axios.post("http://localhost:8000/setFrontUpdated", {})
                 .then()
                 .catch(function(error) {
                     console.log("Error",error);
