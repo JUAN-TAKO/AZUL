@@ -1,12 +1,7 @@
 <template>
     <div class="mozaiques-droite">
         <div v-for="(ligne, index) in mur" :key="index" class="ligne">
-            <Mozaique
-                    v-for="(mozaique, indexMozaique) in ligne"
-                    :key="indexMozaique"
-                    :couleur="mozaiqueCouleur(index,indexMozaique)"
-                    :class="{ 'highlight' : mozaiqueCouleur(index,indexMozaique), 'breath' : isCurrent}"
-            >
+            <Mozaique v-for="(mozaique, indexMozaique) in ligne" :key="indexMozaique" :couleur="mozaiqueCouleur(index,indexMozaique)" :class="{ 'highlight' : mozaiqueCouleur(index,indexMozaique), 'breath' : isCurrent}">
             </Mozaique>
         </div>
     </div>

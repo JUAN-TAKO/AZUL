@@ -9,7 +9,7 @@
                     <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
                     <MozaiquesDroite :mur="plateauJoueur.wall" :isCurrent="isCurrent"></MozaiquesDroite>
                 </div>
-                <div class="plancher d-flex">
+                <div class="plancher d-flex flex-row">
                     <Mozaique v-for="(mozaiqueFloor, index) in plancher" :key="index" :couleur="mozaiqueFloor"></Mozaique>
                 </div>
             </div>
@@ -49,6 +49,7 @@
                 return this.$store.state.board.currentPlayer === this.id
             },
             plancher() {
+                console.log(this.plancherAjout, this.couleurPlancherAjout)
                 let plancher = Array.from(this.$store.state.board.PB[this.id].floor)
                 if(this.plancherAjout !== 0) {
                     let cpt = this.plancherAjout;
@@ -91,7 +92,6 @@
         bottom: 9%;
         right: 31%;
         left: 4%;
-        top: 75%;
     }
 
     .not-current-player {
