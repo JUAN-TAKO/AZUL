@@ -39,17 +39,22 @@ export default {
     this.getGameStatus();
   },
   methods:{
-    getGameStatus(){
+    getGameStatus() {
       this.loading = true;
-      axios.get("http://localhost:8000/getGameStatus")
-        .then(response => {
-          this.onGoing = response.data.onGoing;
-          this.loading = false;
-        })
-        .catch(() => {
-          this.error = "Impossible de communiquer avec le serveur.";
-          this.loading = false;
-        })
+      let serverConnection = setInterval(() => {
+                axios.get("http://localhost:8000/getGameStatus")
+                        .then(response => {
+                          clearInterval(serverConnection)
+                          this.onGoing = response.data.onGoing;
+                          this.loading = false;
+                          this.error = ""
+                        })
+                        .catch(() => {
+                          this.error = "Impossible de communiquer avec le serveur.";
+                          this.loading = false;
+                        })
+              }, 3000
+      )
     }
   }
 }

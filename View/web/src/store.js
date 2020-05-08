@@ -10,26 +10,34 @@ export default new Vuex.Store({
             selectionner:false,
             donnees: {
 
-            },
-            coupJouer : false
+            }
         },
+        coupJouer : false,
         board: null,
         charge: false,
+        AIJouer : false
     },
     mutations: {
         setBoard(state, data) {
             this.state.board = data.GlobalBoard;
+            if(this.state.AIJouer) {
+                this.sendReceveAIMove()
+                this.AIJouer = false
+            }
             if(this.state.coupJouer) {
                 this.state.coupJouer = false
                 this.state.selection.donnees = {}
                 this.state.selection.selectionner = false
             }
+        },
+        setAIPlayed(state, data) {
+            this.state.AIJouer = data.played
         }
     },
     actions: {
         getBoard(context) {
             Axios.get('http://localhost:8000/getBoard')
-            .then(response=> response.data )
+            .then(response => response.data )
             .then( q => {
                 context.commit("setBoard", q)
             })
@@ -60,6 +68,23 @@ export default new Vuex.Store({
                 .catch(function(error) {
                     console.log("Error",error);
                 })
+        },
+        getAIPlayed(context) {
+            Axios.get("http://localhost:8000/getAIPlayed")
+                .then(response => response.data)
+                .then(data => {
+                    context.commit("setAIPlayed",data)
+                }).catch(error => {
+                    console.log(error)
+                })
+        },
+        sendReceveAIMove() {
+            Axios.post("http://localhost:8000/AIUpdatedMove",{updated : true})
+                .then()
+                .catch(function(error) {
+                    console.log("Error",error);
+                })
         }
+
     }
 })

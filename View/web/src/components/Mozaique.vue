@@ -45,11 +45,21 @@
                     case 5:
                         couleur = "sion"
                         break;
+                    case 6 :
+                        couleur = "premier"
+                        break;
                 }
                 let back = this.libre ? "none" : (couleur !=  "none" ? 'center / contain no-repeat url(img/mozaique-' + couleur + '.png)' : 'none')
+                let boxShadow = "0px 0px 5px black";
+                // let border = "none"
+                if(back != "none"){
+                    boxShadow = "0px 0px 10px black";
+                    // border = "2px solid black"
+                }
                 return {
                     background : back,
-                    transform : 'scale(' + this.scale + ')'
+                    transform : 'scale(' + this.scale + ')',
+                    boxShadow : boxShadow
                 }
             }
         },
@@ -60,7 +70,7 @@
 
 <style scoped>
     .mozaique {
-        /*border: 3px blue solid !important;*/
+        border-radius: 8%;
     }
 
     .ligne > .mozaique {

@@ -58,7 +58,7 @@
                             plancher[i] = this.couleurPlancherAjout
                             cpt--;
                         }
-                            i++;
+                        i++;
                     }
                 }
                 return plancher

@@ -31,7 +31,7 @@ class EasyAI extends AIPlayer {
 
                         for (int k=0; k<5; k++){
                             l=k;
-                            GlobalBoard nextBoard=globalBoard.globalBoardClone(); //méthode à implémenter dans GlobalBoard
+                            GlobalBoard nextBoard = new GlobalBoard(globalBoard); //méthode à implémenter dans GlobalBoard
                             nextBoard.playerDrawFromFactory(num, f, c, l);
                             nextScore=nextBoard.getPlayerBoards()[num].getScore();
                             if (nextScore>nextScoreSelected){

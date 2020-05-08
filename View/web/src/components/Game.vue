@@ -33,7 +33,11 @@
             setInterval(() => {
                 this.$store.dispatch('getBoard')
                 },1000)
-            }
+            setInterval(() => {
+                this.$store.dispatch("getAIPlayed")
+            },6000)
+        }
+
     }
 </script>
        

@@ -82,6 +82,7 @@
 
     .light-around {
         animation: clignotage 1.5s infinite;
+        border-radius: 5%;
     }
     
     @keyframes clignotage {
