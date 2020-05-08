@@ -80,6 +80,5 @@ export default new Vuex.Store({
                     console.log("Error",error);
                 })
         }
-
     }
 })

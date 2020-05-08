@@ -7,7 +7,7 @@
             <div class="embed-responsive-item">
                 <div class="mozaiques d-flex">
                     <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
-                    <MozaiquesDroite :mur="plateauJoueur.wall"></MozaiquesDroite>
+                    <MozaiquesDroite :mur="plateauJoueur.wall" :isCurrent="isCurrent"></MozaiquesDroite>
                 </div>
                 <div class="plancher d-flex">
                     <Mozaique v-for="(mozaiqueFloor, index) in plancher" :key="index" :couleur="mozaiqueFloor"></Mozaique>

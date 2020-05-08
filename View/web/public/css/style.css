@@ -122,3 +122,26 @@ body {
         transform: scale(1);
     }
 }
+
+.highlight > img {
+    filter : drop-shadow(2px 2px 0 black) drop-shadow(-1px -1px 0 black);
+}
+
+.breath {
+    animation : breathing 4s linear infinite;
+}
+
+@keyframes breathing {
+    0% {
+        transform: rotate(0deg);
+    }
+    33% {
+        transform: rotate(5deg);
+    }
+    66% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

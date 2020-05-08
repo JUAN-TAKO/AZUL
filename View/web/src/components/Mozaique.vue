@@ -8,9 +8,6 @@
             v-if="this.src !== null"
             class="embed-responsive-item"
             :src="this.src"
-            :style="{
-                filter : 'drop-shadow(2px 2px 0 black) drop-shadow(-1px -1px 0 black)'
-            }"
         >
     </div>
 </template>

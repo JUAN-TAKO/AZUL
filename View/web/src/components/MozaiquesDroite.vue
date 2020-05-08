@@ -4,7 +4,9 @@
             <Mozaique
                     v-for="(mozaique, indexMozaique) in ligne"
                     :key="indexMozaique"
-                    :couleur="mozaiqueCouleur(index,indexMozaique)">
+                    :couleur="mozaiqueCouleur(index,indexMozaique)"
+                    :class="{ 'highlight' : mozaiqueCouleur(index,indexMozaique), 'breath' : isCurrent}"
+            >
             </Mozaique>
         </div>
     </div>
@@ -18,7 +20,11 @@
             Mozaique
         },
         props: {
-            mur: {}
+            mur: {},
+            isCurrent : {
+                type: Boolean,
+                default: false
+            }
         },
         computed: {
         },
