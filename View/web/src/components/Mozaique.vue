@@ -50,7 +50,7 @@
                         break;
                 }
                 let back = this.libre ? "none" : (couleur !=  "none" ? 'center / contain no-repeat url(img/mozaique-' + couleur + '.png)' : 'none')
-                let boxShadow = "0px 0px 5px black";
+                let boxShadow = "0px 0px 2px black";
                 // let border = "none"
                 if(back != "none"){
                     boxShadow = "0px 0px 10px black";

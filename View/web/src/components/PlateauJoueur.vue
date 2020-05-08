@@ -96,5 +96,9 @@
 
     .not-current-player {
         background: center / contain no-repeat url("/img/plateau-joueur-not-current.png");
+        border:none;
+    }
+
+    .plateauGlobalCurrent {
     }
 </style>

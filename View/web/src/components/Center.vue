@@ -1,11 +1,9 @@
 <template>
-    <div class="col m-0 p-0 align-self-center">
-        <div class="container-fabrique-mozaiques center d-flex ">
-            <div class="row m-auto p-0 col-12">
-                <div class="col-2 m-0 p-0 p-md-1" v-for="(mozaique, index) in mozaiques" :key="index" @mouseover="mouseOver(mozaique)" @mouseout="mouseOut()" @click="clickMozaique()">
-                    <Mozaique :scale="getScale(index)" :couleur="mozaique"></Mozaique>
-                </div>
-            </div>
+    <div class="col-12 m-0 p-0 align-self-center justify-content-center row">
+        <div :class="{ 'col-1 m-0 m-2 p-0 p-md-1' : mozaique != 0 }" class="" v-for="(mozaique, index) in mozaiques" :key="index" @mouseover="mouseOver(mozaique)" @mouseout="mouseOut()" @click="clickMozaique()">
+            <transition name="bounce">
+                <Mozaique v-if="mozaique != 0" :scale="getScale(index)" :couleur="mozaique"></Mozaique>
+            </transition>
         </div>
     </div>
 </template>
@@ -51,8 +49,6 @@
 </script>
 
 <style scoped>
-    .center {
-    }
 
     .container-fabrique-mozaiques {
         /*border: 3px solid green !important;*/
