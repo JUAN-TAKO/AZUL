@@ -6,6 +6,7 @@ import Controller.Server.*;
 public class GlobalBoard {
 	
 	private int nPlayers;
+	private boolean ongoing;
 	private PlayerBoard[] PB;
 	private int[][] factories;
 
@@ -29,6 +30,8 @@ public class GlobalBoard {
 		for(int i = 0; i < nPlayers; i++) {
 			PB[i] = new PlayerBoard(this, names[i]);
 		}
+
+		this.ongoing = true;
 		
 		factories = new int[getNFactories()][4];
 
@@ -43,10 +46,12 @@ public class GlobalBoard {
 		lid = new int[100];
 
 		futureFirstPlayer = 0;
+		initRound();
 	}
 	
 	public GlobalBoard(GlobalBoard gb){
 		this.nPlayers = gb.nPlayers;
+		this.ongoing = gb.ongoing;
 		this.PB = new PlayerBoard[nPlayers];
 		for(int i = 0; i < nPlayers; i++)
 			this.PB[i] = new PlayerBoard(gb.PB[i], this);
@@ -63,8 +68,7 @@ public class GlobalBoard {
 		this.futureFirstPlayer = gb.futureFirstPlayer;
 	}
 
-
-
+	public boolean getOngoing(){return ongoing;}
 	public int getNPlayers() {return nPlayers;}
 	public int getNFactories() {return 2*nPlayers + 1;}
 	public int[][] getFactories() {return factories;}
@@ -74,7 +78,7 @@ public class GlobalBoard {
 	public int getCurrentPlayer() {return currentPlayer;}
 	public int getFutureFirstPlayer() {return futureFirstPlayer;}
 
-	public void initBag(){
+	private void initBag(){
 		iBag = 0;
 		nBag = 100;
 		for(int i = 0; i < nBag; i++) bag[i] = 1 + i/20;
@@ -90,17 +94,17 @@ public class GlobalBoard {
 		}
 	}
 
-	public boolean isRoundOver(){
+	private boolean isRoundOver(){
 		return factoriesAreEmpty() && centerIsEmpty();
 	}
 
-	public boolean isGameOver(){
+	private boolean isGameOver(){
 		for(int i = 0; i < nPlayers; i++)
 			if(PB[i].isGameOver()) return true;
 		return false;
 	}
 
-	public void initRound(){
+	private void initRound(){
 		currentPlayer = futureFirstPlayer;
 		futureFirstPlayer = -1;
 		initFactories();
@@ -124,20 +128,20 @@ public class GlobalBoard {
 	private void endOfGame(){
 		for(int i = 0; i < nPlayers; i++)
 			PB[i].updatePointsFinal();
-
+		ongoing = false;
 	}
 
-	public void nextPlayer(){
+	private void nextPlayer(){
 		currentPlayer = (currentPlayer+1) % nPlayers;
 	}
 
-	public int drawFromBag(){
+	private int drawFromBag(){
 		if(iBag >= nBag)
 			lidToBag();
 		return bag[iBag++];
 	}
 
-	public void lidToBag(){
+	private void lidToBag(){
 		if(iLid == 0) System.err.println("Warning : no tiles available !");
 		nBag = iLid;
 		for(int i = 0; i < nBag; i++) bag[i] = lid[i];
@@ -150,7 +154,7 @@ public class GlobalBoard {
 		lid[iLid++] = color;
 	}
 
-	public void initFactories(){
+	private void initFactories(){
 		for(int i = 0; i < getNFactories(); i++)
 			for(int j = 0; j < 4; j++)
 				factories[i][j] = drawFromBag();
@@ -181,6 +185,7 @@ public class GlobalBoard {
 		//color : [1 - 5]
 		//line : [0 - 4]
 
+		if(!ongoing) return -5;//game is over
 		if(!factoryContainsColor(fab, color)) return -2;//missing color
 		if(PB[plyr].isLineFull(line)) return -3;//player line full
 		if(!PB[plyr].canLineBeColor(line, color)) return -4;//this color can't go on this line
@@ -236,6 +241,7 @@ public class GlobalBoard {
 		//color : [1 - 5]
 		//line : [0 - 4]
 
+		if(!ongoing) return -5;
 		if(!centerContainsColor(color)) return -2;
 		if(PB[plyr].isLineFull(line)) return -3;
 		if(!PB[plyr].canLineBeColor(line, color)) return -4;
