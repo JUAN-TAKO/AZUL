@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+    /*max-height: 100vh;*/
+}
+
+html {
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+}
+
+.ligne {
+    display : flex;
+    /*flex-direction: row-reverse;*/
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin:0;
+    padding: 0;
+}
+
+.loading {
+    background: center no-repeat url("/img/fond.png"), radial-gradient(white,#5ac5d4) !important;
+    height:100%;
+    width:100%;
+    position: absolute;
+    z-index: 99;
+}
+
+.azul-bg {
+    background: center no-repeat url("/img/fond.png"), radial-gradient(white,#5ac5d4) !important;
+    height:100%;
+}
+
+.overlay {
+    position: absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    background-color: rgba(110,110,110,0.3);
+    z-index: 10;
+}
+
+.player-slots {
+    /*display:flex;*/
+    /*justify-content: center;*/
+    /*justify-content: space-between;*/
+}
+
+.player-card {
+    position: relative;
+}
+
+.player-card > img{
+    cursor: pointer;
+}
+
+.player-card:hover .tooltip {
+    transition: 0.2s all ease;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    color : white;
+    padding: 2px 0px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.not-selected {
+    filter: grayscale(1);
+}
+
+.mozaique-selected{
+    text-align: center;
+    position: relative;
+    width:100% !important;
+    justify-content: center;
+}
+
+.mozaique-selected > .mozaique {
+    width: 10% !important;
+}
+
+.close {
+    z-index:99;
+    font-size: 3rem !important;
+}
+
+.close > span {
+    vertical-align: super;
+}
+
+
+
+
+
+/* ANIMATIONS */
+
+/* BOUNCE */
+
+
+
+.bounce-enter-active {
+    animation: bounce-in .5s;
+}
+.bounce-leave-active {
+    animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.highlight > img {
+    filter : drop-shadow(2px 2px 0 black) drop-shadow(-1px -1px 0 black);
+}
+
+.breath {
+    animation : breathing 4s linear infinite;
+}
+
+@keyframes breathing {
+    0% {
+        transform: rotate(0deg);
+    }
+    33% {
+        transform: rotate(5deg);
+    }
+    66% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

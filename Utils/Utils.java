@@ -12,4 +12,11 @@ public class Utils {
 		}
 		return b;
 	}
+	public static String[] toStringArray(JSONArray ja) throws JSONException {
+		String[] b = new String[ja.length()];
+		for(int i = 0; i < ja.length(); i++) {
+			b[i] = (String) ja.get(i);
+		}
+		return b;
+	}
 }

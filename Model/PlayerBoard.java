@@ -4,6 +4,7 @@ import java.lang.*;
 
 public class PlayerBoard {
 
+	private String name;
 	private int score;
 	private int[] linesColor;
 	private int[] linesNb;
@@ -12,10 +13,10 @@ public class PlayerBoard {
 	private int[] floor;
 	GlobalBoard gb;
 	
-	public PlayerBoard(GlobalBoard gb){
+	public PlayerBoard(GlobalBoard gb, String name){
 		this.gb = gb;
 		this.score = 0;
-		
+		this.name = name;
 		this.linesColor = new int[5];
 		this.linesNb = new int[5];
 		this.wall = new boolean[5][5];
@@ -42,11 +43,14 @@ public class PlayerBoard {
 		this.floor = pb.floor.clone();
 	}
         
+       
+
 	public int getScore(){return score;}
 	public int[] getLinesColor(){return linesColor;}
 	public int[] getLinesNb(){return linesNb;}
 	public boolean[][] getWall(){return wall;}
 	public int[] getFloor(){return floor;}
+	public String getName(){return name;}
 
 	private boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
 	private void setWallLineColor(int line, int color, boolean val){ wall[line][ (line + color-1) % 5 ] = val; }
@@ -85,19 +89,22 @@ public class PlayerBoard {
 		else if(color != 6) this.gb.addTileToLid(color);//excess tiles sent back to lid
 	}
 
-	public void decoration(GlobalBoard GB){
+	public void decoration(){
 		int i, col;
 		for(i = 0; i < 5; i++)
 			if(linesNb[i] == i+1){//completed line
 				setWallLineColor(i, linesColor[i], true);
-				updatePoints(i, (linesColor[i] + i) % 5);
-				for(int j = 0; j < i; j++) GB.addTileToLid(linesColor[i]);
+				updatePoints(i, (i + linesColor[i]-1) % 5);
+				for(int j = 0; j < i; j++) gb.addTileToLid(linesColor[i]);
+				linesColor[i] = 0;
+				linesNb[i] = 0;
 			}
 		for(i = 0; i < nfloor; i++){
 			score -= (i+4)/3;
-			if(floor[i] != 6) GB.addTileToLid(floor[i]);	
+			if(floor[i] != 6) gb.addTileToLid(floor[i]);	
 			floor[i] = 0;
 		}
+		nfloor = 0;
 	}
 
 	private void updatePoints(int x, int y){
@@ -131,14 +138,14 @@ public class PlayerBoard {
 		return true;
 	}
 
-	public boolean endOfGame(){
+	public boolean isGameOver(){
 		//return true if this player meets the end of game requirement
 		for(int i = 0; i < 5; i++)
 			if(isLineCompleted(i)) return true;
 		return false;
 	}
 
-	private void updatePointsFinal(){
+	public void updatePointsFinal(){
 		int i;
 		for(i = 0; i < 5; i++){
 			if(isLineCompleted(i)) score += 2;
