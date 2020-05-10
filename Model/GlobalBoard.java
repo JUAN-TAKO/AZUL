@@ -150,7 +150,7 @@ public class GlobalBoard {
 		shuffleBag();
 	}
 
-	public void addTileToLid(int color){
+	void addTileToLid(int color){
 		lid[iLid++] = color;
 	}
 
@@ -160,6 +160,9 @@ public class GlobalBoard {
 				factories[i][j] = drawFromBag();
 	}
 
+	//Best way to draw
+	//Other draw functions are thus deprecated and shouldn't be used
+	//It ends current player turn if successful
 	public int currentPlayerDraw(int whereToDraw, int color, int line){
 		int r;
 		if((r = playerDraw(currentPlayer, whereToDraw, color, line)) == 0)
@@ -183,49 +186,52 @@ public class GlobalBoard {
 		//plyr : [0 - (nPlayers-1)]
 		//factory : [0 - (nFactory-1)]
 		//color : [1 - 5]
-		//line : [0 - 4]
+		//line : [0 - 5] (5 is floor)
 
 		if(!ongoing) return -5;//game is over
 		if(!factoryContainsColor(fab, color)) return -2;//missing color
-		if(PB[plyr].isLineFull(line)) return -3;//player line full
-		if(!PB[plyr].canLineBeColor(line, color)) return -4;//this color can't go on this line
+		if(line!=5){//floor always accept
+			if(PB[plyr].isLineFull(line)) return -3;//player line full
+			if(!PB[plyr].canLineBeColor(line, color)) return -4;//this color can't go on this line
+		}
 
 		for(int i = 0; i < 4; i++){
 			if(factories[fab][i] == color)
-				PB[plyr].addTileToLine(line, color);
+				if(line == 5) PB[plyr].addTileToFloor(color);
+				else PB[plyr].addTileToLine(line, color);
 			else addTileToCenter(factories[fab][i]); 
 			factories[fab][i] = 0;
 		}
 		return 0;
 	}
 
-	public void addTileToCenter(int color){
+	private void addTileToCenter(int color){
 		center[iCenter++] = color;
 	}
 
-	public boolean factoryContainsColor(int fab, int color){
+	private boolean factoryContainsColor(int fab, int color){
 		for(int i = 0; i < 4; i++)
 			if(factories[fab][i] == color) return true;
 		return false;
 	}
         
-	public boolean factoryIsEmpty(int f){
+	private boolean factoryIsEmpty(int f){
 		return factories[f][0] == 0;
 	}
 	
-	public boolean factoriesAreEmpty(){
+	private boolean factoriesAreEmpty(){
 		for (int i = 0; i < getNFactories(); i++)
 			if(!factoryIsEmpty(i)) return false;
 		return true;
 	}
 
-	public boolean centerIsEmpty(){
+	private boolean centerIsEmpty(){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] != 0) return false;
 		return true;
 	}
         
-	public boolean centerContainsColor(int color){
+	private boolean centerContainsColor(int color){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
 		return false;
@@ -239,12 +245,14 @@ public class GlobalBoard {
 		//Player 'plyr' draw all 'color' tiles from center to his line 'line'.
 		//plyr : [0 - (nPlayers-1)]
 		//color : [1 - 5]
-		//line : [0 - 4]
+		//line : [0 - 5] (5 is floor)
 
 		if(!ongoing) return -5;
 		if(!centerContainsColor(color)) return -2;
-		if(PB[plyr].isLineFull(line)) return -3;
-		if(!PB[plyr].canLineBeColor(line, color)) return -4;
+		if(line!=5){
+			if(PB[plyr].isLineFull(line)) return -3;
+			if(!PB[plyr].canLineBeColor(line, color)) return -4;
+		}
 
 		if(futureFirstPlayer == -1){
 			futureFirstPlayer = plyr;
@@ -253,7 +261,8 @@ public class GlobalBoard {
 
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color){
-				PB[plyr].addTileToLine(line, color);
+				if(line == 5) PB[plyr].addTileToFloor(color);
+				else PB[plyr].addTileToLine(line, color);
 				center[i] = 0;
 			}
 		return 0;
@@ -283,4 +292,4 @@ public class GlobalBoard {
 		}
         return null;
     }
-}	
+}

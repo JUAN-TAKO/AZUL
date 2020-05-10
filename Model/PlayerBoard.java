@@ -36,14 +36,13 @@ public class PlayerBoard {
 	public PlayerBoard(PlayerBoard pb, GlobalBoard gb){
 		this.gb = gb;
 		this.score = pb.score;
+		this.name = pb.name;
 		this.linesColor = pb.linesColor.clone();
 		this.linesNb = pb.linesNb.clone();
 		this.wall = pb.wall.clone();
 		this.nfloor = pb.nfloor;
 		this.floor = pb.floor.clone();
 	}
-        
-       
 
 	public int getScore(){return score;}
 	public int[] getLinesColor(){return linesColor;}
@@ -59,18 +58,18 @@ public class PlayerBoard {
 	public int getWallColor(int line, int column){ return 1 + (line - column) % 5; }
 	//return the color of a given cell in 'wall'
 
-	public boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
+	boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
 	//return true if line 'line' can't contain more tiles
 
-	public boolean isLineColor(int line, int color){ return (linesColor[line] == color); }
+	boolean isLineColor(int line, int color){ return (linesColor[line] == color); }
 	
-	public boolean canLineBeColor(int line, int color){ return linesColor[line] == color ||
+	boolean canLineBeColor(int line, int color){ return linesColor[line] == color ||
 		(linesColor[line] == 0 && !getWallLineColor(line, color) ); }
 	//return true if line 'line' accept 'color' tiles
 
-	public int addTileToLine(int line, int color){
-		//line : line where to add new tiles 0-4
-		//color : color of the new tiles 1-5
+	void addTileToLine(int line, int color){
+		//line : line where to add new tiles [0-4] 
+		//color : color of the new tiles [1-5]
 		
 		if(linesColor[line] == 0){//empty line
 			linesColor[line] = color;
@@ -81,15 +80,14 @@ public class PlayerBoard {
 			addTileToFloor(color);
 		}else linesNb[line]++;
 
-		return 0;
 	}
 
-	public void addTileToFloor(int color){
+	void addTileToFloor(int color){
 		if(nfloor < 7) floor[nfloor++] = color;
 		else if(color != 6) this.gb.addTileToLid(color);//excess tiles sent back to lid
 	}
 
-	public void decoration(){
+	void decoration(){
 		int i, col;
 		for(i = 0; i < 5; i++)
 			if(linesNb[i] == i+1){//completed line
@@ -138,14 +136,14 @@ public class PlayerBoard {
 		return true;
 	}
 
-	public boolean isGameOver(){
+	boolean isGameOver(){
 		//return true if this player meets the end of game requirement
 		for(int i = 0; i < 5; i++)
 			if(isLineCompleted(i)) return true;
 		return false;
 	}
 
-	public void updatePointsFinal(){
+	void updatePointsFinal(){
 		int i;
 		for(i = 0; i < 5; i++){
 			if(isLineCompleted(i)) score += 2;
@@ -154,6 +152,4 @@ public class PlayerBoard {
 		}
 	}
 
-
 }
-
