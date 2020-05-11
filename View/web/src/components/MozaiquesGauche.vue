@@ -31,7 +31,7 @@
             },
             mouseOut () {
                 this.ligneOver = 5
-                this.$emit("ajoutplancher")
+                this.$emit("ajoutplancher",0,0)
             },
             getNbMozaiqueLigne(nombre,couleur,ligne) {
                 let retour;
@@ -39,7 +39,7 @@
                 if(selection.selectionner && (couleur === selection.donnees.color || couleur === 0) && this.ligneOver === ligne) {
                     retour = nombre + selection.donnees.nSelected;
                     if(retour > ligne + 1) {
-                        let plancher = retour - (ligne+1)
+                        let plancher = retour - ( ligne + 1 )
                         retour = ligne + 1;
                         this.$emit("ajoutplancher",plancher,selection.donnees.color)
                     }

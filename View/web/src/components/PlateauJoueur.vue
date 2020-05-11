@@ -43,14 +43,14 @@
         },
         methods: {
             ajoutPlancher(valeur,couleur) {
-                if(valeur !== undefined, couleur !== undefined) {
+                if(valeur !== undefined && couleur !== undefined) {
                     this.plancherAjout = valeur;
                     this.couleurPlancherAjout = couleur;
                 }
             },
             clickPlancher() {
                 if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner) {
-                    this.$store.dispatch("jouerCoup",6)
+                    this.$store.dispatch("jouerCoup",5)
                 }
             }
         },
@@ -61,9 +61,10 @@
             plancher() {
                 // console.log(this.plancherAjout, this.couleurPlancherAjout)
                 let plancher = Array.from(this.$store.state.board.PB[this.id].floor)
+                let cpt = 0;
+                let i = 0;
                 if(this.plancherAjout !== 0) {
-                    let cpt = this.plancherAjout;
-                    let i = 0;
+                    cpt += this.plancherAjout;
                     while(i < plancher.length && cpt > 0) {
                         if(plancher[i] === 0) {
                             plancher[i] = this.couleurPlancherAjout
@@ -72,6 +73,10 @@
                         i++;
                     }
                 }
+                if(i < plancher.length && this.$store.state.selection.donnees.factory === -1 && this.$store.state.board.futureFirstPlayer === -1 && this.isCurrent) {
+                    plancher[i] = 6
+                }
+                // console.log(plancher)
                 return plancher
             }
         }
@@ -110,8 +115,8 @@
     }
 
     .plateau-joueur-shadow-current {
-        box-shadow: 0 0 15px grey;
-        transition: box-shadow 1s linear;
+        box-shadow: 0 0 30px #5ac5d4;
+        transition: box-shadow 0.3s;
     }
 
 </style>

@@ -1,5 +1,6 @@
 <template>
     <div id="menu" class="col-7 m-0 p-0 d-flex flex-column justify-content-end">
+
         <div v-if="this.$store.state.retourCoup" class="alert alert-danger" role="alert">
             {{this.$store.state.retourCoup}}
             <button type="button" class="close" aria-label="Close" @click="fermerRetourCoup()">
