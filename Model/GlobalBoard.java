@@ -68,11 +68,15 @@ public class GlobalBoard {
 		this.futureFirstPlayer = gb.futureFirstPlayer;
 	}
 
-	public boolean isOnGoing(){return onGoing;}
 	public int getNPlayers() {return nPlayers;}
+	public boolean isOnGoing(){return onGoing;}
 	public int getNFactories() {return 2*nPlayers + 1;}
 	public int[][] getFactories() {return factories;}
+	
 	public PlayerBoard[] getPlayerBoards() {return PB;}
+	public PlayerBoard getPlayerBoard(int plyr) {return PB[plyr];}
+	public PlayerBoard getCurrentPlayerBoard() {return PB[currentPlayer];}
+
 	public int getICenter() {return iCenter;}
 	public int[] getCenter() {return center;}
 	public int getCurrentPlayer() {return currentPlayer;}
@@ -235,14 +239,6 @@ public class GlobalBoard {
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
 		return false;
-	}
-
-	public boolean isPlayerLineFull(int plyr, int line){
-		return PB[plyr].isLineFull(line);
-	}
-
-	public boolean canPlayerLineBeColor(int plyr, int line, int color){
-		return PB[plyr].canLineBeColor(line, color);
 	}
 
 	public int currentPlayerDrawFromCenter(int color, int line){
