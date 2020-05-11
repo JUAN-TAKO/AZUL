@@ -6,7 +6,7 @@ import Controller.Server.*;
 public class GlobalBoard {
 	
 	private int nPlayers;
-	private boolean ongoing;
+	private boolean onGoing;
 	private PlayerBoard[] PB;
 	private int[][] factories;
 
@@ -31,7 +31,7 @@ public class GlobalBoard {
 			PB[i] = new PlayerBoard(this, names[i]);
 		}
 
-		this.ongoing = true;
+		this.onGoing = true;
 		
 		factories = new int[getNFactories()][4];
 
@@ -51,7 +51,7 @@ public class GlobalBoard {
 	
 	public GlobalBoard(GlobalBoard gb){
 		this.nPlayers = gb.nPlayers;
-		this.ongoing = gb.ongoing;
+		this.onGoing = gb.onGoing;
 		this.PB = new PlayerBoard[nPlayers];
 		for(int i = 0; i < nPlayers; i++)
 			this.PB[i] = new PlayerBoard(gb.PB[i], this);
@@ -68,17 +68,21 @@ public class GlobalBoard {
 		this.futureFirstPlayer = gb.futureFirstPlayer;
 	}
 
-	public boolean getOngoing(){return ongoing;}
 	public int getNPlayers() {return nPlayers;}
+	public boolean isOnGoing(){return onGoing;}
 	public int getNFactories() {return 2*nPlayers + 1;}
 	public int[][] getFactories() {return factories;}
+	
 	public PlayerBoard[] getPlayerBoards() {return PB;}
+	public PlayerBoard getPlayerBoard(int plyr) {return PB[plyr];}
+	public PlayerBoard getCurrentPlayerBoard() {return PB[currentPlayer];}
+
 	public int getICenter() {return iCenter;}
 	public int[] getCenter() {return center;}
 	public int getCurrentPlayer() {return currentPlayer;}
 	public int getFutureFirstPlayer() {return futureFirstPlayer;}
 
-	public void initBag(){
+	private void initBag(){
 		iBag = 0;
 		nBag = 100;
 		for(int i = 0; i < nBag; i++) bag[i] = 1 + i/20;
@@ -104,7 +108,7 @@ public class GlobalBoard {
 		return false;
 	}
 
-	public void initRound(){
+	private void initRound(){
 		currentPlayer = futureFirstPlayer;
 		futureFirstPlayer = -1;
 		initFactories();
@@ -128,7 +132,7 @@ public class GlobalBoard {
 	private void endOfGame(){
 		for(int i = 0; i < nPlayers; i++)
 			PB[i].updatePointsFinal();
-		ongoing = false;
+		onGoing = false;
 	}
 
 	private void nextPlayer(){
@@ -154,7 +158,7 @@ public class GlobalBoard {
 		lid[iLid++] = color;
 	}
 
-	public void initFactories(){
+	private void initFactories(){
 		for(int i = 0; i < getNFactories(); i++)
 			for(int j = 0; j < 4; j++)
 				factories[i][j] = drawFromBag();
@@ -188,7 +192,7 @@ public class GlobalBoard {
 		//color : [1 - 5]
 		//line : [0 - 5] (5 is floor)
 
-		if(!ongoing) return -5;//game is over
+		if(!onGoing) return -5;//game is over
 		if(!factoryContainsColor(fab, color)) return -2;//missing color
 		if(line!=5){//floor always accept
 			if(PB[plyr].isLineFull(line)) return -3;//player line full
@@ -209,17 +213,11 @@ public class GlobalBoard {
 		center[iCenter++] = color;
 	}
 
-	public boolean factoryContainsColor(int fab, int color){
-		for(int i = 0; i < 4; i++)
-			if(factories[fab][i] == color) return true;
-		return false;
-	}
-        
 	public boolean factoryIsEmpty(int f){
 		return factories[f][0] == 0;
 	}
 	
-	private boolean factoriesAreEmpty(){
+	public boolean factoriesAreEmpty(){
 		for (int i = 0; i < getNFactories(); i++)
 			if(!factoryIsEmpty(i)) return false;
 		return true;
@@ -231,6 +229,12 @@ public class GlobalBoard {
 		return true;
 	}
         
+	public boolean factoryContainsColor(int fab, int color){
+		for(int i = 0; i < 4; i++)
+			if(factories[fab][i] == color) return true;
+		return false;
+	}
+
 	public boolean centerContainsColor(int color){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
@@ -247,7 +251,7 @@ public class GlobalBoard {
 		//color : [1 - 5]
 		//line : [0 - 5] (5 is floor)
 
-		if(!ongoing) return -5;
+		if(!onGoing) return -5;
 		if(!centerContainsColor(color)) return -2;
 		if(line!=5){
 			if(PB[plyr].isLineFull(line)) return -3;
@@ -269,7 +273,6 @@ public class GlobalBoard {
 	}
 	
 	public JSONObject toJSON() {
-		String json = "";
         try {
 			JSONObject jsonObject = new JSONObject("{}");
 			jsonObject.put("nPlayers",nPlayers);
@@ -282,10 +285,9 @@ public class GlobalBoard {
 			jsonObject.put("bag", bag);
 			jsonObject.put("iLid", iLid);
 			jsonObject.put("lid", lid);
-			jsonObject.put("currentPlayer", currentPlayer);
-			jsonObject.put("futureFirstPlayer", futureFirstPlayer);
-			jsonObject.put("isGameOver", isGameOver());
-			json = jsonObject.toString();
+			jsonObject.put("currentPlayer", getCurrentPlayer());
+			jsonObject.put("futureFirstPlayer", getFutureFirstPlayer());
+			jsonObject.put("isOnGoing", isOnGoing());
 			return jsonObject;
 		} catch (JSONException e) {
 			e.printStackTrace();

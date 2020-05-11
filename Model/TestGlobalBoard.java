@@ -41,8 +41,12 @@ public class TestGlobalBoard {
         
         
         //TEST1      initialisation du sac et des factories OK
+        
+        /*
         gb.initBag();
         gb.initFactories();
+        */
+        
         display(gb);     //affichage
         //TEST2  coup d'un joueur          
         gb.playerDrawFromFactory(1,0, 2, 0);

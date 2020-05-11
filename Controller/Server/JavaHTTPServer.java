@@ -73,7 +73,7 @@ public class JavaHTTPServer implements Runnable{
                     switch(url) {
                     	case "/getGameStatus":
                             send200(out);
-                    		jsonObject.put("onGoing", Controller.getInstance().isOnGoing());
+                    		jsonObject.put("onGoing",  Controller.getInstance().getBoard() != null);
                     		break;
                         case "/getBoard":
                             send200(out);
