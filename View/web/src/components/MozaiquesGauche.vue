@@ -79,23 +79,4 @@
         /*border: 3px solid pink;*/
         height: 20%;
     }
-
-    .light-around {
-        animation: clignotage 1.5s infinite;
-        border-radius: 5%;
-    }
-    
-    @keyframes clignotage {
-        0% {
-            box-shadow: 0px 0px 5px yellow;
-        }
-
-        50% {
-            box-shadow: 0px 0px 75px yellow;
-        }
-
-        100% {
-            box-shadow: 0px 0px 5px yellow;
-        }
-    }
 </style>

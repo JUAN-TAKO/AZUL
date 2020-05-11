@@ -10,7 +10,7 @@
                         <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
                         <MozaiquesDroite :mur="plateauJoueur.wall" :isCurrent="isCurrent"></MozaiquesDroite>
                     </div>
-                    <div class="plancher d-flex flex-row" :class="{'shadow-danger' : plancherAjout !== 0}" @mouseover="ajoutPlancher($store.state.selection.donnees.nbSelected,$store.state.selection.donnees.color)" @click="clickPlancher()" @mouseleave="ajoutPlancher(0,0)">
+                    <div class="plancher d-flex flex-row" :class="{'shadow-danger' : plancherAjout !== 0, 'light-around' : this.$store.state.selection.selectionner && isCurrent}" @mouseover="ajoutPlancher($store.state.selection.donnees.nSelected,$store.state.selection.donnees.color)" @click="clickPlancher()" @mouseleave="ajoutPlancher(0,0)">
                         <Mozaique v-for="(mozaiqueFloor, index) in plancher" :key="index" :couleur="mozaiqueFloor"></Mozaique>
                     </div>
                 </div>
