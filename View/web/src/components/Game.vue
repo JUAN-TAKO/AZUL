@@ -2,7 +2,7 @@
     <div class="row m-0 p-0 h-100">
         <div v-if="!hasLoaded" class="loading"></div>
         <Menu :players="players"></Menu>
-        <Board :fabriques="fabriques"></Board>
+        <Board :fabriques="fabriques" :pionPremier="pionPremier"></Board>
     </div>
 </template>
 <script>
@@ -26,6 +26,9 @@
             },
             fabriques() {
                 return this.hasLoaded ? this.$store.state.board.factories : null;
+            },
+            pionPremier() {
+                return this.hasLoaded ? this.$store.state.board.futureFirstPlayer === -1 : null;
             }
         },
 

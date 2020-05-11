@@ -28,7 +28,7 @@ public class RandomAI extends AIPlayer {
 
                 c=r.nextInt(4)+1;
                 while (   ( (f!=globalBoard.getNFactories()) && (globalBoard.factoryContainsColor(f, c)==false) )
-                        || ((f==globalBoard.getNFactories()) && (globalBoard.centerContainsColor(c)==false) )    ){
+                        || ((f==globalBoard.getNFactories()) && (globalBoard.centerContainsColor(c)==false) ) ){
                         c=r.nextInt(5)+1;
                    }
 

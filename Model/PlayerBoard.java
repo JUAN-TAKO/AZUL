@@ -58,12 +58,12 @@ public class PlayerBoard {
 	public int getWallColor(int line, int column){ return 1 + (line - column) % 5; }
 	//return the color of a given cell in 'wall'
 
-	boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
+	public boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
 	//return true if line 'line' can't contain more tiles
 
 	boolean isLineColor(int line, int color){ return (linesColor[line] == color); }
 	
-	boolean canLineBeColor(int line, int color){ return linesColor[line] == color ||
+	public boolean canLineBeColor(int line, int color){ return linesColor[line] == color ||
 		(linesColor[line] == 0 && !getWallLineColor(line, color) ); }
 	//return true if line 'line' accept 'color' tiles
 

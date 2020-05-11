@@ -128,20 +128,19 @@ body {
 }
 
 .breath {
-    animation : breathing 4s linear infinite;
+    animation : breathing 1s linear infinite;
 }
 
 @keyframes breathing {
-    0% {
-        transform: rotate(0deg);
+    45% {
+        transform: scale(1);
     }
-    33% {
-        transform: rotate(5deg);
+
+    50% {
+        transform: scale(1.2);
     }
-    66% {
-        transform: rotate(-5deg);
-    }
-    100% {
-        transform: rotate(0deg);
+
+    55% {
+        transform: scale(1);
     }
 }

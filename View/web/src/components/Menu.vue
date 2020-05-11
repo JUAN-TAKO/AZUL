@@ -6,7 +6,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="row m-auto p-0 col-10">
+        <div class="row m-auto p-0 col-11 align-items-center">
             <PlateauJoueur v-for="(player, index) in players" :key="index" class="col-6 p-1" :plateauJoueur="player" :id="index"></PlateauJoueur>
         </div>
     </div>

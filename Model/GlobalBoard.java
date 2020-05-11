@@ -78,7 +78,7 @@ public class GlobalBoard {
 	public int getCurrentPlayer() {return currentPlayer;}
 	public int getFutureFirstPlayer() {return futureFirstPlayer;}
 
-	private void initBag(){
+	public void initBag(){
 		iBag = 0;
 		nBag = 100;
 		for(int i = 0; i < nBag; i++) bag[i] = 1 + i/20;
@@ -104,7 +104,7 @@ public class GlobalBoard {
 		return false;
 	}
 
-	private void initRound(){
+	public void initRound(){
 		currentPlayer = futureFirstPlayer;
 		futureFirstPlayer = -1;
 		initFactories();
@@ -154,7 +154,7 @@ public class GlobalBoard {
 		lid[iLid++] = color;
 	}
 
-	private void initFactories(){
+	public void initFactories(){
 		for(int i = 0; i < getNFactories(); i++)
 			for(int j = 0; j < 4; j++)
 				factories[i][j] = drawFromBag();
@@ -209,13 +209,13 @@ public class GlobalBoard {
 		center[iCenter++] = color;
 	}
 
-	private boolean factoryContainsColor(int fab, int color){
+	public boolean factoryContainsColor(int fab, int color){
 		for(int i = 0; i < 4; i++)
 			if(factories[fab][i] == color) return true;
 		return false;
 	}
         
-	private boolean factoryIsEmpty(int f){
+	public boolean factoryIsEmpty(int f){
 		return factories[f][0] == 0;
 	}
 	
@@ -225,13 +225,13 @@ public class GlobalBoard {
 		return true;
 	}
 
-	private boolean centerIsEmpty(){
+	public boolean centerIsEmpty(){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] != 0) return false;
 		return true;
 	}
         
-	private boolean centerContainsColor(int color){
+	public boolean centerContainsColor(int color){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
 		return false;

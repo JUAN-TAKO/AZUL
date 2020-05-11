@@ -5,6 +5,11 @@
                 <Mozaique v-if="mozaique != 0" :scale="getScale(index)" :couleur="mozaique"></Mozaique>
             </transition>
         </div>
+        <div :class="{ 'col-1 m-0 m-2 p-0 p-md-1' : pionPremier === true }">
+            <transition name="bounce">
+                <Mozaique v-if="pionPremier === true" :scale="getScaleCenter" :couleur="6"></Mozaique>
+            </transition>
+        </div>
     </div>
 </template>
 <script>
@@ -21,7 +26,13 @@
         },
         props:{
             mozaiques: {},
-            id : Number
+            id : Number,
+            pionPremier: Boolean
+        },
+        computed: {
+            getScaleCenter() {
+                return (this.over !== 0 && this.pionPremier === true) ? 1.3 : 1;
+            }
         },
         methods: {
             mouseOver (el) {
