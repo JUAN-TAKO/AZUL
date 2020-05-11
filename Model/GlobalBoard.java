@@ -209,32 +209,40 @@ public class GlobalBoard {
 		center[iCenter++] = color;
 	}
 
-	private boolean factoryContainsColor(int fab, int color){
-		for(int i = 0; i < 4; i++)
-			if(factories[fab][i] == color) return true;
-		return false;
-	}
-        
-	private boolean factoryIsEmpty(int f){
+	public boolean factoryIsEmpty(int f){
 		return factories[f][0] == 0;
 	}
 	
-	private boolean factoriesAreEmpty(){
+	public boolean factoriesAreEmpty(){
 		for (int i = 0; i < getNFactories(); i++)
 			if(!factoryIsEmpty(i)) return false;
 		return true;
 	}
 
-	private boolean centerIsEmpty(){
+	public boolean centerIsEmpty(){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] != 0) return false;
 		return true;
 	}
         
-	private boolean centerContainsColor(int color){
+	public boolean factoryContainsColor(int fab, int color){
+		for(int i = 0; i < 4; i++)
+			if(factories[fab][i] == color) return true;
+		return false;
+	}
+
+	public boolean centerContainsColor(int color){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
 		return false;
+	}
+
+	public boolean isPlayerLineFull(int plyr, int line){
+		return PB[plyr].isLineFull(line);
+	}
+
+	public boolean canPlayerLineBeColor(int plyr, int line, int color){
+		return PB[plyr].canLineBeColor(line, color);
 	}
 
 	public int currentPlayerDrawFromCenter(int color, int line){
