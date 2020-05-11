@@ -10,7 +10,6 @@ import Controller.AI.*;
 public class Controller {
 	private static final Controller instance = new Controller();
 	private GlobalBoard board;
-	private boolean onGoing = false;
 	private Player[] players;
 	private final int delay = 50;
 	private int countdown;
@@ -46,11 +45,10 @@ public class Controller {
 				players[i] = new RandomAI(i, board);
 			else
 				players[i] = new HumanPlayer(i, board);
-		this.setOnGoing(true);
 	}
 
 	public void tick() {
-		if (isOnGoing()) {
+		if (board != null && board.isOnGoing()) {
 			if (countdown == 0) {
 				// Lorsque le temps est Ã©coulÃ© on le transmet au joueur courant.
 				// On vérifie que le front est prêt pour le prochain coup.
@@ -75,15 +73,7 @@ public class Controller {
 			}
 		}
 	}
-
-	public boolean isOnGoing() {
-		return onGoing;
-	}
-
-	public void setOnGoing(boolean onGoing) {
-		this.onGoing = onGoing;
-	}
-
+	
 	public boolean hasAIPlayed() {
 		return AIHasPlayed;
 	}

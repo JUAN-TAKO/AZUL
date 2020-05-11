@@ -26,16 +26,16 @@ public class RandomAI extends AIPlayer {
                     f=r.nextInt(globalBoard.getNFactories()+1);
                 }
 
-                c=r.nextInt(4)+1;
+                c=r.nextInt(5)+1;
                 while (   ( (f!=globalBoard.getNFactories()) && (globalBoard.factoryContainsColor(f, c)==false) )
                         || ((f==globalBoard.getNFactories()) && (globalBoard.centerContainsColor(c)==false) )    ){
                         c=r.nextInt(5)+1;
                    }
 
 
-		l = r.nextInt(5);
-		while (playerBoard.isLineFull(l) && playerBoard.canLineBeColor(l, c)) {
-			l = r.nextInt(5);
+		l = r.nextInt(6);
+		while ((l < 5) && (playerBoard.isLineFull(l) || !playerBoard.canLineBeColor(l, c))) {
+			l = r.nextInt(6);
 		}
 		System.out.println("AI " + (num+1) + " tried playing color : " + c + " line : " + l);
         if (f==globalBoard.getNFactories()){   //la valeur NFactories étant la valeur symbolique de la factory centrale
