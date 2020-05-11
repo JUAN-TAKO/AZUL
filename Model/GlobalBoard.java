@@ -209,12 +209,15 @@ public class GlobalBoard {
 		center[iCenter++] = color;
 	}
 
+<<<<<<< HEAD
+=======
 	public boolean factoryContainsColor(int fab, int color){
 		for(int i = 0; i < 4; i++)
 			if(factories[fab][i] == color) return true;
 		return false;
 	}
         
+>>>>>>> 23bb2f4b00e77a150cbb1a05cba2cbe6b614e20f
 	public boolean factoryIsEmpty(int f){
 		return factories[f][0] == 0;
 	}
@@ -231,10 +234,27 @@ public class GlobalBoard {
 		return true;
 	}
         
+<<<<<<< HEAD
+	public boolean factoryContainsColor(int fab, int color){
+		for(int i = 0; i < 4; i++)
+			if(factories[fab][i] == color) return true;
+		return false;
+	}
+
+=======
+>>>>>>> 23bb2f4b00e77a150cbb1a05cba2cbe6b614e20f
 	public boolean centerContainsColor(int color){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
 		return false;
+	}
+
+	public boolean isPlayerLineFull(int plyr, int line){
+		return PB[plyr].isLineFull(line);
+	}
+
+	public boolean canPlayerLineBeColor(int plyr, int line, int color){
+		return PB[plyr].canLineBeColor(line, color);
 	}
 
 	public int currentPlayerDrawFromCenter(int color, int line){
