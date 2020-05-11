@@ -51,19 +51,19 @@ public class PlayerBoard {
 	public int[] getFloor(){return floor;}
 	public String getName(){return name;}
 
-	private boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
+	public boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
 	private void setWallLineColor(int line, int color, boolean val){ wall[line][ (line + color-1) % 5 ] = val; }
 	//get and set a 'wall' cell with a given line and color instead of line and column
 	
 	public int getWallColor(int line, int column){ return 1 + (line - column) % 5; }
 	//return the color of a given cell in 'wall'
 
-	boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
+	public boolean isLineFull(int line){ return (linesNb[line] >= line + 1); }
 	//return true if line 'line' can't contain more tiles
 
-	boolean isLineColor(int line, int color){ return (linesColor[line] == color); }
+	public boolean isLineColor(int line, int color){ return (linesColor[line] == color); }
 	
-	boolean canLineBeColor(int line, int color){ return linesColor[line] == color ||
+	public boolean canLineBeColor(int line, int color){ return linesColor[line] == color ||
 		(linesColor[line] == 0 && !getWallLineColor(line, color) ); }
 	//return true if line 'line' accept 'color' tiles
 
@@ -118,19 +118,19 @@ public class PlayerBoard {
 		return 1 + neighbors(x + dx, y + dy, dx, dy);
 	}
 
-	private boolean isLineCompleted(int line){
+	public boolean isLineCompleted(int line){
 		for(int i = 0; i < 5; i++)
 			if(!wall[line][i]) return false;
 		return true;
 	}
 
-	private boolean isColumnCompleted(int col){
+	public boolean isColumnCompleted(int col){
 		for(int i = 0; i < 5; i++)
 			if(!wall[i][col]) return false;
 		return true;
 	}
 
-	private boolean isColorCompleted(int color){
+	public boolean isColorCompleted(int color){
 		for(int i = 0; i < 5; i++)
 			if(!getWallLineColor(i, color)) return false;
 		return true;

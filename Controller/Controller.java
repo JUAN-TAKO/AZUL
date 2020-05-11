@@ -12,7 +12,6 @@ public class Controller {
 	private GlobalBoard board;
 	private boolean onGoing = false;
 	private Player[] players;
-	private int currentPlayer;
 	private final int delay = 50;
 	private int countdown;
 	private boolean isFrontUpdated = false;
@@ -33,10 +32,7 @@ public class Controller {
 	
 	public int playMove(int factory, int color, int line) {
 		if(isFrontUpdated()) {
-			int r = players[currentPlayer].click(factory,color,line);
-			if(r == 0)
-				changeJoueur();
-			return r;
+			return players[board.getCurrentPlayer()].click(factory,color,line);
 		} else {
 			return 0;
 		}
@@ -51,13 +47,6 @@ public class Controller {
 			else
 				players[i] = new HumanPlayer(i, board);
 		this.setOnGoing(true);
-		this.board.initRound();
-		currentPlayer = 0;
-	}
-
-	void changeJoueur() {
-		currentPlayer = board.getCurrentPlayer();
-		countdown = delay;
 	}
 
 	public void tick() {
@@ -68,11 +57,10 @@ public class Controller {
 				if(isFrontUpdated()) {
 					setAIHasPlayed(false);
 					// Si un coup a été joué (IA) on change de joueur.
-					if (players[currentPlayer].tick()) {
+					if (players[board.getCurrentPlayer()].tick()) {
 						setAIHasPlayed(true);
 						setFrontUpdated(false);
-						System.out.println("AI " + (currentPlayer + 1) + " move was valid.");
-						changeJoueur();
+						System.out.println("AI " + (board.getCurrentPlayer() + 1) + " move was valid.");
 					} else {
 						// Sinon on indique au joueur qui ne réagit pas au temps (humain) qu'on l'attend.
 						//System.out.println("On vous attend, joueur " + players[currentPlayer].num());
