@@ -132,7 +132,7 @@ body {
 }
 
 @keyframes breathing {
-    45% {
+    40% {
         transform: scale(1);
     }
 
@@ -140,7 +140,7 @@ body {
         transform: scale(1.15);
     }
 
-    55% {
+    60% {
         transform: scale(1);
     }
 }
