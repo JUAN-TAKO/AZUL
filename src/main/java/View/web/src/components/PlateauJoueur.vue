@@ -1,16 +1,18 @@
 <template>
-    <div>
-        <div>
-            <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{plateauJoueur.name}} - Score : {{ plateauJoueur.score }}</h3>
-        </div>
-        <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
-            <div class="embed-responsive-item">
-                <div class="mozaiques d-flex">
-                    <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
-                    <MozaiquesDroite :mur="plateauJoueur.wall" :isCurrent="isCurrent"></MozaiquesDroite>
-                </div>
-                <div class="plancher d-flex flex-row">
-                    <Mozaique v-for="(mozaiqueFloor, index) in plancher" :key="index" :couleur="mozaiqueFloor"></Mozaique>
+    <div class="">
+        <div class="bord er border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
+            <div>
+                <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{plateauJoueur.name}} - Score : {{ plateauJoueur.score }}</h3>
+            </div>
+            <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
+                <div class="embed-responsive-item">
+                    <div class="mozaiques d-flex">
+                        <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
+                        <MozaiquesDroite :mur="plateauJoueur.wall" :isCurrent="isCurrent"></MozaiquesDroite>
+                    </div>
+                    <div class="plancher d-flex flex-row" :class="{'shadow-danger' : plancherAjout !== 0, 'light-around' : this.$store.state.selection.selectionner && isCurrent}" @mouseover="ajoutPlancher($store.state.selection.donnees.nSelected,$store.state.selection.donnees.color)" @click="clickPlancher()" @mouseleave="ajoutPlancher(0,0)">
+                        <Mozaique v-for="(mozaiqueFloor, index) in plancher" :key="index" :couleur="mozaiqueFloor"></Mozaique>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,7 +33,8 @@
         data() {
             return {
                 plancherAjout : 0,
-                couleurPlancherAjout : 0
+                couleurPlancherAjout : 0,
+                overPlancher : false
             }
         },
         props: {
@@ -40,8 +43,15 @@
         },
         methods: {
             ajoutPlancher(valeur,couleur) {
-                this.plancherAjout = valeur
-                this.couleurPlancherAjout = couleur
+                if(valeur !== undefined && couleur !== undefined) {
+                    this.plancherAjout = valeur;
+                    this.couleurPlancherAjout = couleur;
+                }
+            },
+            clickPlancher() {
+                if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner) {
+                    this.$store.dispatch("jouerCoup",5)
+                }
             }
         },
         computed: {
@@ -49,11 +59,12 @@
                 return this.$store.state.board.currentPlayer === this.id
             },
             plancher() {
-                console.log(this.plancherAjout, this.couleurPlancherAjout)
+                // console.log(this.plancherAjout, this.couleurPlancherAjout)
                 let plancher = Array.from(this.$store.state.board.PB[this.id].floor)
+                let cpt = 0;
+                let i = 0;
                 if(this.plancherAjout !== 0) {
-                    let cpt = this.plancherAjout;
-                    let i = 0;
+                    cpt += this.plancherAjout;
                     while(i < plancher.length && cpt > 0) {
                         if(plancher[i] === 0) {
                             plancher[i] = this.couleurPlancherAjout
@@ -62,6 +73,10 @@
                         i++;
                     }
                 }
+                if(i < plancher.length && this.$store.state.selection.donnees.factory === -1 && this.$store.state.board.futureFirstPlayer === -1 && this.isCurrent) {
+                    plancher[i] = 6
+                }
+                // console.log(plancher)
                 return plancher
             }
         }
@@ -99,6 +114,9 @@
         border:none;
     }
 
-    .plateauGlobalCurrent {
+    .plateau-joueur-shadow-current {
+        box-shadow: 0 0 30px #5ac5d4;
+        transition: box-shadow 0.3s;
     }
+
 </style>

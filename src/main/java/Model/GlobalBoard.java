@@ -2,11 +2,12 @@ package Model;
 
 import java.util.*;
 import Controller.Server.*;
+import java.net.InetAddress;
 
 public class GlobalBoard {
 	
 	private int nPlayers;
-	private boolean ongoing;
+	private boolean onGoing;
 	private PlayerBoard[] PB;
 	private int[][] factories;
 
@@ -31,7 +32,7 @@ public class GlobalBoard {
 			PB[i] = new PlayerBoard(this, names[i]);
 		}
 
-		this.ongoing = true;
+		this.onGoing = true;
 		
 		factories = new int[getNFactories()][4];
 
@@ -51,7 +52,7 @@ public class GlobalBoard {
 	
 	public GlobalBoard(GlobalBoard gb){
 		this.nPlayers = gb.nPlayers;
-		this.ongoing = gb.ongoing;
+		this.onGoing = gb.onGoing;
 		this.PB = new PlayerBoard[nPlayers];
 		for(int i = 0; i < nPlayers; i++)
 			this.PB[i] = new PlayerBoard(gb.PB[i], this);
@@ -68,15 +69,21 @@ public class GlobalBoard {
 		this.futureFirstPlayer = gb.futureFirstPlayer;
 	}
 
-	public boolean getOngoing(){return ongoing;}
 	public int getNPlayers() {return nPlayers;}
+	public boolean isOnGoing(){return onGoing;}
 	public int getNFactories() {return 2*nPlayers + 1;}
 	public int[][] getFactories() {return factories;}
+	
 	public PlayerBoard[] getPlayerBoards() {return PB;}
+	public PlayerBoard getPlayerBoard(int plyr) {return PB[plyr];}
+	public PlayerBoard getCurrentPlayerBoard() {return PB[currentPlayer];}
+
 	public int getICenter() {return iCenter;}
 	public int[] getCenter() {return center;}
 	public int getCurrentPlayer() {return currentPlayer;}
 	public int getFutureFirstPlayer() {return futureFirstPlayer;}
+
+	public String getBoardAddress(){return InetAddress.getLocalHost().getHostAddress();}
 
 	private void initBag(){
 		iBag = 0;
@@ -128,7 +135,7 @@ public class GlobalBoard {
 	private void endOfGame(){
 		for(int i = 0; i < nPlayers; i++)
 			PB[i].updatePointsFinal();
-		ongoing = false;
+		onGoing = false;
 	}
 
 	private void nextPlayer(){
@@ -150,7 +157,7 @@ public class GlobalBoard {
 		shuffleBag();
 	}
 
-	public void addTileToLid(int color){
+	void addTileToLid(int color){
 		lid[iLid++] = color;
 	}
 
@@ -160,6 +167,9 @@ public class GlobalBoard {
 				factories[i][j] = drawFromBag();
 	}
 
+	//Best way to draw
+	//Other draw functions are thus deprecated and shouldn't be used
+	//It ends current player turn if successful
 	public int currentPlayerDraw(int whereToDraw, int color, int line){
 		int r;
 		if((r = playerDraw(currentPlayer, whereToDraw, color, line)) == 0)
@@ -183,32 +193,29 @@ public class GlobalBoard {
 		//plyr : [0 - (nPlayers-1)]
 		//factory : [0 - (nFactory-1)]
 		//color : [1 - 5]
-		//line : [0 - 4]
+		//line : [0 - 5] (5 is floor)
 
-		if(!ongoing) return -5;//game is over
+		if(!onGoing) return -5;//game is over
 		if(!factoryContainsColor(fab, color)) return -2;//missing color
-		if(PB[plyr].isLineFull(line)) return -3;//player line full
-		if(!PB[plyr].canLineBeColor(line, color)) return -4;//this color can't go on this line
+		if(line!=5){//floor always accept
+			if(PB[plyr].isLineFull(line)) return -3;//player line full
+			if(!PB[plyr].canLineBeColor(line, color)) return -4;//this color can't go on this line
+		}
 
 		for(int i = 0; i < 4; i++){
 			if(factories[fab][i] == color)
-				PB[plyr].addTileToLine(line, color);
+				if(line == 5) PB[plyr].addTileToFloor(color);
+				else PB[plyr].addTileToLine(line, color);
 			else addTileToCenter(factories[fab][i]); 
 			factories[fab][i] = 0;
 		}
 		return 0;
 	}
 
-	public void addTileToCenter(int color){
+	private void addTileToCenter(int color){
 		center[iCenter++] = color;
 	}
 
-	public boolean factoryContainsColor(int fab, int color){
-		for(int i = 0; i < 4; i++)
-			if(factories[fab][i] == color) return true;
-		return false;
-	}
-        
 	public boolean factoryIsEmpty(int f){
 		return factories[f][0] == 0;
 	}
@@ -225,6 +232,12 @@ public class GlobalBoard {
 		return true;
 	}
         
+	public boolean factoryContainsColor(int fab, int color){
+		for(int i = 0; i < 4; i++)
+			if(factories[fab][i] == color) return true;
+		return false;
+	}
+
 	public boolean centerContainsColor(int color){
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color) return true;
@@ -239,12 +252,14 @@ public class GlobalBoard {
 		//Player 'plyr' draw all 'color' tiles from center to his line 'line'.
 		//plyr : [0 - (nPlayers-1)]
 		//color : [1 - 5]
-		//line : [0 - 4]
+		//line : [0 - 5] (5 is floor)
 
-		if(!ongoing) return -5;
+		if(!onGoing) return -5;
 		if(!centerContainsColor(color)) return -2;
-		if(PB[plyr].isLineFull(line)) return -3;
-		if(!PB[plyr].canLineBeColor(line, color)) return -4;
+		if(line!=5){
+			if(PB[plyr].isLineFull(line)) return -3;
+			if(!PB[plyr].canLineBeColor(line, color)) return -4;
+		}
 
 		if(futureFirstPlayer == -1){
 			futureFirstPlayer = plyr;
@@ -253,14 +268,14 @@ public class GlobalBoard {
 
 		for(int i = 0; i < iCenter; i++)
 			if(center[i] == color){
-				PB[plyr].addTileToLine(line, color);
+				if(line == 5) PB[plyr].addTileToFloor(color);
+				else PB[plyr].addTileToLine(line, color);
 				center[i] = 0;
 			}
 		return 0;
 	}
 	
 	public JSONObject toJSON() {
-		String json = "";
         try {
 			JSONObject jsonObject = new JSONObject("{}");
 			jsonObject.put("nPlayers",nPlayers);
@@ -273,14 +288,13 @@ public class GlobalBoard {
 			jsonObject.put("bag", bag);
 			jsonObject.put("iLid", iLid);
 			jsonObject.put("lid", lid);
-			jsonObject.put("currentPlayer", currentPlayer);
-			jsonObject.put("futureFirstPlayer", futureFirstPlayer);
-			jsonObject.put("isGameOver", isGameOver());
-			json = jsonObject.toString();
+			jsonObject.put("currentPlayer", getCurrentPlayer());
+			jsonObject.put("futureFirstPlayer", getFutureFirstPlayer());
+			jsonObject.put("isOnGoing", isOnGoing());
 			return jsonObject;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
         return null;
     }
-}	
+}

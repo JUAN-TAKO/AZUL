@@ -128,20 +128,58 @@ body {
 }
 
 .breath {
-    animation : breathing 4s linear infinite;
+    animation : breathing 5s linear infinite;
 }
 
 @keyframes breathing {
+    40% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+}
+
+.light-around {
+    animation: clignotage 1.5s infinite;
+    border-radius: 5%;
+}
+
+@keyframes clignotage {
     0% {
-        transform: rotate(0deg);
+        box-shadow: 0px 0px 5px yellow;
     }
-    33% {
-        transform: rotate(5deg);
+
+    50% {
+        box-shadow: 0px 0px 75px yellow;
     }
-    66% {
-        transform: rotate(-5deg);
-    }
+
     100% {
-        transform: rotate(0deg);
+        box-shadow: 0px 0px 5px yellow;
     }
+}
+
+.fenetre-winner-overflow {
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background-color: rgba(110,110,110,0.3);
+    position:fixed;
+    z-index:1020;
+}
+
+.fenetre-winner {
+    background: linear-gradient(to left, #5ac5d4,#1a4554);
+    width: 70%;
+}
+
+img.couronne-victoire {
+    width: 50px;
+    height: 50px;
 }

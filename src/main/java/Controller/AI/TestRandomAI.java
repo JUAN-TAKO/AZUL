@@ -11,6 +11,7 @@ public class TestRandomAI {
         
         //TEST0  une IA joue indépendemment (début de partie) OK
         RandomAI pb0=new RandomAI(0, gb);
+
         //TestGlobalBoard.display(gb);  //affichage
         pb0.tick();
         //TestGlobalBoard.display(gb);  //affichage

@@ -36,14 +36,13 @@ public class PlayerBoard {
 	public PlayerBoard(PlayerBoard pb, GlobalBoard gb){
 		this.gb = gb;
 		this.score = pb.score;
+		this.name = pb.name;
 		this.linesColor = pb.linesColor.clone();
 		this.linesNb = pb.linesNb.clone();
 		this.wall = pb.wall.clone();
 		this.nfloor = pb.nfloor;
 		this.floor = pb.floor.clone();
 	}
-        
-       
 
 	public int getScore(){return score;}
 	public int[] getLinesColor(){return linesColor;}
@@ -52,7 +51,7 @@ public class PlayerBoard {
 	public int[] getFloor(){return floor;}
 	public String getName(){return name;}
 
-	private boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
+	public boolean getWallLineColor(int line, int color){ return wall[line][ (line + color-1) % 5 ]; }
 	private void setWallLineColor(int line, int color, boolean val){ wall[line][ (line + color-1) % 5 ] = val; }
 	//get and set a 'wall' cell with a given line and color instead of line and column
 	
@@ -68,9 +67,9 @@ public class PlayerBoard {
 		(linesColor[line] == 0 && !getWallLineColor(line, color) ); }
 	//return true if line 'line' accept 'color' tiles
 
-	public int addTileToLine(int line, int color){
-		//line : line where to add new tiles 0-4
-		//color : color of the new tiles 1-5
+	void addTileToLine(int line, int color){
+		//line : line where to add new tiles [0-4] 
+		//color : color of the new tiles [1-5]
 		
 		if(linesColor[line] == 0){//empty line
 			linesColor[line] = color;
@@ -81,15 +80,14 @@ public class PlayerBoard {
 			addTileToFloor(color);
 		}else linesNb[line]++;
 
-		return 0;
 	}
 
-	public void addTileToFloor(int color){
+	void addTileToFloor(int color){
 		if(nfloor < 7) floor[nfloor++] = color;
 		else if(color != 6) this.gb.addTileToLid(color);//excess tiles sent back to lid
 	}
 
-	public void decoration(){
+	void decoration(){
 		int i, col;
 		for(i = 0; i < 5; i++)
 			if(linesNb[i] == i+1){//completed line
@@ -120,32 +118,32 @@ public class PlayerBoard {
 		return 1 + neighbors(x + dx, y + dy, dx, dy);
 	}
 
-	private boolean isLineCompleted(int line){
+	public boolean isLineCompleted(int line){
 		for(int i = 0; i < 5; i++)
 			if(!wall[line][i]) return false;
 		return true;
 	}
 
-	private boolean isColumnCompleted(int col){
+	public boolean isColumnCompleted(int col){
 		for(int i = 0; i < 5; i++)
 			if(!wall[i][col]) return false;
 		return true;
 	}
 
-	private boolean isColorCompleted(int color){
+	public boolean isColorCompleted(int color){
 		for(int i = 0; i < 5; i++)
 			if(!getWallLineColor(i, color)) return false;
 		return true;
 	}
 
-	public boolean isGameOver(){
+	boolean isGameOver(){
 		//return true if this player meets the end of game requirement
 		for(int i = 0; i < 5; i++)
 			if(isLineCompleted(i)) return true;
 		return false;
 	}
 
-	public void updatePointsFinal(){
+	void updatePointsFinal(){
 		int i;
 		for(i = 0; i < 5; i++){
 			if(isLineCompleted(i)) score += 2;
@@ -154,6 +152,4 @@ public class PlayerBoard {
 		}
 	}
 
-
 }
-

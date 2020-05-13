@@ -10,9 +10,7 @@ import Controller.AI.*;
 public class Controller {
 	private static final Controller instance = new Controller();
 	private GlobalBoard board;
-	private boolean onGoing = false;
 	private Player[] players;
-	private int currentPlayer;
 	private final int delay = 50;
 	private int countdown;
 	private boolean isFrontUpdated = false;
@@ -33,10 +31,7 @@ public class Controller {
 	
 	public int playMove(int factory, int color, int line) {
 		if(isFrontUpdated()) {
-			int r = players[currentPlayer].click(factory,color,line);
-			if(r == 0)
-				changeJoueur();
-			return r;
+			return players[board.getCurrentPlayer()].click(factory,color,line);
 		} else {
 			return 0;
 		}
@@ -50,27 +45,21 @@ public class Controller {
 				players[i] = new RandomAI(i, board);
 			else
 				players[i] = new HumanPlayer(i, board);
-		currentPlayer = 0;
-	}
-
-	void changeJoueur() {
-		currentPlayer = board.getCurrentPlayer();
-		countdown = delay;
 	}
 
 	public void tick() {
-		if (isOnGoing()) {
+		if (board != null && board.isOnGoing()) {
 			if (countdown == 0) {
 				// Lorsque le temps est ecoule on le transmet au joueur courant.
 				// On verifie que le front est pret pour le prochain coup.
 				if(isFrontUpdated()) {
 					setAIHasPlayed(false);
-					// Si un coup a Ã©tÃ© jouÃ© (IA) on change de joueur.
-					if (players[currentPlayer].tick()) {
+
+					// Si un coup a été joué (IA) on change de joueur.
+					if (players[board.getCurrentPlayer()].tick()) {
 						setAIHasPlayed(true);
 						setFrontUpdated(false);
-						System.out.println("AI " + (currentPlayer + 1) + " move was valid.");
-						changeJoueur();
+						System.out.println("AI " + (board.getCurrentPlayer() + 1) + " move was valid.");
 					} else {
 						// Sinon on indique au joueur qui ne reagit pas au temps (humain) qu'on l'attend.
 						//System.out.println("On vous attend, joueur " + players[currentPlayer].num());
@@ -85,15 +74,7 @@ public class Controller {
 			}
 		}
 	}
-
-	public boolean isOnGoing() {
-		return onGoing;
-	}
-
-	public void setOnGoing(boolean onGoing) {
-		this.onGoing = onGoing;
-	}
-
+	
 	public boolean hasAIPlayed() {
 		return AIHasPlayed;
 	}

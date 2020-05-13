@@ -10,7 +10,7 @@
         </div>
         <Fabrique v-for="(fabrique,index) in fabriques" :mozaiques="fabrique" :key="index" :id="index"></Fabrique>
 <!--        <div class="col-12 row m-0 p-0">-->
-            <Center :mozaiques="this.$store.state.board.center" :id="-1"></Center>
+            <Center :mozaiques="this.$store.state.board.center" :id="-1" :pionPremier="pionPremier"></Center>
 <!--        </div>-->
     </div>
 </template>
@@ -31,7 +31,10 @@
             }
         },
         props: {
-            fabriques:{}
+            fabriques:{},
+            pionPremier: {
+                type: Boolean,
+            }
         },
         computed:{
             nbMozaique () {

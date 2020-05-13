@@ -1,7 +1,11 @@
 <template>
   <div id="app" :class="loading ? 'loading' : ''">
     <template v-if="error">
-    <div  class="alert alert-danger m-5">{{ error}}</div>
+    <div  class="alert alert-danger m-5">{{ error}}
+    <div class="spinner-border text-primary float-right" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    </div>
     </template>
     <template v-else>
       <template v-if="this.onGoing">

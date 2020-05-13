@@ -4,7 +4,7 @@
             <div class="container-fabrique-mozaiques fabrique embed-responsive-item d-flex">
                 <div class="row m-auto p-0 col-8">
                     <div class="col-6 m-0 p-0 p-md-1" v-for="(mozaique, index) in mozaiques" :key="index" @mouseover="mouseOver(mozaique)" @mouseout="mouseOut()" @click="clickMozaique()">
-                        <transition name="bounce">
+                        <transition name="bounce" v-on:after-leave="animationFinished()">
                             <Mozaique v-if="mozaique != 0" :scale="getScale(index)" :couleur="mozaique"></Mozaique>
                         </transition>
                     </div>
@@ -49,6 +49,11 @@
                     selectionner: true
                 }
                 this.$store.state.selection = selection;
+            },
+            animationFinished() {
+                if(this.$store.state.hasAIPlayed) {
+                    this.$store.state.animationDone = true;
+                }
             }
         }
     }

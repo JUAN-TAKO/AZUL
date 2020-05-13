@@ -31,7 +31,7 @@
             },
             mouseOut () {
                 this.ligneOver = 5
-                this.$emit("ajoutplancher")
+                this.$emit("ajoutplancher",0,0)
             },
             getNbMozaiqueLigne(nombre,couleur,ligne) {
                 let retour;
@@ -39,7 +39,7 @@
                 if(selection.selectionner && (couleur === selection.donnees.color || couleur === 0) && this.ligneOver === ligne) {
                     retour = nombre + selection.donnees.nSelected;
                     if(retour > ligne + 1) {
-                        let plancher = retour - (ligne+1)
+                        let plancher = retour - ( ligne + 1 )
                         retour = ligne + 1;
                         this.$emit("ajoutplancher",plancher,selection.donnees.color)
                     }
@@ -62,6 +62,9 @@
             }
         },
         computed: {
+            nameTransition() {
+                return this.$store.state.hasAIPlayed ? 'bounce' : 'none'
+            }
         }
     }
 </script>
@@ -80,22 +83,16 @@
         height: 20%;
     }
 
-    .light-around {
-        animation: clignotage 1.5s infinite;
-        border-radius: 5%;
-    }
-    
-    @keyframes clignotage {
-        0% {
-            box-shadow: 0px 0px 5px yellow;
-        }
+    /*.mozaique {*/
+    /*    overflow: visible;*/
+    /*}*/
 
-        50% {
-            box-shadow: 0px 0px 75px yellow;
-        }
+    /*.ligne > .mozaique {*/
+    /*    width: 20%;*/
+    /*}*/
 
-        100% {
-            box-shadow: 0px 0px 5px yellow;
-        }
-    }
+    /*.plancher > .mozaique {*/
+    /*    width: 13%;*/
+    /*    margin:0.7%;*/
+    /*}*/
 </style>

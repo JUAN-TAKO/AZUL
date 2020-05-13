@@ -55,7 +55,6 @@
                     return 'img/mozaique-' + couleur + '.png'
                 else
                     return null
-
             }
         },
         methods: {
@@ -77,6 +76,7 @@
     .ligne > .mozaique {
         width: 20%;
     }
+
     .plancher > .mozaique {
         width: 13%;
         margin:0.7%;
