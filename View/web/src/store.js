@@ -17,13 +17,16 @@ export default new Vuex.Store({
         charge: false,
         hasAIPlayed : false,
         winner: null,
+        animationDone:true
     },
     mutations: {
         setBoard(state, data) {
             this.state.board = data.GlobalBoard;
             if(this.state.hasAIPlayed) {
-                this.dispatch("setFrontUpdated");
-                this.hasAIPlayed = false
+                setTimeout(() => {
+                    this.dispatch("setFrontUpdated");
+                    this.hasAIPlayed = false
+                },2000)
             }
             if(this.state.coupJouer) {
                 this.state.coupJouer = false
@@ -44,11 +47,12 @@ export default new Vuex.Store({
                     i: winnerI,
                     name: this.state.board.PB[winnerI].name,
                 }
-                alert(this.state.winner.name + " gagne la partie !");
+                // alert(this.state.winner.name + " gagne la partie !");
             }
         },
         setAIPlayed(state, data) {
             this.state.hasAIPlayed = data;
+            // this.state.animationDone = false;
         }
     },
     actions: {
@@ -61,6 +65,7 @@ export default new Vuex.Store({
                     if(q.hasAIPlayed != context.state.hasAIPlayed)
                         context.commit("setAIPlayed", q.hasAIPlayed);
                 }
+
             })
         },
         jouerCoup(context,ligne) {

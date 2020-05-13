@@ -62,6 +62,9 @@
             }
         },
         computed: {
+            nameTransition() {
+                return this.$store.state.hasAIPlayed ? 'bounce' : 'none'
+            }
         }
     }
 </script>
@@ -79,4 +82,17 @@
         /*border: 3px solid pink;*/
         height: 20%;
     }
+
+    /*.mozaique {*/
+    /*    overflow: visible;*/
+    /*}*/
+
+    /*.ligne > .mozaique {*/
+    /*    width: 20%;*/
+    /*}*/
+
+    /*.plancher > .mozaique {*/
+    /*    width: 13%;*/
+    /*    margin:0.7%;*/
+    /*}*/
 </style>

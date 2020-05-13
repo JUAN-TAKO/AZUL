@@ -128,7 +128,7 @@ body {
 }
 
 .breath {
-    animation : breathing 1s linear infinite;
+    animation : breathing 5s linear infinite;
 }
 
 @keyframes breathing {
@@ -162,4 +162,24 @@ body {
     100% {
         box-shadow: 0px 0px 5px yellow;
     }
+}
+
+.fenetre-winner-overflow {
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background-color: rgba(110,110,110,0.3);
+    position:fixed;
+    z-index:1020;
+}
+
+.fenetre-winner {
+    background: linear-gradient(to left, #5ac5d4,#1a4554);
+    width: 70%;
+}
+
+img.couronne-victoire {
+    width: 50px;
+    height: 50px;
 }

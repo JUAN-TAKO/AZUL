@@ -51,6 +51,9 @@
                 this.$store.state.selection = selection;
             },
             animationFinished() {
+                if(this.$store.state.hasAIPlayed) {
+                    this.$store.state.animationDone = true;
+                }
             }
         }
     }
