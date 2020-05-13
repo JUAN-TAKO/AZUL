@@ -2,7 +2,7 @@ package Model;
 
 import java.util.*;
 import Controller.Server.*;
-import java.net.InetAddress;
+import java.net.*;
 
 public class GlobalBoard {
 	
@@ -25,6 +25,8 @@ public class GlobalBoard {
 	private int currentPlayer;
 	private int futureFirstPlayer;
 
+	private String address;
+
 	public GlobalBoard(int np, String[] names){
 		this.nPlayers = np;			
 		PB = new PlayerBoard[nPlayers];
@@ -33,6 +35,7 @@ public class GlobalBoard {
 		}
 
 		this.onGoing = true;
+		this.address = resolveAddress();
 		
 		factories = new int[getNFactories()][4];
 
@@ -83,7 +86,28 @@ public class GlobalBoard {
 	public int getCurrentPlayer() {return currentPlayer;}
 	public int getFutureFirstPlayer() {return futureFirstPlayer;}
 
-	public String getBoardAddress(){return InetAddress.getLocalHost().getHostAddress();}
+	public String getBoardAddress(){return address;}
+
+	public String resolveAddress(){
+		try{
+			Enumeration e = NetworkInterface.getNetworkInterfaces();
+			while(e.hasMoreElements()){
+				NetworkInterface n = (NetworkInterface) e.nextElement();
+				Enumeration ee = n.getInetAddresses();
+				while(ee.hasMoreElements()){
+					InetAddress i = (InetAddress) ee.nextElement();
+					String adr = i.getHostAddress();
+					if(adr.startsWith("192.168.") || adr.startsWith("10."))
+						return adr;
+					//System.out.println(i.getHostAddress());
+				}
+			}
+		}catch (Exception e) {
+			System.err.println("Unknown local host.");
+			e.printStackTrace();
+		}
+		return "localhost";
+	}
 
 	private void initBag(){
 		iBag = 0;
