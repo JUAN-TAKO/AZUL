@@ -2,6 +2,7 @@ package Model;
 
 import java.util.*;
 import Controller.Server.*;
+import java.net.InetAddress;
 
 public class GlobalBoard {
 	
@@ -81,6 +82,8 @@ public class GlobalBoard {
 	public int[] getCenter() {return center;}
 	public int getCurrentPlayer() {return currentPlayer;}
 	public int getFutureFirstPlayer() {return futureFirstPlayer;}
+
+	public String getBoardAddress(){return InetAddress.getLocalHost().getHostAddress();}
 
 	private void initBag(){
 		iBag = 0;
