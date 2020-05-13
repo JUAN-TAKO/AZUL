@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div class="border border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
+        <div class="bord er border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
             <div>
                 <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{plateauJoueur.name}} - Score : {{ plateauJoueur.score }}</h3>
             </div>
