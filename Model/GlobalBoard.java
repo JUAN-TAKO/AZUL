@@ -2,8 +2,7 @@ package Model;
 
 import java.util.*;
 import Controller.Server.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 
 public class GlobalBoard {
 	
@@ -36,7 +35,7 @@ public class GlobalBoard {
 		}
 
 		this.onGoing = true;
-		this.address = resolveAdress();
+		this.address = resolveAddress();
 		
 		factories = new int[getNFactories()][4];
 
