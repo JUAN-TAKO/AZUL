@@ -1,4 +1,4 @@
-package Controller.AI;
+package Controller.AI.ML;
 
 import org.deeplearning4j.nn.graph.ComputationGraph;
 
