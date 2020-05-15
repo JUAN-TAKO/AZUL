@@ -113,7 +113,7 @@ public class JavaHTTPServer implements Runnable{
                     	case "/startGame":
                     		int nPlayers = (int) jsonObjectIn.get("nPlayers");
                     		JSONArray jsonArray = jsonObjectIn.getJSONArray("AI");
-                    		boolean[] AI = Utils.Utils.toBooleanArray(jsonArray);
+                    		int[] AI = Utils.Utils.toIntegerArray(jsonArray);
                     		String[] names = Utils.Utils.toStringArray(jsonObjectIn.getJSONArray("names"));
                     		Controller.getInstance().startGame(nPlayers, names, AI);
                             send200(out);

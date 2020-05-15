@@ -4,7 +4,7 @@ import java.util.Random;
 import Model.*;
 import Controller.AIPlayer;
 
-class EasyAI extends AIPlayer {
+public class EasyAI extends AIPlayer {
 	Random r;
 
 	public EasyAI(int n, GlobalBoard g) {
