@@ -3,6 +3,10 @@
     /*max-height: 100vh;*/
 }
 
+*::selection {
+    background: none;
+}
+
 html {
     height: 100vh;
     max-height: 100vh;
@@ -160,7 +164,7 @@ body {
     }
 
     50% {
-        box-shadow: 0px 0px 75px yellow;
+        box-shadow: 0px 0px 30px yellow;
     }
 
     100% {
@@ -173,19 +177,47 @@ body {
     right:0;
     left:0;
     bottom:0;
-    background-color: rgba(110,110,110,0.3);
+    background-color: rgba(110,110,110,0.2);
     position:fixed;
     z-index:1020;
 }
 
 .fenetre-winner {
-    background: linear-gradient(to left, #5ac5d4,#1a4554);
+    background: rgba(87,115,173,0.9);
     width: 70%;
+    border-radius: 10px;
+    border: solid 5px white;
 }
 
 img.couronne-victoire {
     width: 50px;
     height: 50px;
+}
+
+.victoire-titre {
+    font-size : 7vw !important;
+}
+
+.victoire-score {
+    font-size : 4vw !important;
+}
+
+.btn-victoire {
+    background-color: rgba(54,5,104 ,0.3);
+    border-radius: 10px;
+    border: solid 3px white;
+    cursor: pointer;
+    /*transition: transform 0.1s linear;*/
+}
+
+.btn-victoire:hover {
+    transform: scale(1.02);
+}
+
+.text-btn-victoire {
+    font-size : 1.5vw !important;
+    font-weight: bold;
+    color: white;
 }
 
 .setting-aria {
@@ -194,7 +226,7 @@ img.couronne-victoire {
     width: auto;
     left:0;
     bottom:0;
-    z-index: 1000;
+    z-index: 1100;
     overflow: hidden;
     transition: transform 0.3s ease-out;
     transform-origin:left;
@@ -216,7 +248,7 @@ img.couronne-victoire {
 
 #setting-btn {
     background: rgba(97,197,212,1);
-    box-shadow: 0 0 3px #5ac5d4;
+    box-shadow: 0 0 5px #5ac5d4;
     border : 1px solid /*#5ac5d4*/ white;
 }
 
@@ -242,4 +274,9 @@ img.couronne-victoire {
     width: 15rem;
     height: 15rem;
     border-width: 8px;
+}
+
+.close {
+    opacity: 1 !important;
+    font-size: 5em !important;
 }

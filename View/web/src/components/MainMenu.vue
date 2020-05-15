@@ -113,6 +113,7 @@
                 .then(() => {
                     // this.$emit("gameStarted");
                     this.$store.state.jeuxEnCours = true
+                    this.$store.state.retourMenu = false
                 })
                 .catch(() => {
                 });

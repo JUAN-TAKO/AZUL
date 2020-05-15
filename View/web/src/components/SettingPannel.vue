@@ -7,7 +7,8 @@
         </div>
         <div id="setting-aria" class="setting-aria border bg-white d-flex flex-column"
              :style="{
-            transform: 'scaleX('+this.scale+')'
+                transform: 'scaleX('+this.scale+')',
+                boxShadow: this.boxShadow
         }">
             <h2 class="text-center py-4 border-bottom border-primary text-primary">Menu</h2>
             <div class="m-5">
@@ -84,6 +85,9 @@
                 } else {
                     return "setting.png"
                 }
+            },
+            boxShadow() {
+                return this.scale === "1" ? '0px 0 5px #5ac5d4' : 'none'
             }
         },
         mounted() {
