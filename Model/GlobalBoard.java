@@ -60,6 +60,9 @@ public class GlobalBoard {
 		for(int i = 0; i < nPlayers; i++)
 			this.PB[i] = new PlayerBoard(gb.PB[i], this);
 		this.factories = gb.factories.clone();
+		this.factories = new int[getNFactories()][4];
+		for(int i = 0; i < getNFactories(); i++)
+			this.factories[i] = gb.factories[i].clone();
 		this.iCenter = gb.iCenter;
 		this.center = gb.center.clone();
 		this.rnd = new Random();
