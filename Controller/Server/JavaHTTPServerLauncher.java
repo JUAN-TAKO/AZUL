@@ -1,11 +1,9 @@
 package Controller.Server;
-
 import java.io.IOException;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.InetAddress;
 import java.util.Enumeration;
-
 import Model.GlobalBoard;
 
 public class JavaHTTPServerLauncher implements Runnable {

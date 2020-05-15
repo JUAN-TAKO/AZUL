@@ -59,7 +59,7 @@
             },
             augmenterScore() {
                 let scoreWinner = this.$store.state.board.PB[this.$store.state.winner.i].score;
-                let time = 500/scoreWinner;
+                let time = 750/scoreWinner;
                 if(scoreWinner > 0) {
                     if(this.score < scoreWinner) {
                         setTimeout(() => {
@@ -74,7 +74,6 @@
                             this.augmenterScore();
                         },time)
                     }
-
                 }
             }
         },
