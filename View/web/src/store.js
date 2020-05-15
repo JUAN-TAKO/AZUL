@@ -17,7 +17,9 @@ export default new Vuex.Store({
         charge: false,
         hasAIPlayed : false,
         winner: null,
-        animationDone:true
+        animationDone:true,
+        jeuxEnCours:false,
+        retourMenu:false
     },
     mutations: {
         setBoard(state, data) {

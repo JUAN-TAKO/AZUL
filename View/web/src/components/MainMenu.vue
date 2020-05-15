@@ -1,6 +1,7 @@
 <template>
     <div class="row h-100 m-0">
-        <div class="col-4 p-sm-3 p-1 p-xl-5">
+        <div class="col-4 p-sm-3 p-1 p-xl-5 liste-btn-mainMenu">
+            <button v-if="this.$store.state.jeuxEnCours" class="btn btn-primary w-100" @click="revenirJeu">Reprendre la partie</button>
             <button class="btn btn-primary w-100" @click="startGame">Commencer la partie</button>
         </div>
         <div class="col azul-bg pt-5">
@@ -11,6 +12,11 @@
                         <div class="input-group-append">
                             <button @click="toggleAI(player)" class="btn btn-sm btn-primary" :disabled="!player.selected" v-html="player.AI ? 'AI' : 'Humain'" style="border-radius:0 0.25rem 0 0"/>
                         </div>
+                    </div>
+                    <div class="btn-group w-100" role="group" aria-label="Basic example">
+                        <button @click="setAI(player,0)" class="btn btn-sm" :class="player.AI === 0 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">Humain</button>
+                        <button @click="setAI(player,1)" class="btn btn-sm" :class="player.AI === 1 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">AI Aléatoire</button>
+                        <button @click="setAI(player,2)" class="btn btn-sm" :class="player.AI === 2 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">AI Facile</button>
                     </div>
                     <div class="player-card" @click="selectPlayer(player)">
                         <img src="/img/plateau-joueur.png" class="w-100" :class="!player.selected ? 'not-selected': ''"/>
@@ -32,25 +38,25 @@
                         id:1,
                         selected: true,
                         name: "Joueur 1",
-                        AI: false,
+                        AI: 0,
                     },
                     {
                         id:2,
                         selected: true,
                         name: "Joueur 2",
-                        AI: false,
+                        AI: 0,
                     },
                     {
                         id:3,
                         selected: false,
                         name: "Joueur 3",
-                        AI: false,
+                        AI: 0,
                     },
                     {
                         id:4,
                         selected: false,
                         name: "Joueur 4",
-                        AI: false,
+                        AI: 0,
                     },
                 ]
             }
@@ -82,6 +88,21 @@
                 else
                     player.name = "Joueur " + player.id;
             },
+            setAI(player,valeur) {
+                player.AI = valeur;
+                switch (valeur) {
+                    case 0:
+                        player.name = "Joueur "
+                        break;
+                    case 1:
+                        player.name = "AI Aléatoire "
+                        break;
+                    case 2:
+                        player.name = "AI Facile "
+                        break;
+                }
+                player.name = player.name + player.id
+            },
             startGame () {
                 let json = {
                     nPlayers: this.numberOfPlayers,
@@ -90,10 +111,14 @@
                 };
                 axios.post('http://localhost:8000/startGame', json)
                 .then(() => {
-                    this.$emit("gameStarted");
+                    // this.$emit("gameStarted");
+                    this.$store.state.jeuxEnCours = true
                 })
                 .catch(() => {
                 });
+            },
+            revenirJeu() {
+                this.$store.state.retourMenu = false
             }
         }
     }

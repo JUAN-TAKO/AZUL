@@ -29,6 +29,10 @@ body {
     z-index: 99;
 }
 
+.liste-btn-mainMenu button {
+    margin : 5px;
+}
+
 .azul-bg {
     background: center no-repeat url("/img/fond.png"), radial-gradient(white,#5ac5d4) !important;
     height:100%;
@@ -182,4 +186,60 @@ body {
 img.couronne-victoire {
     width: 50px;
     height: 50px;
+}
+
+.setting-aria {
+    position : fixed;
+    top:0;
+    width: auto;
+    left:0;
+    bottom:0;
+    z-index: 1000;
+    overflow: hidden;
+    transition: transform 0.3s ease-out;
+    transform-origin:left;
+}
+
+#setting-img {
+    min-width : 30px;
+    min-height : 30px;
+    max-width : 30px;
+    max-height : 30px;
+}
+
+.setting-btn-aria {
+    position:fixed;
+    top:0;
+    z-index: 1100;
+    transition: left 0.3s ease-out;
+}
+
+#setting-btn {
+    background: rgba(97,197,212,1);
+    box-shadow: 0 0 3px #5ac5d4;
+    border : 1px solid /*#5ac5d4*/ white;
+}
+
+.setting-btn-aria:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.menu-liste button {
+    margin: 5px 0;
+}
+
+.waiting-reponse {
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    position:fixed;
+    z-index:1020;
+    background-color: rgba(10,10,10,0.2);
+}
+.waiting-reponse div {
+    width: 15rem;
+    height: 15rem;
+    border-width: 8px;
 }

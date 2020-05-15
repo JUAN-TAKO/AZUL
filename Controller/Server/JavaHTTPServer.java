@@ -144,7 +144,7 @@ public class JavaHTTPServer implements Runnable{
                     out.println("Server: Java HTTP Server");
                     out.println("Date: " + new Date());
                     out.println("Content-type: text/plain, application/json");
-                    out.println("Access-Control-Allow-Origin: http://localhost:8080");
+                    out.println("Access-Control-Allow-Origin: *");
                     out.println("Access-Control-Allow-Methods: POST, GET, OPTIONS");
                     out.println("Access-Control-Allow-Headers: X-PINGOTHER, Content-Type");
                     out.println("Access-Control-Max-Age: 86400");
