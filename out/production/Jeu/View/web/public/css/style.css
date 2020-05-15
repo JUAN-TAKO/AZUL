@@ -203,7 +203,7 @@ img.couronne-victoire {
 }
 
 .btn-victoire {
-    background-color: rgba(54,5,104 ,0.8);
+    background-color: rgba(54,5,104 ,0.3);
     border-radius: 10px;
     border: solid 3px white;
     cursor: pointer;
