@@ -13,7 +13,7 @@ class LearningAI extends AIPlayer {
         r = new Random();
     }
 
-    public static float estimateBoard(int num, GlobalBoard g){
+    public static float estimateBoard(int num, GlobalBoard g, int movesAhead){
         return 1.0f;
     }
     @Override

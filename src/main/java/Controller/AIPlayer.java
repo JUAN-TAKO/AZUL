@@ -28,9 +28,9 @@ public class AIPlayer extends Player {
 				for(int k = 0; k < 5; k++){
 					if(!state.getPlayerBoard(this.num).canLineBeColor(k, j))
 						continue;
-					moves.add(new Move(i+1, j, k));
+					moves.add(new Move(i, j, k));
 				}
-				moves.add(new Move(i+1, j, 5));
+				moves.add(new Move(i, j, 5));
 			}
 		}
 		for(int j = 1; j <= 5; j++){
@@ -40,10 +40,15 @@ public class AIPlayer extends Player {
 			for(int k = 0; k < 5; k++){
 				if(!state.getPlayerBoard(this.num).canLineBeColor(k, j))
 					continue;
-				moves.add(new Move(0, j, k));
+				moves.add(new Move(state.getNFactories(), j, k));
 			}
-			moves.add(new Move(0, j, 5));
+			moves.add(new Move(state.getNFactories() , j, 5));
 		}
 		return moves;
 	}
+
+	public void setNum(int n){
+		num = n;
+	}
+
 }

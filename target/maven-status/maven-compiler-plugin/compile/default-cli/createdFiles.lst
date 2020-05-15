@@ -1,5 +1,4 @@
 Controller\Server\JavaHTTPServer.class
-Controller\AI\ModelLoader.class
 Controller\Server\JSONTokener.class
 Controller\Server\JSONObject$Null.class
 Controller\Server\HTTP.class
@@ -22,16 +21,18 @@ Controller\Player.class
 Controller\Server\JSONObject.class
 Controller\Server\CookieList.class
 Controller\AI\RandomAI.class
+Controller\AI\ML\ModelLoader.class
 Controller\Server\JSONWriter.class
-Controller\AI\NNModel.class
 Controller\Server\JSONArray.class
 Controller\Server\JSONObject$1.class
 Controller\Server\CDL.class
+Controller\AI\MonteCarloAI.class
 Controller\Server\XML.class
 Controller\HumanPlayer.class
 Controller\Server\JavaHTTPServerLauncher.class
 Model\GlobalBoard.class
 Patterns\Observable.class
+Controller\AI\ML\NNModel.class
 Controller\Server\Cookie.class
 Utils\Move.class
 Patterns\Observer.class

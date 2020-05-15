@@ -8,6 +8,7 @@ public class GlobalBoard {
 	
 	private int nPlayers;
 	private boolean onGoing;
+	private boolean roundActive;
 	private PlayerBoard[] PB;
 	private int[][] factories;
 
@@ -74,6 +75,7 @@ public class GlobalBoard {
 
 	public int getNPlayers() {return nPlayers;}
 	public boolean isOnGoing(){return onGoing;}
+	public boolean isRoundActive(){return roundActive;}
 	public int getNFactories() {return 2*nPlayers + 1;}
 	public int[][] getFactories() {return factories;}
 	
@@ -140,6 +142,7 @@ public class GlobalBoard {
 		futureFirstPlayer = -1;
 		initFactories();
 		iCenter = 0;
+		roundActive = false;
 	}
 
 	private void endOfTurn(){
@@ -286,6 +289,7 @@ public class GlobalBoard {
 		}
 
 		if(futureFirstPlayer == -1){
+			roundActive = true;
 			futureFirstPlayer = plyr;
 			PB[plyr].addTileToFloor(6);
 		}
