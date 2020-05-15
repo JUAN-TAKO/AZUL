@@ -8,15 +8,23 @@
     </div>
     </template>
     <template v-else>
-      <template v-if="this.onGoing">
+<!--      <template v-if="this.onGoing">-->
+<!--        <Game/>-->
+<!--      </template>-->
+<!--      <template v-else-if="!this.loading">-->
+<!--        <MainMenu-->
+<!--          v-on:gameStarted="onGoing = true"-->
+<!--        />-->
+<!--      </template>-->
+      <template v-if="this.$store.state.jeuxEnCours && !this.$store.state.retourMenu">
         <Game/>
       </template>
-      <template v-else-if="!this.loading">
-        <MainMenu
-          v-on:gameStarted="onGoing = true"
-        />
+        <template v-else-if="!this.loading || this.$store.state.retourMenu">
+          <MainMenu
+                  v-on:gameStarted="onGoing = true"
+          />
+        </template>
       </template>
-    </template>
   </div>
 </template>
 
@@ -55,7 +63,7 @@ export default {
           let res = await axios.get("http://localhost:8000/getGameStatus");
           this.error = "";
           this.onGoing = res.data.onGoing;
-          
+          this.$store.state.jeuxEnCours = this.onGoing
         } catch (error) {
           this.error = "Impossible de communiquer avec le serveur."
         }

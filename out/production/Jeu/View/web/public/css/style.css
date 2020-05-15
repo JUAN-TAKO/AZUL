@@ -183,8 +183,7 @@ body {
 }
 
 .fenetre-winner {
-    /*background: rgba(87,115,173,0.9);*/
-    background: rgba(10,10,10,0.9);
+    background: rgba(87,115,173,0.9);
     width: 70%;
     border-radius: 10px;
     border: solid 5px white;
@@ -204,7 +203,7 @@ img.couronne-victoire {
 }
 
 .btn-victoire {
-    background-color: rgba(97,197,212,0.7);
+    background-color: rgba(54,5,104 ,0.3);
     border-radius: 10px;
     border: solid 3px white;
     cursor: pointer;

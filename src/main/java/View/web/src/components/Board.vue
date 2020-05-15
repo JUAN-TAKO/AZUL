@@ -1,11 +1,13 @@
 <template>
     <div v-if="this.$store.state.board" id="board" class="col-5 m-0 p-0 row d-flex">
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
-            <div class="container d-flex mozaique-selected">
-                <Mozaique v-for="i in nbMozaique" :key="i" :couleur="couleurMozaique"></Mozaique>
-                <button type="button" class="close" aria-label="Close" @click="annulerSelection()">
+            <div class="w-50 mx-auto pb-5 px-1">
+                <button type="button" class="close text-white" aria-label="Close" @click="annulerSelection()">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <div class="container d-flex mozaique-selected row px-4 m-0">
+                    <Mozaique v-for="i in nbMozaique" :key="i" :couleur="couleurMozaique" class="col-3"></Mozaique>
+                </div>
             </div>
         </div>
         <Fabrique v-for="(fabrique,index) in fabriques" :mozaiques="fabrique" :key="index" :id="index"></Fabrique>

@@ -1,6 +1,6 @@
 <template>
     <div class="row m-0 p-0 h-100">
-        <VictoirePannel v-if="this.$store.state.board !== null && this.$store.state.winner !== null"></VictoirePannel>
+        <VictoirePannel v-if="this.$store.state.board !== null"></VictoirePannel>
         <div v-if="!hasLoaded" class="loading"></div>
         <Menu :players="players"></Menu>
         <Board :fabriques="fabriques" :pionPremier="pionPremier"></Board>

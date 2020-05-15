@@ -113,7 +113,7 @@ public class JavaHTTPServer implements Runnable{
                     	case "/startGame":
                     		int nPlayers = (int) jsonObjectIn.get("nPlayers");
                     		JSONArray jsonArray = jsonObjectIn.getJSONArray("AI");
-                    		boolean[] AI = Utils.Utils.toBooleanArray(jsonArray);
+                    		int[] AI = Utils.Utils.toIntegerArray(jsonArray);
                     		String[] names = Utils.Utils.toStringArray(jsonObjectIn.getJSONArray("names"));
                     		Controller.getInstance().startGame(nPlayers, names, AI);
                             send200(out);
@@ -144,7 +144,7 @@ public class JavaHTTPServer implements Runnable{
                     out.println("Server: Java HTTP Server");
                     out.println("Date: " + new Date());
                     out.println("Content-type: text/plain, application/json");
-                    out.println("Access-Control-Allow-Origin: http://localhost:8080");
+                    out.println("Access-Control-Allow-Origin: *");
                     out.println("Access-Control-Allow-Methods: POST, GET, OPTIONS");
                     out.println("Access-Control-Allow-Headers: X-PINGOTHER, Content-Type");
                     out.println("Access-Control-Max-Age: 86400");

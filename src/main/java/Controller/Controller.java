@@ -11,7 +11,7 @@ public class Controller {
 	private static final Controller instance = new Controller();
 	private GlobalBoard board;
 	private Player[] players;
-	private final int delay = 50;
+	private final int delay = 100;
 	private int countdown;
 	private boolean isFrontUpdated = false;
 	private boolean AIHasPlayed = false;
@@ -37,14 +37,18 @@ public class Controller {
 		}
 	}
 	
-	public void startGame(int nPlayers, String[] names, boolean[] AI) {
+	public void startGame(int nPlayers, String[] names, int[] AI) {
 		this.board = new GlobalBoard(nPlayers, names);
 		players = new Player[AI.length];
 		for (int i = 0; i < players.length; i++)
-			if (AI[i])
-				players[i] = new RandomAI(i, board);
-			else
+			if (AI[i] == 0) {
 				players[i] = new HumanPlayer(i, board);
+			} else {
+				if(AI[i] == 1)
+					players[i] = new RandomAI(i, board);
+				else if(AI[i] == 2)
+					players[i] = new EasyAI(i, board);
+			}
 	}
 
 	public void tick() {
@@ -59,7 +63,7 @@ public class Controller {
 					if (players[board.getCurrentPlayer()].tick()) {
 						setAIHasPlayed(true);
 						setFrontUpdated(false);
-						System.out.println("AI " + (board.getCurrentPlayer() + 1) + " move was valid.");
+						System.out.println("AI " + (((((board.getCurrentPlayer() - 1) % players.length) + players.length) % players.length)+1) + " move was valid.");
 					} else {
 						// Sinon on indique au joueur qui ne reagit pas au temps (humain) qu'on l'attend.
 						//System.out.println("On vous attend, joueur " + players[currentPlayer].num());

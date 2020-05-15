@@ -19,4 +19,11 @@ public class Utils {
 		}
 		return b;
 	}
+	public static int[] toIntegerArray(JSONArray ja) throws JSONException {
+		int[] b = new int[ja.length()];
+		for(int i = 0; i < ja.length(); i++) {
+			b[i] = (int) ja.get(i);
+		}
+		return b;
+	}
 }
