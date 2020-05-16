@@ -21,11 +21,11 @@ public class EasyAI extends AIPlayer {
                 int fSelected;
                 int cSelected;
                 int lSelected;
-                int nextScoreSelected=-9999;
+                int nextScoreSelected;
                 int nextScore;
                 GlobalBoard nextBoard;
                 
-                //----------VALEURS PAR DEFAUT: initialisation------------------
+                //----------VALEURS PAR DEFAUT: initialisation------------------(tire au hasard une factory, tire une couleur au hasard et joue en prioirié dans les premières lignes)
                 fSelected=r.nextInt(globalBoard.getNFactories()+1);  //la valeur NFactories étant la valeur symbolique de la factory centrale 
                 while ( (fSelected!=globalBoard.getNFactories()) && (globalBoard.factoryIsEmpty(fSelected) )
                         || ( (fSelected==globalBoard.getNFactories()) && globalBoard.centerIsEmpty() )  ){
@@ -36,11 +36,23 @@ public class EasyAI extends AIPlayer {
                         || ((fSelected==globalBoard.getNFactories()) && (globalBoard.centerContainsColor(cSelected)==false) ) ){
                         cSelected=r.nextInt(5)+1;
                    }
-		lSelected = r.nextInt(6);
+		lSelected = 0;
 		while ((lSelected < 5) && (playerBoard.isLineFull(lSelected) || !playerBoard.canLineBeColor(lSelected, cSelected))) {
-			lSelected = r.nextInt(6);
+			lSelected+=1;
 		}
                 //----------VALEURS PAR DEFAUT: fin-----------------------------
+                
+                
+                //------SCORE: initialisation avec les valeurs par défaut-------
+                nextBoard=new GlobalBoard(globalBoard); //clonage
+                if (fSelected==globalBoard.getNFactories()){
+                    nextBoard.currentPlayerDraw(-1, cSelected, lSelected);
+                }
+                else{
+                    nextBoard.currentPlayerDraw(fSelected, cSelected, lSelected);
+                }
+                nextScoreSelected=nextBoard.getPlayerBoards()[num].getScore();
+                //-------------SCORE: fin---------------------------------------
                 
                 
 
