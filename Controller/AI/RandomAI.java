@@ -32,11 +32,23 @@ public class RandomAI extends AIPlayer {
                         c=r.nextInt(5)+1;
                    }
 
-
-		l = r.nextInt(6);
-		while ((l < 5) && (playerBoard.isLineFull(l) || !playerBoard.canLineBeColor(l, c))) {
-			l = r.nextInt(6);
-		}
+                boolean boardIsFull=true;
+                for (int i=0; i<5; i++){
+                    l=i;
+                    if (!playerBoard.isLineFull(l) && playerBoard.canLineBeColor(l, c)){
+                        boardIsFull=false;
+                    }
+                }
+                if (boardIsFull==true){
+                    l=5;
+                }
+                else{
+                    l = r.nextInt(5);
+                    while ((playerBoard.isLineFull(l) || !playerBoard.canLineBeColor(l, c))) {
+                            l = r.nextInt(5);
+                    }
+                }
+                
 		System.out.println("AI " + (num+1) + " tried playing color : " + c + " line : " + l);
         if (f==globalBoard.getNFactories()){   //la valeur NFactories étant la valeur symbolique de la factory centrale
         	int r = globalBoard.currentPlayerDraw(-1, c, l);
