@@ -13,7 +13,7 @@
             <div class="col-12 row m-0 p-0">
                 <div class="col-12 col-md-10 mx-auto row py-2">
                     <div class="col-3 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="retourMenu()"><p class="text-center text-btn-victoire mb-0 text-break">Menu</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/home.png" alt="image de refresh"></div></div>
-                    <div class="col-3 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="recommancer()"><p class="text-center text-btn-victoire mb-0 text-break">Recommancer</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/refresh.png" alt="image de refresh"></div></div>
+                    <div class="col-3 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="recommancer()"><p class="text-center text-btn-victoire mb-0 text-break">Recommencer</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/refresh.png" alt="image de refresh"></div></div>
                     <div class="col-3 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="alert('non implémenté')"><p class="text-center text-btn-victoire mb-0 text-break">Sauvegarder</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/sauvegarde.png" alt="image de refresh"></div></div>
                 </div>
             </div>

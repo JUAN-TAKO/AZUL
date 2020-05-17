@@ -48,6 +48,8 @@ public class Controller {
 					players[i] = new RandomAI(i, board);
 				else if(AI[i] == 2)
 					players[i] = new EasyAI(i, board);
+//				else if(AI[i] == 3)
+//					players[i] = new Mo
 			}
 	}
 
@@ -55,7 +57,7 @@ public class Controller {
 		if (board != null && board.isOnGoing()) {
 			if (countdown == 0) {
 				// Lorsque le temps est écoulé on le transmet au joueur courant.
-				// On v�rifie que le front est pr�t pour le prochain coup.
+				// On v�rifie que le front est pr�t pour le prochain coup.
 				if(isFrontUpdated()) {
 					setAIHasPlayed(false);
 					// Si un coup a été joué (IA) on change de joueur.

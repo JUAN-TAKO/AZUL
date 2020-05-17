@@ -10,13 +10,13 @@
                 transform: 'scaleX('+this.scale+')',
                 boxShadow: this.boxShadow
         }">
-            <h2 class="text-center py-4 border-bottom border-primary text-primary">Menu</h2>
+            <h2 class="text-center py-4 text-primary setting-titre">Menu</h2>
             <div class="m-5">
                 <div class="d-flex flex-column menu-liste align-items-st art">
                     <button class="btn border-secondary" @click="retourMenu">Menu</button>
-                    <button class="btn border-secondary" @click="recommancer()">Recommancer</button>
+                    <button class="btn border-secondary" @click="recommancer()">Recommencer</button>
                     <button class="btn border-secondary">Abandonner</button>
-                    <button class="btn border-secondary">Annuller mouvement</button>
+                    <button class="btn border-secondary">Annuler mouvement</button>
                     <button class="btn border-secondary">Sauvegarder</button>
                 </div>
             </div>

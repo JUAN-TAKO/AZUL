@@ -83,6 +83,19 @@ body {
     filter: grayscale(1);
 }
 
+.input-main-menu {
+    transition: max-height 0.3s linear;
+    max-height:100px;
+}
+
+.not-selected-input {
+    max-height: 0;
+}
+
+.input-group-append button {
+    z-index:0 !important;
+}
+
 .mozaique-selected{
     text-align: center;
     position: relative;
@@ -233,6 +246,10 @@ img.couronne-victoire {
     transform-origin:left;
 }
 
+#setting-aria {
+    border-right: solid 5px rgb(97,197,212) !important;
+}
+
 #setting-img {
     min-width : 30px;
     min-height : 30px;
@@ -245,6 +262,11 @@ img.couronne-victoire {
     top:0;
     z-index: 1100;
     transition: left 0.3s ease-out;
+}
+
+.setting-titre {
+    border-top: solid 5px rgb(97,197,212);
+    border-bottom: solid 5px rgb(97,197,212);
 }
 
 #setting-btn {
