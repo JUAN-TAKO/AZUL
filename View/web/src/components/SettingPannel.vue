@@ -49,7 +49,15 @@
                 this.waitingReponse = true
                 let json = {
                     nPlayers: this.$store.state.board.nPlayers,
-                    AI: this.$store.state.board.PB.map(a => a.name.includes("IA")),
+                    AI: this.$store.state.board.PB.map(function(el) {
+                        if(el.name.includes("Joueur")) {
+                            return 0;
+                        }else if(el.name.includes("AI Aléatoire")) {
+                            return 1;
+                        } else if(el.name.includes("AI Facile")) {
+                            return 2;
+                        }
+                    }),
                     names: this.$store.state.board.PB.map(a => a.name),
                 };
                 axios.post('http://localhost:8000/startGame', json)
