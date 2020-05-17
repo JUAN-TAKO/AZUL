@@ -217,7 +217,8 @@ img.couronne-victoire {
 }
 
 .btn-victoire {
-    background-color: rgba(97,197,212,0.7);
+    /*background-color: rgba(97,197,212,0.7);*/
+    background-color: rgba(255,255,255,0.08);
     border-radius: 10px;
     border: solid 3px white;
     cursor: pointer;
@@ -229,7 +230,7 @@ img.couronne-victoire {
 }
 
 .text-btn-victoire {
-    font-size : 1.5vw !important;
+    font-size : 1.1vw !important;
     font-weight: bold;
     color: white;
 }
@@ -302,4 +303,19 @@ img.couronne-victoire {
 .close {
     opacity: 1 !important;
     font-size: 5em !important;
+}
+
+.btn-annuler-action {
+    position: absolute;
+    overflow: hidden;
+    border: solid 3px white;
+    box-shadow: 0 0 15px black;
+    z-index: 500;
+    right:0;
+}
+
+.btn-avis {
+    /*border: solid 2px #0056b3 !important;*/
+    border: solid 2px white !important;
+    font-size : 1vw !important;
 }

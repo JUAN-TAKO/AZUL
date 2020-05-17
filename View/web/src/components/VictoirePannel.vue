@@ -7,14 +7,14 @@
         </div>
         <div class="fenetre-winner m-auto row m-0 p-5">
             <div class="col-12">
-                <div class=""><h2 class="text-white text-center victoire-titre">Victoire {{ $store.state.winner.name }}</h2></div>
-                <div class=""><h2 class="text-white text-center victoire-score">Score {{ getScore }}</h2></div>
+                <div class=""><h2 class="text-white text-center victoire-titre text-warning">Victoire {{ $store.state.winner.name }} !</h2></div>
+                <div class=""><h2 class="text-white text-center victoire-score">Score : <span class="text-success">{{ getScore }}</span> :)</h2></div>
             </div>
             <div class="col-12 row m-0 p-0">
                 <div class="col-12 col-md-10 mx-auto row py-2">
-                    <div class="col-3 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="retourMenu()"><p class="text-center text-btn-victoire mb-0 text-break">Menu</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/home.png" alt="image de refresh"></div></div>
-                    <div class="col-3 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="recommancer()"><p class="text-center text-btn-victoire mb-0 text-break">Recommancer</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/refresh.png" alt="image de refresh"></div></div>
-                    <div class="col-3 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="alert('non implémenté')"><p class="text-center text-btn-victoire mb-0 text-break">Sauvegarder</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/sauvegarde.png" alt="image de refresh"></div></div>
+                    <div class="col-2 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="retourMenu()"><p class="text-center text-btn-victoire mb-0 text-break">Menu</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/home.png" alt="image de refresh"></div></div>
+                    <div class="col-2 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="recommancer()"><p class="text-center text-btn-victoire mb-0 text-break">Recommencer</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/refresh.png" alt="image de refresh"></div></div>
+                    <div class="col-2 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="alert('non implémenté')"><p class="text-center text-btn-victoire mb-0 text-break">Sauvegarder</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/sauvegarde.png" alt="image de refresh"></div></div>
                 </div>
             </div>
             <div class="col-12 row m-0 p-0 mt-4">
@@ -40,7 +40,15 @@
                 this.waitingReponse = true
                 let json = {
                     nPlayers: this.$store.state.board.nPlayers,
-                    AI: this.$store.state.board.PB.map(a => a.name.includes("IA")),
+                    AI: this.$store.state.board.PB.map(function(el) {
+                        if(el.name.includes("Joueur")) {
+                            return 0;
+                        }else if(el.name.includes("AI Aléatoire")) {
+                            return 1;
+                        } else if(el.name.includes("AI Facile")) {
+                            return 2;
+                        }
+                    }),
                     names: this.$store.state.board.PB.map(a => a.name),
                 };
                 axios.post('http://localhost:8000/startGame', json)

@@ -1,5 +1,8 @@
 <template>
     <div v-if="this.$store.state.board" id="board" class="col-5 m-0 p-0 row d-flex">
+        <div class="m-2 btn-annuler-action rounded-pill">
+            <button class="btn btn-secondary"> Annuler la dernière action</button>
+        </div>
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
             <div class="w-50 mx-auto pb-5 px-1">
                 <button type="button" class="close text-white" aria-label="Close" @click="annulerSelection()">
