@@ -9,45 +9,50 @@ import Controller.AIPlayer;
 import Model.*;
 import Utils.Move;
 
-class MonteCarloAI extends AIPlayer {
+public class MonteCarloAI extends AIPlayer {
     Random random;
-    int maxMovesAhead = 2;
-    int randomSampleSize = 100;
+    int maxMovesAhead = 1;
+    int randomSampleSize = 10;
 
-    MonteCarloAI(int n, GlobalBoard g) {
+    public MonteCarloAI(int n, GlobalBoard g) {
         super(n, g);
         random = new Random();
     }
     public int randomSimulation(GlobalBoard g){
-        RandomAI agent = new RandomAI(-1, g);
+        RandomAI agent = new RandomAI(0, g);
         ArrayList<Integer> scores = new ArrayList<>();
         for(int i=0; i < g.getNPlayers();i++){
-            g.getPlayerBoard(i).getScore();
+            scores.add(g.getPlayerBoard(i).getScore());
         }
-        while (g.isRoundActive()) {
-            super.tick();
-        }
+        do {
+            agent.setNum(g.getCurrentPlayer());
+            agent.tick();
+        } while (g.isRoundActive());
         int max = 0;
-        int maxVal = 0;
+        int maxVal = -99999;
         for(int i=0; i < g.getNPlayers();i++){
             int v = g.getPlayerBoard(i).getScore() - scores.get(i);
+            System.out.println("score " + i + " = " + v);
             if(v > maxVal){
                 maxVal = v;
                 max = i;
             }
         }
+        System.out.println("winner: " + max);
         return max;
     }
     public float estimateBoard(int pnum, GlobalBoard g, int movesAhead){
+        System.out.println("estimate");
         if(movesAhead >= maxMovesAhead){
             int nb_wins = 0;
             for(int i=0; i < randomSampleSize; i++){
                 GlobalBoard sim = new GlobalBoard(g);
-                while(g.isOnGoing()) {
+                while(sim.isOnGoing()) {
                     if (randomSimulation(sim) == pnum) {
                         nb_wins++;
                     }
                 }
+                System.out.println("sample " + i);
             }
             return (float)nb_wins/(float)randomSampleSize;
         }
@@ -56,6 +61,8 @@ class MonteCarloAI extends AIPlayer {
             float sum = 0.0f;
             for(int i=0; i < moves.size(); i++){
                 GlobalBoard sim = new GlobalBoard(g);
+                Move move = moves.get(i);
+                sim.currentPlayerDraw(move.factory, move.color, move.line);
                 sum += estimateBoard(pnum, sim, movesAhead+1);
             }
             return sum / moves.size();
@@ -67,6 +74,7 @@ class MonteCarloAI extends AIPlayer {
         NavigableMap<Float, Move> map = new TreeMap<Float, Move>();
         float sum = 0.0f;
         for(int i=0; i < moves.size(); i++){
+            System.out.println("conf");
             GlobalBoard sim = new GlobalBoard(globalBoard);
             sum += estimateBoard(num, sim, 1);
             map.put(sum, moves.get(i));

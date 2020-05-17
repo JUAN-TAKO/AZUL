@@ -57,6 +57,7 @@ public class GlobalBoard {
 	public GlobalBoard(GlobalBoard gb){
 		this.nPlayers = gb.nPlayers;
 		this.onGoing = gb.onGoing;
+		this.roundActive = true;
 		this.PB = new PlayerBoard[nPlayers];
 		for(int i = 0; i < nPlayers; i++)
 			this.PB[i] = new PlayerBoard(gb.PB[i], this);
@@ -140,6 +141,7 @@ public class GlobalBoard {
 	}
 
 	private void initRound(){
+		System.out.println("init round");
 		currentPlayer = futureFirstPlayer;
 		futureFirstPlayer = -1;
 		initFactories();
@@ -148,6 +150,7 @@ public class GlobalBoard {
 	}
 
 	private void endOfTurn(){
+		System.out.println("EOT");
 		nextPlayer();
 		if(isRoundOver())
 			endOfRound();

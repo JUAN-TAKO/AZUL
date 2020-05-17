@@ -49,6 +49,7 @@ public class AIPlayer extends Player {
 
 	public void setNum(int n){
 		num = n;
+		playerBoard = globalBoard.getPlayerBoards()[num];
 	}
 
 }

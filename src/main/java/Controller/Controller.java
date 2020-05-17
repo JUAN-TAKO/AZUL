@@ -46,8 +46,10 @@ public class Controller {
 			} else {
 				if(AI[i] == 1)
 					players[i] = new RandomAI(i, board);
-				else if(AI[i] == 2)
+				else if(AI[i] == 3)
 					players[i] = new EasyAI(i, board);
+				else if(AI[i] == 2)
+					players[i] = new MonteCarloAI(i, board);
 			}
 	}
 

@@ -39,9 +39,11 @@ public class RandomAI extends AIPlayer {
 		}
 		System.out.println("AI " + (num+1) + " tried playing color : " + c + " line : " + l);
         if (f==globalBoard.getNFactories()){   //la valeur NFactories étant la valeur symbolique de la factory centrale
+        	System.out.println("draw: center ; " + c + " ; " + l);
         	int r = globalBoard.currentPlayerDraw(-1, c, l);
             return r == 0;
         } else{
+			System.out.println("draw : " + f + " ; "+ c + " ; " + l);
         	int r = globalBoard.currentPlayerDraw(f, c, l);
         	return r == 0;
         }
