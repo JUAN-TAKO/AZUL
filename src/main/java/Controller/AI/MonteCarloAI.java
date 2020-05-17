@@ -11,7 +11,7 @@ import Utils.Move;
 
 public class MonteCarloAI extends AIPlayer {
     Random random;
-    int maxMovesAhead = 1;
+    int maxMovesAhead = 2;
     int randomSampleSize = 10;
 
     public MonteCarloAI(int n, GlobalBoard g) {
@@ -24,10 +24,12 @@ public class MonteCarloAI extends AIPlayer {
         for(int i=0; i < g.getNPlayers();i++){
             scores.add(g.getPlayerBoard(i).getScore());
         }
+        System.out.println("Start round sim");
         do {
             agent.setNum(g.getCurrentPlayer());
             agent.tick();
         } while (g.isRoundActive());
+        System.out.println("End round sim");
         int max = 0;
         int maxVal = -99999;
         for(int i=0; i < g.getNPlayers();i++){
@@ -43,7 +45,7 @@ public class MonteCarloAI extends AIPlayer {
     }
     public float estimateBoard(int pnum, GlobalBoard g, int movesAhead){
         System.out.println("estimate");
-        if(movesAhead >= maxMovesAhead){
+        if(movesAhead+1 >= maxMovesAhead){
             int nb_wins = 0;
             for(int i=0; i < randomSampleSize; i++){
                 GlobalBoard sim = new GlobalBoard(g);

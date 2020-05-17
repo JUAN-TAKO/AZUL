@@ -43,9 +43,17 @@ public class TestGlobalBoard {
         //TEST1      initialisation du sac et des factories OK
         display(gb);     //affichage
         //TEST2  coup d'un joueur          
-        gb.playerDrawFromFactory(1,0, 2, 0);
+        gb.currentPlayerDraw(0, 2, 0);
+        System.out.println("\n \n gb:");
         display(gb);     //affichage
-        //System.out.println(renvoye);
+        
+        //TEST2    clonage
+        GlobalBoard gbclone=new GlobalBoard(gb);
+        gbclone.currentPlayerDraw(1, 2, 0);
+        System.out.println("\n \n gb:");
+        display(gb);
+        System.out.println("\n \n gbclone:"); 
+        display(gbclone);
         
         
         

@@ -36,5 +36,6 @@ Controller\AI\ML\NNModel.class
 Controller\Server\Cookie.class
 Utils\Move.class
 Patterns\Observer.class
+Controller\AI\TestEasyAI.class
 Controller\Server\HTTPTokener.class
 Controller\Server\XMLTokener.class
