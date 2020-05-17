@@ -57,7 +57,7 @@ public class Controller {
 		if (board != null && board.isOnGoing()) {
 			if (countdown == 0) {
 				// Lorsque le temps est écoulé on le transmet au joueur courant.
-				// On v�rifie que le front est pr�t pour le prochain coup.
+				// On verifie que le front est pret pour le prochain coup.
 				if(isFrontUpdated()) {
 					setAIHasPlayed(false);
 					// Si un coup a été joué (IA) on change de joueur.
