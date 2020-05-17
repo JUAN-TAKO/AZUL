@@ -39,7 +39,9 @@ public class PlayerBoard {
 		this.name = pb.name;
 		this.linesColor = pb.linesColor.clone();
 		this.linesNb = pb.linesNb.clone();
-		this.wall = pb.wall.clone();
+		this.wall = new boolean[5][5];
+		for(int i = 0; i < 5; i++)
+			this.wall[i] = pb.wall[i].clone();
 		this.nfloor = pb.nfloor;
 		this.floor = pb.floor.clone();
 	}
@@ -103,6 +105,7 @@ public class PlayerBoard {
 			floor[i] = 0;
 		}
 		nfloor = 0;
+		if(score < 0) score = 0;
 	}
 
 	private void updatePoints(int x, int y){
