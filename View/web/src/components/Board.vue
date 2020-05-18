@@ -1,7 +1,12 @@
 <template>
     <div v-if="this.$store.state.board" id="board" class="col-5 m-0 p-0 row d-flex">
+        <div class="waiting-reponse" :class="{ 'd-flex' : this.waitingReponse, 'd-none' : !this.waitingReponse, }">
+            <div class="spinner-border text-primary m-auto spinner-border-lg" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
         <div class="m-2 btn-annuler-action rounded-pill">
-            <button class="btn btn-secondary" @click="goPrevious()"> Annuler la dernière action</button>
+            <div class="btn btn-secondary" @click="goPrevious()"> Annuler la dernière action</div>
         </div>
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
             <div class="w-50 mx-auto pb-5 px-1">
@@ -14,10 +19,8 @@
                 </div>
             </div>
         </div>
-        <Fabrique v-for="(fabrique,index) in fabriques" :mozaiques="fabrique" :key="index" :id="index"></Fabrique>
-<!--        <div class="col-12 row m-0 p-0">-->
-        <Center :mozaiques="this.$store.state.board.center" :id="-1" :pionPremier="pionPremier"></Center>
-<!--        </div>-->
+        <Fabrique v-for="(fabrique,index) in fabriques" :mozaiques="fabrique" :key="index" :id="index" class="mx-auto"></Fabrique>
+        <Center :mozaiques="this.$store.state.board.center" :id="-1" :pionPremier="pionPremier" class="flex-fill"></Center>
     </div>
 </template>
 
@@ -35,6 +38,7 @@
         },
         data() {
             return {
+                waitingReponse: false,
             }
         },
         props: {
@@ -62,13 +66,20 @@
                 this.$store.state.selection = selection
             },
             goPrevious(){
+                this.waitingReponse = true
                 axios.post('http://localhost:8000/goPrevious', {})
                     .then((response) => {
+                        setTimeout(() => {
+                            this.waitingReponse = false
+                        },500)
                         console.log(response);
-                        if(response.data.GlobalBoard != null)
-                            this.$store.commit("setBoard", response.data.GlobalBoard);
+                        // if(response.data.GlobalBoard != null)
+                        //     this.$store.commit("setBoard", response.data.GlobalBoard);
                     })
                     .catch(() => {
+                        setTimeout(() => {
+                            this.waitingReponse = false
+                        },500)
                     });
             }
         }
