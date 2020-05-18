@@ -41,16 +41,17 @@
                 let json = {
                     nPlayers: this.$store.state.board.nPlayers,
                     AI: this.$store.state.board.PB.map(function(el) {
-                        if(el.name.includes("Joueur")) {
-                            return 0;
-                        }else if(el.name.includes("AI Aléatoire")) {
+                        if(el.name.includes("AI Aléatoire")) {
                             return 1;
                         } else if(el.name.includes("AI Facile")) {
                             return 2;
+                        } else if(!el.name.includes("AI")){
+                            return 0;
                         }
                     }),
                     names: this.$store.state.board.PB.map(a => a.name),
                 };
+                console.log(json);
                 axios.post('http://localhost:8000/startGame', json)
                     .then(() => {
                         this.$emit("gameStarted");

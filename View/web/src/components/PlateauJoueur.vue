@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div class="bord er border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
+        <div class="plateau-joueur-div bord er border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
             <div>
                 <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{plateauJoueur.name}} - Score : {{ plateauJoueur.score }}</h3>
             </div>
@@ -116,7 +116,13 @@
 
     .plateau-joueur-shadow-current {
         box-shadow: 0 0 30px #5ac5d4;
+        /*box-shadow: 0 0 30px white;*/
         transition: box-shadow 0.3s;
+    }
+
+    .plateau-joueur-div {
+        /*background: linear-gradient(109.61deg,#4c4f5a 4.26%,#202125 84.84%);*/
+        /*border: solid 3px white;*/
     }
 
 </style>

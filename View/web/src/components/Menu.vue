@@ -60,5 +60,7 @@
 
 <style scoped>
     #menu {
+        /*background-color: #131417;*/
+        border-right:2px solid white;
     }
 </style>
