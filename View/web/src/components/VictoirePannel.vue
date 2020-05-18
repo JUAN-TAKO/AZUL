@@ -8,7 +8,8 @@
         <div class="fenetre-winner m-auto row m-0 p-5">
             <div class="col-12">
                 <div class=""><h2 class="text-white text-center victoire-titre text-warning">Victoire {{ $store.state.winner.name }} !</h2></div>
-                <div class=""><h2 class="text-white text-center victoire-score">Score : <span class="text-success">{{ getScore }}</span> :)</h2></div>
+                <div class=""><h2 class="text-white text-center victoire-score">Score : <span class="text-success">{{ getScore }}</span>
+                    {{ getSmiley }}</h2></div>
             </div>
             <div class="col-4 mx-auto d-flex flex-row px-5 m-0 my-2">
                 <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : score > 25 }">
@@ -115,6 +116,17 @@
             },
             getStar3() {
                 return this.getScore > 75 ? "star-winned.png" :  "star-unwinned.png"
+            },
+            getSmiley() {
+                if(this.getScore < 25) {
+                    return ":("
+                } else if(this.getScore >= 25 && this.getScore < 50 ) {
+                    return ":|"
+                } else if(this.getScore >= 50 && this.getScore < 75) {
+                    return ":)"
+                } else {
+                    return ":D"
+                }
             }
         },
         watch: {
