@@ -131,6 +131,7 @@
                 axios.post('http://localhost:8000/startGame', json)
                 .then(() => {
                     // this.$emit("gameStarted");
+                    this.$store.dispatch("reset")
                     this.$store.state.jeuxEnCours = true
                     this.$store.state.retourMenu = false
                     this.$store.state.winner = null

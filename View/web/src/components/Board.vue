@@ -76,7 +76,9 @@
                         // if(response.data.GlobalBoard != null)
                         //     this.$store.commit("setBoard", response.data.GlobalBoard);
                         // if(response.data.GlobalBoard != null)
+                        // this.$store.dispatch("reset")
                         this.$store.dispatch('getBoard');
+                        this.$store.state.animationIAEnCours = false
                     })
                     .catch(() => {
                         setTimeout(() => {

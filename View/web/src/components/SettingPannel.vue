@@ -63,8 +63,9 @@
                 axios.post('http://localhost:8000/startGame', json)
                     .then(() => {
                         this.$emit("gameStarted");
-                        this.$store.state.winner = null
-                        this.$store.state.animationIAEnCours = false
+                        // this.$store.state.winner = null
+                        // this.$store.state.animationIAEnCours = false
+                        this.$store.dispatch("reset")
                         this.$store.dispatch('getBoard');
                         setTimeout(() => {
                             this.waitingReponse = false

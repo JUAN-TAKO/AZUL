@@ -70,7 +70,7 @@ export default new Vuex.Store({
                 Axios.get('http://localhost:8000/getBoard')
                     .then(response => response.data)
                     .then( q => {
-                        if(context.state.board != null && q.hasAIPlayed == true && JSON.stringify(q.GlobalBoard) != JSON.stringify(context.state.board) ) {
+                        if(context.state.board != null && q.hasAIPlayed === true && JSON.stringify(q.GlobalBoard) != JSON.stringify(context.state.board) ) {
                             context.commit("setAIPlayed", q.hasAIPlayed);
                             context.state.animationIAEnCours = true;
 
@@ -150,6 +150,21 @@ export default new Vuex.Store({
                 .catch(function(error) {
                     console.log("Error",error);
                 })
+        },
+        reset() {
+            this.state.animationIAEnCours = false;
+            this.state.hasAIPlayed = false;
+            this.state.selection = {
+                selectionner:false,
+                    donnees: {
+
+                }
+            };
+            this.state.board =  null;
+            this.state.lastMove = null;
+            this.state.coupJouer = false;
+            this.state.retourMenu = false;
+            this.state.winner = null;
         }
     }
 })
