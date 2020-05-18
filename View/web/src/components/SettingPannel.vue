@@ -64,6 +64,7 @@
                     .then(() => {
                         this.$emit("gameStarted");
                         this.$store.state.winner = null
+                        this.$store.state.animationIAEnCours = false
                         setTimeout(() => {
                             this.waitingReponse = false
                         },1000)

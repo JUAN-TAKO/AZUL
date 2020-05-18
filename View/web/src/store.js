@@ -25,16 +25,17 @@ export default new Vuex.Store({
     },
     mutations: {
         setBoard(state, data) {
-            this.state.board = data.GlobalBoard;
-            this.state.playersAIStatus = data.playersAIStatus;
-            if(this.state.hasAIPlayed && !this.state.animationOnGoing) {
-                this.state.animationOnGoing = true;
-                this.state.hasAIPlayed = false
-                setTimeout(() => {
-                    this.dispatch("setFrontUpdated");
-                    this.state.animationOnGoing = false;
-                },2000);
+            if(this.state.hasAIPlayed) {
+                this.state.selection.selectionner = false;
+                this.state.selection.donnees = {};
             }
+            this.state.board = data.GlobalBoard;
+            if(this.state.hasAIPlayed) {
+                this.state.hasAIPlayed = false
+                this.state.animationIAEnCours = false
+                this.dispatch("setFrontUpdated");
+            }
+            this.state.playersAIStatus = data.playersAIStatus;
             if(this.state.coupJouer) {
                 this.state.coupJouer = false
                 this.state.selection.donnees = {}
@@ -64,16 +65,38 @@ export default new Vuex.Store({
     },
     actions: {
         getBoard(context) {
-            Axios.get('http://localhost:8000/getBoard')
-            .then(response => response.data)
-            .then( q => {
-                if(q != context.state.board){
-                    if(q.hasAIPlayed != context.state.hasAIPlayed)
-                        context.commit("setAIPlayed", q.hasAIPlayed);
-                    context.commit("setBoard", q)
-                }
-
-            })
+            if(!this.state.animationIAEnCours) {
+                Axios.get('http://localhost:8000/getBoard')
+                    .then(response => response.data)
+                    .then( q => {
+                        if(q.hasAIPlayed == true && JSON.stringify(q.GlobalBoard) != JSON.stringify(context.state.board) ) {
+                            context.commit("setAIPlayed", q.hasAIPlayed);
+                            context.state.animationIAEnCours = true;
+                            // context.state.selection.donnees = q.moveAI
+                            setTimeout(() => {
+                                context.state.selection.donnees = {
+                                    // line : 3,
+                                    color : 3,
+                                    factory : 2,
+                                    nSelected : 2
+                                }
+                                context.state.selection.selectionner = true;
+                                setTimeout(()=>{
+                                    context.commit("setBoard", q)
+                                },2000)
+                            },50)
+                        } else {
+                            if(q.GlobalBoard !== context.state.board) {
+                                context.commit("setBoard", q)
+                            }
+                        }
+                        // if(q != context.state.board){
+                        //     context.commit("setBoard", q)
+                        //     if(q.hasAIPlayed != context.state.hasAIPlayed)
+                        //         context.commit("setAIPlayed", q.hasAIPlayed);
+                        // }
+                    })
+            }
         },
         jouerCoup(context,ligne) {
             let selection = context.state.selection.donnees;

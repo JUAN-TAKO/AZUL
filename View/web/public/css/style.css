@@ -315,7 +315,12 @@ img.couronne-victoire {
 }
 
 .btn-avis {
-    /*border: solid 2px #0056b3 !important;*/
-    border: solid 2px white !important;
+    border: solid 2px #0056b3 !important;
+    /*border: solid 2px white !important;*/
     font-size : 1vw !important;
+}
+
+.btn-avis:hover {
+    border-color : #0056b3 !important;
+    color : #0056b3 !important;
 }

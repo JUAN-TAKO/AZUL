@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-12 row m-0 p-0 mt-4">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfV7CJbnOHvr_1UqWwEuYN-GYbHxUKnvF2u8gcrWiDH0wU8sw/viewform?usp=sf_link" target="_blank" class="ml-auto btn-avis">Donner votre avis</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfV7CJbnOHvr_1UqWwEuYN-GYbHxUKnvF2u8gcrWiDH0wU8sw/viewform?usp=sf_link" target="_blank" class="ml-auto btn btn-avis text-white">Donner votre avis</a>
             </div>
         </div>
     </div>
@@ -56,6 +56,7 @@
                     .then(() => {
                         this.$emit("gameStarted");
                         this.$store.state.winner = null
+                        this.$store.state.animationIAEnCours = false
                         setTimeout(() => {
                             this.waitingReponse = false
                         },1000)

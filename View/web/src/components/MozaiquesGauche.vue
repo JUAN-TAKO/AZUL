@@ -1,7 +1,9 @@
 <template>
     <div class="mozaiques-gauche" :class="{ 'light-around' : this.$store.state.selection.selectionner && isCurrent }">
         <div class="ligne flex-row-reverse" @click="mouseClick(index,couleurs[index])" @mouseover="mouseOver(index)" @mouseleave="mouseOut()" v-for="(nbMozaiques, index) in this.lignes" :key="index">
-            <Mozaique v-for="(mozaique,i) in getNbMozaiqueLigne(nbMozaiques,couleurs[index],index)" :key="i" :couleur="getCouleurMozaiqueLigne(couleurs[index])"></Mozaique>
+            <Mozaique v-for="(mozaique,i) in getNbMozaiqueLigne(nbMozaiques,couleurs[index],index)"
+                      :key="i" :couleur="getCouleurMozaiqueLigne(couleurs[index])"
+                      :class="{ 'bounce-enter-active' : nouveaux(i) }"></Mozaique>
         </div>
     </div>
 </template>
@@ -61,6 +63,9 @@
                     if(this.$store.state.retourCoup == "") // Valid play
                         this.$emit("ajoutplancher",0,0);
                 }
+            },
+            nouveaux(ligne) {
+                return this.$store.state.animationIAEnCours && this.$store.state.selection.donnees.line == ligne
             }
         },
         computed: {
