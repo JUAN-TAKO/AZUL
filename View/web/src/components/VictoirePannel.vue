@@ -10,6 +10,17 @@
                 <div class=""><h2 class="text-white text-center victoire-titre text-warning">Victoire {{ $store.state.winner.name }} !</h2></div>
                 <div class=""><h2 class="text-white text-center victoire-score">Score : <span class="text-success">{{ getScore }}</span> :)</h2></div>
             </div>
+            <div class="col-4 mx-auto d-flex flex-row px-5 m-0 my-2">
+                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : score > 25 }">
+                    <img :src="'img/' + getStar1" alt="" class="embed-responsive-item">
+                </div>
+                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : score > 50 }">
+                    <img :src="'img/' + getStar2" alt="" class="embed-responsive-item">
+                </div>
+                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : score > 75 }">
+                    <img :src="'img/' + getStar3" alt="" class="embed-responsive-item">
+                </div>
+            </div>
             <div class="col-12 row m-0 p-0">
                 <div class="col-12 col-md-10 mx-auto row py-2">
                     <div class="col-2 mx-auto embed-responsive embed-responsive-1by1 btn-victoire"><div class="embed-responsive-item d-flex flex-column" @click="retourMenu()"><p class="text-center text-btn-victoire mb-0 text-break">Menu</p><img class="w-auto h-auto mx-auto my-1 my-md-2" src="img/home.png" alt="image de refresh"></div></div>
@@ -74,7 +85,7 @@
             },
             augmenterScore() {
                 let scoreWinner = this.$store.state.board.PB[this.$store.state.winner.i].score;
-                let time = 750/scoreWinner;
+                let time = 3000/scoreWinner;
                 if(scoreWinner > 0) {
                     if(this.score < scoreWinner) {
                         setTimeout(() => {
@@ -95,6 +106,15 @@
         computed: {
             getScore() {
                 return this.score
+            },
+            getStar1() {
+                return this.getScore > 25 ? "star-winned.png" :  "star-unwinned.png"
+            },
+            getStar2() {
+                return this.getScore > 50 ? "star-winned.png" :  "star-unwinned.png"
+            },
+            getStar3() {
+                return this.getScore > 75 ? "star-winned.png" :  "star-unwinned.png"
             }
         },
         watch: {

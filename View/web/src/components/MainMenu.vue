@@ -30,7 +30,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" v-model="player.name" :disabled="!player.selected || player.AI!=0" style="border-radius:0.25rem 0 0 0">
                         </div>
-                        <div class="btn-group w-100" role="group" aria-label="Basic example">
+                        <div class="btn-group w-100 group-btn-main-menu" role="group" aria-label="Basic example">
                             <button @click="setAI(player,0)" class="btn btn-sm" :class="player.AI === 0 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">Humain</button>
                             <button @click="setAI(player,1)" class="btn btn-sm" :class="player.AI === 1 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">AI Aléatoire</button>
                             <button @click="setAI(player,2)" class="btn btn-sm" :class="player.AI === 2 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">AI Facile</button>
@@ -141,7 +141,11 @@
             },
             revenirJeu() {
                 this.$store.state.retourMenu = false
+
             }
+        },
+        mounted() {
+            this.$el.getElementsByClassName("input-main-menu")[0].style.maxHeight = this.$el.getElementsByClassName("input-main-menu")[0].clientHeight
         }
     }
 </script>
