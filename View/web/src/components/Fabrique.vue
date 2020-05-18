@@ -29,6 +29,11 @@
             mozaiques: {},
             id : Number
         },
+        computed:{
+            isAI() {
+                return this.$store.state.playersAIStatus[this.$store.state.board.currentPlayer];
+            },
+        },
         methods: {
             mouseOver (el) {
                 this.over = el;
@@ -40,6 +45,9 @@
                 return this.mozaiques[i] === this.over || (this.mozaiques[i] === this.$store.state.selection.donnees.color && this.id === this.$store.state.selection.donnees.factory) ? 1.3 : 1;
             },
             clickMozaique() {
+                if(this.isAI)
+                    return;
+
                 let selection = {
                     donnees:{
                         factory : this.id,
