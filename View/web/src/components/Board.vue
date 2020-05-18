@@ -1,7 +1,7 @@
 <template>
     <div v-if="this.$store.state.board" id="board" class="col-5 m-0 p-0 row d-flex">
         <div class="m-2 btn-annuler-action rounded-pill">
-            <button class="btn btn-secondary"> Annuler la dernière action</button>
+            <a class="btn btn-secondary text-white"> Annuler la dernière action</a>
         </div>
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
             <div class="w-50 mx-auto pb-5 px-1">
@@ -15,7 +15,7 @@
         </div>
         <Fabrique v-for="(fabrique,index) in fabriques" :mozaiques="fabrique" :key="index" :id="index"></Fabrique>
 <!--        <div class="col-12 row m-0 p-0">-->
-            <Center :mozaiques="this.$store.state.board.center" :id="-1" :pionPremier="pionPremier"></Center>
+        <Center :mozaiques="this.$store.state.board.center" :id="-1" :pionPremier="pionPremier"></Center>
 <!--        </div>-->
     </div>
 </template>
