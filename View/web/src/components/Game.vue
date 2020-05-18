@@ -13,6 +13,11 @@
 
     export default {
         name: "Game",
+        date() {
+            return {
+                interval : null
+            }
+        },
         components:{
             Menu,
             Board,
@@ -38,11 +43,14 @@
         mounted(){
             this.$store.dispatch('getBoard');
             this.$store.dispatch("setFrontUpdated");
-            setInterval(() => {
+            this.interval = setInterval(() => {
                 if(this.isCurrentAI && !this.$store.state.winner){
                     this.$store.dispatch('getBoard');
                 }
                 },1000);
+        },
+        beforeDestroy() {
+            clearInterval(this.interval)
         },
         methods: {
         }

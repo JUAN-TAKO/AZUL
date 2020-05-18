@@ -32,7 +32,6 @@ export default new Vuex.Store({
                 this.state.selection.donnees = {};
             }
             this.state.board = data.GlobalBoard;
-            console.log("actualisation boras");
             if(this.state.hasAIPlayed) {
                 this.state.hasAIPlayed = false
                 this.state.animationIAEnCours = false
@@ -91,7 +90,7 @@ export default new Vuex.Store({
                                         factory : factory,
                                         line : line,
                                         nSelected : nSelected,
-                                        player : q.GlobalBoard.currentPlayer
+                                        player : this.state.board.currentPlayer
                                     },
                                     selectionner : true
                                 }

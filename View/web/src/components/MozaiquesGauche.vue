@@ -66,7 +66,6 @@
                 }
             },
             nouveaux(ligne) {
-                console.log(this.$store.state.lastMove !== null, this.$store.state.lastMove.line === ligne, this.id === this.$store.state.lastMove.player)
                 if(this.$store.state.lastMove !== null && this.$store.state.lastMove.line === ligne && this.id === this.$store.state.lastMove.player) {
                     return true
                 } else {
