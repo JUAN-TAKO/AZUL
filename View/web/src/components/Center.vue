@@ -2,7 +2,7 @@
     <div class="col-12 m-0 p-0 align-self-center justify-content-center row">
         <div :class="{ 'col-1 m-0 m-2 p-0 p-md-1' : mozaique != 0 }" class="" v-for="(mozaique, index) in mozaiques" :key="index" @mouseover="mouseOver(mozaique)" @mouseout="mouseOut()" @click="clickMozaique()">
             <transition name="bounce">
-                <Mozaique v-if="mozaique != 0" :scale="getScale(index)" :couleur="mozaique"></Mozaique>
+                <Mozaique v-if="mozaique != 0 && !isSelected(mozaique)" :scale="getScale(index)" :couleur="mozaique"></Mozaique>
             </transition>
         </div>
         <div :class="{ 'col-1 m-0 m-2 p-0 p-md-1' : pionPremier === true }">
@@ -31,7 +31,7 @@
         },
         computed: {
             isAI() {
-                return this.$store.state.playersAIStatus[this.$store.state.board.currentPlayer];
+                return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
             },
             getScaleCenter() {
                 return (this.over !== 0 && this.pionPremier === true) ? 1.3 : 1;
@@ -71,6 +71,9 @@
                 if(this.$store.state.hasAIPlayed) {
                     this.$store.state.animationDone = true;
                 }
+            },
+            isSelected(couleur) {
+                return this.id == this.$store.state.selection.donnees.factory && couleur == this.$store.state.selection.donnees.color
             }
         }
     }

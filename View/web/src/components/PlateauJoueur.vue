@@ -43,13 +43,13 @@
         },
         methods: {
             ajoutPlancher(valeur,couleur) {
-                if(valeur !== undefined && couleur !== undefined) {
+                if(valeur !== undefined && couleur !== undefined && this.isCurrent) {
                     this.plancherAjout = valeur;
                     this.couleurPlancherAjout = couleur;
                 }
             },
             clickPlancher() {
-                if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner) {
+                if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner  && this.isCurrent) {
                     this.$store.dispatch("jouerCoup",5)
                 }
             }

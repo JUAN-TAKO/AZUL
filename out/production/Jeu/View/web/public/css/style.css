@@ -3,12 +3,8 @@
     /*max-height: 100vh;*/
 }
 
-*::selection {
+*:not(input)::selection {
     background: none;
-}
-
-*::selection {
-    background: blue;
 }
 
 html {

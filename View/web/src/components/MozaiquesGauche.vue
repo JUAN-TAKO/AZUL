@@ -56,7 +56,7 @@
                 }
             },
             mouseClick(ligne, couleur) {
-                if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner && ( couleur === this.$store.state.selection.donnees.color || couleur == 0)) {
+                if(this.isCurrent && !this.$store.state.coupJouer && this.$store.state.selection.selectionner && ( couleur === this.$store.state.selection.donnees.color || couleur == 0)) {
                     this.$store.dispatch("jouerCoup",ligne)
                 }
             }
