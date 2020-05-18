@@ -30,6 +30,9 @@
             pionPremier: Boolean
         },
         computed: {
+            isAI() {
+                return this.$store.state.playersAIStatus[this.$store.state.board.currentPlayer];
+            },
             getScaleCenter() {
                 return (this.over !== 0 && this.pionPremier === true) ? 1.3 : 1;
             }
@@ -45,6 +48,9 @@
                 return this.mozaiques[i] === this.over || (this.mozaiques[i] === this.$store.state.selection.donnees.color && this.id === this.$store.state.selection.donnees.factory) ? 1.3 : 1;
             },
             clickMozaique() {
+                if(this.isAI)
+                    return;
+                    
                 let selection = {
                     donnees:{
                         factory : this.id,

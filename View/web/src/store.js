@@ -19,11 +19,13 @@ export default new Vuex.Store({
         winner: null,
         animationDone:true,
         jeuxEnCours:false,
-        retourMenu:false
+        retourMenu:false,
+        playersAIStatus:null,
     },
     mutations: {
         setBoard(state, data) {
             this.state.board = data.GlobalBoard;
+            this.state.playersAIStatus = data.playersAIStatus;
             if(this.state.hasAIPlayed) {
                 setTimeout(() => {
                     this.dispatch("setFrontUpdated");
