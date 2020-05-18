@@ -15,8 +15,6 @@
                 <div class="d-flex flex-column menu-liste align-items-st art">
                     <button class="btn border-secondary" @click="retourMenu">Menu</button>
                     <button class="btn border-secondary" @click="recommancer()">Recommencer</button>
-                    <button class="btn border-secondary">Abandonner</button>
-                    <button class="btn border-secondary">Annuler mouvement</button>
                     <button class="btn border-secondary">Sauvegarder</button>
                 </div>
             </div>

@@ -51,7 +51,7 @@
                     }),
                     names: this.$store.state.board.PB.map(a => a.name),
                 };
-                console.log(json);
+                // console.log(json);
                 axios.post('http://localhost:8000/startGame', json)
                     .then(() => {
                         this.$emit("gameStarted");

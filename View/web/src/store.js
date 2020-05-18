@@ -107,6 +107,8 @@ export default new Vuex.Store({
                                 context.commit("setBoard", q)
                             }
                         } else if( context.state.board == null ){
+                            if(q.hasAIPlayed === true)
+                                context.state.hasAIPlayed = true
                             context.commit("setBoard", q)
                         }
                     })
