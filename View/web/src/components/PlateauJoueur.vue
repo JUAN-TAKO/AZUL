@@ -49,22 +49,27 @@
                 }
             },
             clickPlancher() {
-                if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner  && this.isCurrent) {
-                    this.$store.dispatch("jouerCoup",5)
+                if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner && this.isCurrent) {
+                    this.$store.dispatch("jouerCoup",5);
+                    this.ajoutPlancher(0,0);
                 }
-            }
+            },
+
         },
         computed: {
             isCurrent() {
                 return this.$store.state.board.currentPlayer === this.id
+            },
+            plancherAjoutComputed(){
+                return this.plancherAjout;
             },
             plancher() {
                 // console.log(this.plancherAjout, this.couleurPlancherAjout)
                 let plancher = Array.from(this.$store.state.board.PB[this.id].floor)
                 let cpt = 0;
                 let i = 0;
-                if(this.plancherAjout !== 0) {
-                    cpt += this.plancherAjout;
+                if(this.plancherAjoutComputed !== 0) {
+                    cpt += this.plancherAjoutComputed;
                     while(i < plancher.length && cpt > 0) {
                         if(plancher[i] === 0) {
                             plancher[i] = this.couleurPlancherAjout

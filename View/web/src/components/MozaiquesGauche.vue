@@ -31,7 +31,7 @@
             },
             mouseOut () {
                 this.ligneOver = 5
-                this.$emit("ajoutplancher",0,0)
+                this.$emit("ajoutplancher",0,0);
             },
             getNbMozaiqueLigne(nombre,couleur,ligne) {
                 let retour;
@@ -58,6 +58,8 @@
             mouseClick(ligne, couleur) {
                 if(this.isCurrent && !this.$store.state.coupJouer && this.$store.state.selection.selectionner && ( couleur === this.$store.state.selection.donnees.color || couleur == 0)) {
                     this.$store.dispatch("jouerCoup",ligne)
+                    if(this.$store.state.retourCoup == "") // Valid play
+                        this.$emit("ajoutplancher",0,0);
                 }
             }
         },

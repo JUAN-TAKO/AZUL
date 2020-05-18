@@ -20,17 +20,20 @@ export default new Vuex.Store({
         animationDone:true,
         jeuxEnCours:false,
         retourMenu:false,
+        animationOnGoing: false,
         playersAIStatus:null,
     },
     mutations: {
         setBoard(state, data) {
             this.state.board = data.GlobalBoard;
             this.state.playersAIStatus = data.playersAIStatus;
-            if(this.state.hasAIPlayed) {
+            if(this.state.hasAIPlayed && !this.state.animationOnGoing) {
+                this.state.animationOnGoing = true;
+                this.state.hasAIPlayed = false
                 setTimeout(() => {
                     this.dispatch("setFrontUpdated");
-                    this.hasAIPlayed = false
-                },2000)
+                    this.state.animationOnGoing = false;
+                },2000);
             }
             if(this.state.coupJouer) {
                 this.state.coupJouer = false
@@ -65,9 +68,9 @@ export default new Vuex.Store({
             .then(response => response.data)
             .then( q => {
                 if(q != context.state.board){
-                    context.commit("setBoard", q)
                     if(q.hasAIPlayed != context.state.hasAIPlayed)
                         context.commit("setAIPlayed", q.hasAIPlayed);
+                    context.commit("setBoard", q)
                 }
 
             })
@@ -81,6 +84,11 @@ export default new Vuex.Store({
                     switch(response.data.value) {
                         case 0:
                             context.state.coupJouer = true;
+                            context.commit("setBoard", response.data);
+                            context.state.selection = {
+                                selectionner: false,
+                                donnees:{}
+                            };
                             break;
                         case -2:
                             context.state.retourCoup = "La couleur jouée n'est pas présente dans la fabrique selectionnée";

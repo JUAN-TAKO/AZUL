@@ -123,6 +123,9 @@ public class JavaHTTPServer implements Runnable{
                     		int color = (int) jsonObjectIn.get("color");
                     		int line = (int) jsonObjectIn.get("line");
                     		jsonObjectOut.put("value", Controller.getInstance().playMove(factory, color, line));
+                        	GlobalBoard gb = Controller.getInstance().getCurrentBoard();
+                        	jsonObjectOut.put("GlobalBoard",gb.toJSON());
+                        	jsonObjectOut.put("hasAIPlayed", Controller.getInstance().hasAIPlayed());
                             send200(out);
                     		break;
                     	case "/setFrontUpdated":

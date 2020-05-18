@@ -13,7 +13,7 @@ public class Controller {
 	private static final Controller instance = new Controller();
 	private ArrayList<GlobalBoard> boards = new ArrayList<GlobalBoard>();
 	private Player[] players;
-	private final int delay = 100;
+	private final int delay = 50;
 	private int countdown;
 	private boolean isFrontUpdated = false;
 	private boolean AIHasPlayed = false;
