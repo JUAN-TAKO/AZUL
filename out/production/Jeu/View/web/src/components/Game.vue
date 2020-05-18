@@ -30,13 +30,19 @@
             },
             pionPremier() {
                 return this.hasLoaded ? this.$store.state.board.futureFirstPlayer === -1 : null;
+            },
+            isCurrentAI(){
+                return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
             }
         },
         mounted(){
-            setInterval(() => {
-                this.$store.dispatch('getBoard');
-                },1000);
+            this.$store.dispatch('getBoard');
             this.$store.dispatch("setFrontUpdated");
+            setInterval(() => {
+                if(this.isCurrentAI && !this.$store.state.winner){
+                    this.$store.dispatch('getBoard');
+                }
+                },1000);
         },
         methods: {
         }

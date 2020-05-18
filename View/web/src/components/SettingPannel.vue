@@ -65,6 +65,7 @@
                         this.$emit("gameStarted");
                         this.$store.state.winner = null
                         this.$store.state.animationIAEnCours = false
+                        this.$store.dispatch('getBoard');
                         setTimeout(() => {
                             this.waitingReponse = false
                         },1000)

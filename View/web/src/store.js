@@ -12,16 +12,18 @@ export default new Vuex.Store({
 
             }
         },
+        lastMove:null,
         coupJouer : false,
         board: null,
         charge: false,
         hasAIPlayed : false,
         winner: null,
-        animationDone:true,
+        // animationDone:true,
         jeuxEnCours:false,
         retourMenu:false,
-        animationOnGoing: false,
-        playersAIStatus:null,
+        // animationOnGoing: false,
+        // playersAIStatus:null,
+        animationIAEnCours:false
     },
     mutations: {
         setBoard(state, data) {
@@ -56,7 +58,6 @@ export default new Vuex.Store({
                     i: winnerI,
                     name: this.state.board.PB[winnerI].name,
                 }
-                // alert(this.state.winner.name + " gagne la partie !");
             }
         },
         setAIPlayed(state, data) {
@@ -73,29 +74,40 @@ export default new Vuex.Store({
                         if(q.hasAIPlayed == true && JSON.stringify(q.GlobalBoard) != JSON.stringify(context.state.board) ) {
                             context.commit("setAIPlayed", q.hasAIPlayed);
                             context.state.animationIAEnCours = true;
-                            // context.state.selection.donnees = q.moveAI
+
                             setTimeout(() => {
-                                context.state.selection.donnees = {
-                                    // line : 3,
-                                    color : 3,
-                                    factory : 2,
-                                    nSelected : 2
+                                let color = parseInt(q.GlobalBoard.lastMove.color,10)
+                                let factory = parseInt(q.GlobalBoard.lastMove.factory,10)
+                                let line = parseInt(q.GlobalBoard.lastMove.line,10)
+                                let nSelected
+                                if(factory === -1)
+                                    nSelected = Array.from(context.state.board.center).filter(el => el === color).length
+                                else
+                                    nSelected = Array.from(context.state.board.factories[factory]).filter(el => el === color).length
+
+                                let selection = {
+                                    donnees : {
+                                        color : color,
+                                        factory : factory,
+                                        line : line,
+                                        nSelected : nSelected,
+                                        player : q.GlobalBoard.currentPlayer
+                                    },
+                                    selectionner : true
                                 }
-                                context.state.selection.selectionner = true;
+                                context.state.selection = selection
+
+                                context.state.lastMove = selection.donnees;
+
                                 setTimeout(()=>{
                                     context.commit("setBoard", q)
                                 },2000)
                             },50)
                         } else {
-                            if(JSON.stringify(q.GlobalBoard) != JSON.stringify(context.state.board) ) {
+                            if(JSON.stringify(q.GlobalBoard) !== JSON.stringify(context.state.board) ) {
                                 context.commit("setBoard", q)
                             }
                         }
-                        // if(q != context.state.board){
-                        //     context.commit("setBoard", q)
-                        //     if(q.hasAIPlayed != context.state.hasAIPlayed)
-                        //         context.commit("setAIPlayed", q.hasAIPlayed);
-                        // }
                     })
             }
         },

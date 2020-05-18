@@ -7,7 +7,7 @@
             <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
                 <div class="embed-responsive-item">
                     <div class="mozaiques d-flex">
-                        <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
+                        <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent" :id="id"></MozaiquesGauche>
                         <MozaiquesDroite :mur="plateauJoueur.wall" :isCurrent="isCurrent"></MozaiquesDroite>
                     </div>
                     <div class="plancher d-flex flex-row" :class="{'shadow-danger' : plancherAjout !== 0, 'light-around' : this.$store.state.selection.selectionner && isCurrent}" @mouseover="ajoutPlancher($store.state.selection.donnees.nSelected,$store.state.selection.donnees.color)" @click="clickPlancher()" @mouseleave="ajoutPlancher(0,0)">
@@ -43,7 +43,6 @@
         },
         methods: {
             ajoutPlancher(valeur,couleur) {
-                // console.log(valeur,couleur)
                 if(valeur !== undefined && couleur !== undefined && this.isCurrent) {
                     this.plancherAjout = valeur;
                     this.couleurPlancherAjout = couleur;

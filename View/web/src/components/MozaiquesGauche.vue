@@ -3,7 +3,7 @@
         <div class="ligne flex-row-reverse" @click="mouseClick(index,couleurs[index])" @mouseover="mouseOver(index)" @mouseleave="mouseOut()" v-for="(nbMozaiques, index) in this.lignes" :key="index">
             <Mozaique v-for="(mozaique,i) in getNbMozaiqueLigne(nbMozaiques,couleurs[index],index)"
                       :key="i" :couleur="getCouleurMozaiqueLigne(couleurs[index])"
-                      :class="{ 'bounce-enter-active' : nouveaux(i) }"></Mozaique>
+                      :class="{ 'bounce-enter-active' : nouveaux(index) }"></Mozaique>
         </div>
     </div>
 </template>
@@ -17,6 +17,7 @@
             couleurs : {},
             lignes : {},
             isCurrent: Boolean,
+            id : Number
         },
         data() {
             return {
@@ -65,7 +66,12 @@
                 }
             },
             nouveaux(ligne) {
-                return this.$store.state.animationIAEnCours && this.$store.state.selection.donnees.line == ligne
+                console.log(this.$store.state.lastMove !== null, this.$store.state.lastMove.line === ligne, this.id === this.$store.state.lastMove.player)
+                if(this.$store.state.lastMove !== null && this.$store.state.lastMove.line === ligne && this.id === this.$store.state.lastMove.player) {
+                    return true
+                } else {
+                    return false
+                }
             }
         },
         computed: {
