@@ -70,7 +70,7 @@ export default new Vuex.Store({
                 Axios.get('http://localhost:8000/getBoard')
                     .then(response => response.data)
                     .then( q => {
-                        if(q.hasAIPlayed == true && JSON.stringify(q.GlobalBoard) != JSON.stringify(context.state.board) ) {
+                        if(context.state.board != null && q.hasAIPlayed == true && JSON.stringify(q.GlobalBoard) != JSON.stringify(context.state.board) ) {
                             context.commit("setAIPlayed", q.hasAIPlayed);
                             context.state.animationIAEnCours = true;
 
@@ -102,10 +102,12 @@ export default new Vuex.Store({
                                     context.commit("setBoard", q)
                                 },2000)
                             },50)
-                        } else {
+                        } else if( context.state.board != null ){
                             if(JSON.stringify(q.GlobalBoard) !== JSON.stringify(context.state.board) ) {
                                 context.commit("setBoard", q)
                             }
+                        } else if( context.state.board == null ){
+                            context.commit("setBoard", q)
                         }
                     })
             }
