@@ -1,7 +1,7 @@
 <template>
     <div v-if="this.$store.state.board" id="board" class="col-5 m-0 p-0 row d-flex">
         <div class="m-2 btn-annuler-action rounded-pill">
-            <a class="btn btn-secondary text-white"> Annuler la dernière action</a>
+            <button class="btn btn-secondary" @click="goPrevious()"> Annuler la dernière action</button>
         </div>
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
             <div class="w-50 mx-auto pb-5 px-1">
@@ -25,6 +25,7 @@
     import Fabrique from "./Fabrique";
     import Mozaique from "./Mozaique"
     import Center from "./Center"
+    import axios from "axios";
     export default {
         name: "Board",
         components: {
@@ -59,6 +60,16 @@
                     }
                 }
                 this.$store.state.selection = selection
+            },
+            goPrevious(){
+                axios.post('http://localhost:8000/goPrevious', {})
+                    .then((response) => {
+                        console.log(response);
+                        if(response.data.GlobalBoard != null)
+                            this.$store.commit("setBoard", response.data.GlobalBoard);
+                    })
+                    .catch(() => {
+                    });
             }
         }
     }

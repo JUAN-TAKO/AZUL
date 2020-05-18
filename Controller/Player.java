@@ -40,4 +40,9 @@ public abstract class Player {
 	int click(int factory, int color, int line) {
 		return 0;
 	}
+	
+	public void setBoard(GlobalBoard b) {
+		globalBoard = b;
+		playerBoard = b.getPlayerBoards()[num];
+	}
 }

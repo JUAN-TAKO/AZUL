@@ -73,11 +73,11 @@ public class JavaHTTPServer implements Runnable{
                     switch(url) {
                     	case "/getGameStatus":
                             send200(out);
-                    		jsonObject.put("onGoing",  Controller.getInstance().getBoard() != null);
+                    		jsonObject.put("onGoing",  Controller.getInstance().getCurrentBoard() != null);
                     		break;
                         case "/getBoard":
                             send200(out);
-                        	GlobalBoard gb = Controller.getInstance().getBoard();
+                        	GlobalBoard gb = Controller.getInstance().getCurrentBoard();
                         	if(gb != null) 
                         		jsonObject.put("GlobalBoard",gb.toJSON());
                         	jsonObject.put("hasAIPlayed", Controller.getInstance().hasAIPlayed());
@@ -128,6 +128,10 @@ public class JavaHTTPServer implements Runnable{
                     	case "/setFrontUpdated":
                     		Controller.getInstance().setFrontUpdated(true);
                             send200(out);
+                    		break;
+                    	case "/goPrevious":
+                    		jsonObjectOut.put("GlobalBoard", Controller.getInstance().goPrevious() ? Controller.getInstance().getCurrentBoard().toJSON() : null);
+                    		send200(out);
                     		break;
                         default :
                             send404(out);
