@@ -76,7 +76,7 @@
     }
 
     .mozaique-img {
-        filter: drop-shadow(2px -2px 2px black);
+        /*filter: drop-shadow(2px -2px 2px black);*/
         border-radius: 10%;
     }
 

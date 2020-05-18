@@ -30,6 +30,7 @@ export default new Vuex.Store({
                 this.state.selection.donnees = {};
             }
             this.state.board = data.GlobalBoard;
+            console.log("actualisation boras");
             if(this.state.hasAIPlayed) {
                 this.state.hasAIPlayed = false
                 this.state.animationIAEnCours = false
@@ -86,7 +87,7 @@ export default new Vuex.Store({
                                 },2000)
                             },50)
                         } else {
-                            if(q.GlobalBoard !== context.state.board) {
+                            if(JSON.stringify(q.GlobalBoard) != JSON.stringify(context.state.board) ) {
                                 context.commit("setBoard", q)
                             }
                         }

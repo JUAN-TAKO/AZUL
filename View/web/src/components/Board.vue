@@ -75,6 +75,8 @@
                         console.log(response);
                         // if(response.data.GlobalBoard != null)
                         //     this.$store.commit("setBoard", response.data.GlobalBoard);
+                        // if(response.data.GlobalBoard != null)
+                        this.$store.dispatch('getBoard');
                     })
                     .catch(() => {
                         setTimeout(() => {

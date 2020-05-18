@@ -2,7 +2,7 @@
     <div class="">
         <div class="plateau-joueur-div bord er border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
             <div>
-                <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{plateauJoueur.name}} - Score : {{ plateauJoueur.score }}</h3>
+                <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{ plateauJoueur.name }} - Score : {{ plateauJoueur.score }}</h3>
             </div>
             <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
                 <div class="embed-responsive-item">
@@ -43,9 +43,14 @@
         },
         methods: {
             ajoutPlancher(valeur,couleur) {
+                // console.log(valeur,couleur)
                 if(valeur !== undefined && couleur !== undefined && this.isCurrent) {
                     this.plancherAjout = valeur;
                     this.couleurPlancherAjout = couleur;
+                } else if(valeur == 0 && couleur == 0 ) {
+                    this.plancherAjout = valeur;
+                    this.couleurPlancherAjout = couleur;
+
                 }
             },
             clickPlancher() {
@@ -121,13 +126,7 @@
 
     .plateau-joueur-shadow-current {
         box-shadow: 0 0 30px #5ac5d4;
-        /*box-shadow: 0 0 30px white;*/
         transition: box-shadow 0.3s;
-    }
-
-    .plateau-joueur-div {
-        /*background: linear-gradient(109.61deg,#4c4f5a 4.26%,#202125 84.84%);*/
-        /*border: solid 3px white;*/
     }
 
 </style>
