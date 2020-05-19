@@ -76,6 +76,7 @@ public class GlobalBoard {
 		this.lid = gb.lid.clone();
 		this.currentPlayer = gb.currentPlayer;
 		this.futureFirstPlayer = gb.futureFirstPlayer;
+		this.lastMove = gb.getLastMove() != null ? new Triplet<Integer,Integer,Integer>(gb.getLastMove().getFirst(), gb.getLastMove().getSecond(), gb.getLastMove().getThird()) : null;
 	}
 
 	public int getNPlayers() {return nPlayers;}

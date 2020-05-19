@@ -1,8 +1,9 @@
 <template>
     <div class="">
         <div class="plateau-joueur-div bord er border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
-            <div>
-                <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{ plateauJoueur.name }} - Score : {{ plateauJoueur.score }}</h3>
+            <div class="d-flex justify-content-between" :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">
+                <h3>{{ plateauJoueur.name }}</h3>
+                <h3>Score : {{ plateauJoueur.score }}</h3>
             </div>
             <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
                 <div class="embed-responsive-item">
