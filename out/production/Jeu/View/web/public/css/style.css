@@ -85,7 +85,7 @@ body {
 
 .input-main-menu {
     transition: max-height 0.3s linear;
-    max-height:100px;
+    max-height:200px;
 }
 
 .not-selected-input {
@@ -94,6 +94,10 @@ body {
 
 .input-group-append button {
     z-index:0 !important;
+}
+
+.group-btn-main-menu {
+    flex-wrap: wrap;
 }
 
 .mozaique-selected{

@@ -1,27 +1,17 @@
 <template>
     <div class="row h-100 m-0">
-        <div id="modalRegles" class="modal" tabindex="-1" role="dialog" aria-labelledby="labelModalRegles" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="labelModalRegles">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
+        <div v-if="regles" @click="setRegles(false)" class="modal-regles-overlay d-flex row m-0 p-0">
+            <div id="modalRegles" class="col-10 m-auto">
+                <iframe src="NO-AZUL.pdf" class="w-100 h-100">
+
+                </iframe>
             </div>
         </div>
         <div class="col-4 p-sm-3 p-1 p-xl-5 liste-btn-mainMenu">
             <button v-if="this.$store.state.jeuxEnCours" class="btn btn-primary w-100" @click="revenirJeu">Reprendre la partie</button>
             <button class="btn btn-primary w-100" @click="startGame">Commencer la partie</button>
-            <button class="btn btn-primary w-100" type="button" data-toggle="modal" data-target="#modalRegles">Règles</button>
+            <button class="btn btn-primary w-100" @click="setRegles(true)" type="button" data-toggle="modal" data-target="#modalRegles">Règles</button>
+            <button class="btn btn-primary w-100" @click="startTuto" type="button" data-toggle="modal" data-target="#modalRegles">Tutoriel</button>
         </div>
         <div class="col azul-bg pt-5">
             <div class="player-slots row m-0">
@@ -77,7 +67,8 @@
                         name: "Joueur 4",
                         AI: 0,
                     },
-                ]
+                ],
+                regles : false
             }
         },
         computed:{
@@ -141,7 +132,15 @@
             },
             revenirJeu() {
                 this.$store.state.retourMenu = false
-
+            },
+            startTuto() {
+                this.$store.dispatch('getBoardTuto');
+                this.$store.state.jeuxEnCours = true;
+                this.$store.state.retourMenu = false
+                this.$store.state.winner = null;
+            },
+            setRegles(valeur) {
+                this.regles = valeur;
             }
         },
         mounted() {

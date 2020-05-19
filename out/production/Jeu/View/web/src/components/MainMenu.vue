@@ -22,6 +22,7 @@
             <button v-if="this.$store.state.jeuxEnCours" class="btn btn-primary w-100" @click="revenirJeu">Reprendre la partie</button>
             <button class="btn btn-primary w-100" @click="startGame">Commencer la partie</button>
             <button class="btn btn-primary w-100" type="button" data-toggle="modal" data-target="#modalRegles">Règles</button>
+            <button class="btn btn-primary w-100" @click="startTuto" type="button" data-toggle="modal" data-target="#modalRegles">Tutoriel</button>
         </div>
         <div class="col azul-bg pt-5">
             <div class="player-slots row m-0">
@@ -30,7 +31,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" v-model="player.name" :disabled="!player.selected || player.AI!=0" style="border-radius:0.25rem 0 0 0">
                         </div>
-                        <div class="btn-group w-100" role="group" aria-label="Basic example">
+                        <div class="btn-group w-100 group-btn-main-menu" role="group" aria-label="Basic example">
                             <button @click="setAI(player,0)" class="btn btn-sm" :class="player.AI === 0 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">Humain</button>
                             <button @click="setAI(player,1)" class="btn btn-sm" :class="player.AI === 1 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">AI Aléatoire</button>
                             <button @click="setAI(player,2)" class="btn btn-sm" :class="player.AI === 2 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">AI Facile</button>
@@ -131,6 +132,7 @@
                 axios.post('http://localhost:8000/startGame', json)
                 .then(() => {
                     // this.$emit("gameStarted");
+                    this.$store.dispatch("reset")
                     this.$store.state.jeuxEnCours = true
                     this.$store.state.retourMenu = false
                     this.$store.state.winner = null
@@ -140,7 +142,15 @@
             },
             revenirJeu() {
                 this.$store.state.retourMenu = false
+            },
+            startTuto() {
+                this.$store.state.jeuxEnCours = true;
+                this.$store.state.retourMenu = false
+                this.$store.state.winner = null;
             }
+        },
+        mounted() {
+            this.$el.getElementsByClassName("input-main-menu")[0].style.maxHeight = this.$el.getElementsByClassName("input-main-menu")[0].clientHeight
         }
     }
 </script>

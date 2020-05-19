@@ -52,6 +52,21 @@ body {
     z-index: 10;
 }
 
+.modal-regles-overlay {
+    position: absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    background-color: rgba(110,110,110,0.3);
+    z-index: 10;
+ }
+
+#modalRegles {
+    z-index: 11;
+    height: 85vh;
+}
+
 .player-slots {
     /*display:flex;*/
     /*justify-content: center;*/
