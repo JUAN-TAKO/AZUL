@@ -10,9 +10,8 @@
         </div>
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
             <div class="w-50 mx-auto pb-5 px-1">
-                
                 <button type="button" class="close text-white" aria-label="Close" @click="annulerSelection()">
-                    <span aria-hidden="true">&times;</span>
+                    <span class="close-selection" aria-hidden="true">&times;</span>
                 </button>
                 <div class="container d-flex mozaique-selected row px-4 m-0">
                     <Mozaique v-for="i in nbMozaique" :key="i" :couleur="couleurMozaique" class="col-3"></Mozaique>

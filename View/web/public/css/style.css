@@ -131,6 +131,18 @@ body {
     font-size: 3rem !important;
 }
 
+.close-selection {
+    border: solid 3px white;
+    border-radius: 10%;
+    background: rgba(10,10,10,0.7);
+    display: inline-block;
+    width: 70px;
+}
+
+.close-selection:hover {
+    background: rgba(10,10,10,0.3);
+}
+
 .close > span {
     vertical-align: super;
 }
