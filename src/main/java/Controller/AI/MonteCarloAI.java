@@ -10,8 +10,8 @@ import Utils.Pair;
 
 public class MonteCarloAI extends AIPlayer {
     Random random;
-    int maxMovesAhead = 2;
-    int randomSampleSize = 200;
+    int maxMovesAhead = 3;
+    int randomSampleSize = 50;
     double growth = 4;
 
     public MonteCarloAI(int n, GlobalBoard g) {
@@ -50,13 +50,20 @@ public class MonteCarloAI extends AIPlayer {
         }
         return w;
     }
-    public ArrayList<Float> estimateBoard(GlobalBoard g, int movesAhead){
+    public ArrayList<Float> estimateBoard(GlobalBoard old, GlobalBoard g, int movesAhead){
         ArrayList<Float> sum = new ArrayList<>();
         for(int j=0; j<g.getNPlayers();j++){
             sum.add(0.0f);
         }
         float total = 0.0f;
-        if(movesAhead+1 >= maxMovesAhead){
+        if(!g.isRoundActive()){
+            ArrayList<Float> scores = new ArrayList<>();
+            for(int i=0; i<g.getNPlayers();i++){
+                scores.add((float)g.getPlayerBoard(i).getScore() - (float)old.getPlayerBoard(i).getScore());
+            }
+            total += weightScores(g, scores, sum);
+        }
+        else if(movesAhead+1 >= maxMovesAhead){
             for(int i=0; i < randomSampleSize; i++){
                 GlobalBoard sim = new GlobalBoard(g);
                 total += weightScores(g, randomSimulation(sim), sum);
@@ -68,8 +75,9 @@ public class MonteCarloAI extends AIPlayer {
                 GlobalBoard sim = new GlobalBoard(g);
                 Move move = moves.get(i);
                 sim.currentPlayerDraw(move.factory, move.color, move.line);
-                total += weightScores(g, estimateBoard(sim, movesAhead+1), sum);
+                total += weightScores(g, estimateBoard(g, sim, movesAhead+1), sum);
             }
+
         }
         for(int i=0; i < g.getNPlayers(); i++){
             sum.set(i, sum.get(i) / total);
@@ -85,7 +93,7 @@ public class MonteCarloAI extends AIPlayer {
             GlobalBoard sim = new GlobalBoard(globalBoard);
             Move move = moves.get(i);
             sim.currentPlayerDraw(move.factory, move.color, move.line);
-            scores = estimateBoard(sim, 0);
+            scores = estimateBoard(globalBoard, sim, 0);
             float v = valueFunction(scores.get(globalBoard.getCurrentPlayer()));
             map.put(v, moves.get(i));
         }
