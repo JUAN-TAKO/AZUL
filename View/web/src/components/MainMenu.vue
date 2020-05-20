@@ -110,6 +110,9 @@
                     case 2:
                         player.name = "AI Facile "
                         break;
+                    case 3:
+                        player.name = "AI Moyen "
+                        break;
                 }
                 player.name = player.name + player.id
             },
