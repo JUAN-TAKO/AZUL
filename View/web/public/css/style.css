@@ -26,7 +26,7 @@ body {
 }
 
 .loading {
-    background: center no-repeat url("/img/fond.png"), radial-gradient(white,#5ac5d4) !important;
+    background: center no-repeat url("../img/fond.png"), radial-gradient(white,#5ac5d4) !important;
     height:100%;
     width:100%;
     position: absolute;
@@ -38,8 +38,12 @@ body {
 }
 
 .azul-bg {
-    background: center no-repeat url("/img/fond.png"), radial-gradient(white,#5ac5d4) !important;
+    background: center no-repeat url("../img/fond.png"), radial-gradient(white,#5ac5d4) !important;
     height:100%;
+}
+
+.fabrique {
+    background: center / contain no-repeat url("../img/fabrique.png");
 }
 
 .overlay {
@@ -145,6 +149,42 @@ body {
     background: rgba(10,10,10,0.3);
 }
 
+.plateau-joueur {
+    /*border: solid 1px black;*/
+    background: center / contain no-repeat url("../img/plateau-joueur.png");
+    position: relative;
+    border-radius: 3%;
+    overflow: visible;
+}
+
+.mozaiques {
+    position: absolute;
+    top: 13%;
+    right: 6%;
+    left: 6%;
+    bottom: 31%;
+    /*border: 3px solid red;*/
+}
+
+.plancher {
+    position: absolute;
+    /*border: 3px solid purple;*/
+    bottom: 9%;
+    right: 31%;
+    left: 4%;
+    cursor: pointer;
+}
+
+.not-current-player {
+    background: center / contain no-repeat url("../img/plateau-joueur-not-current.png");
+    border:none;
+}
+
+.plateau-joueur-shadow-current {
+    box-shadow: 0 0 30px #5ac5d4;
+    transition: box-shadow 0.3s;
+}
+
 
 /* ANIMATIONS */
 
@@ -227,6 +267,10 @@ body {
     width: 70%;
     border-radius: 10px;
     border: solid 5px white;
+}
+
+.mozaique-fabrique {
+    cursor: pointer;
 }
 
 img.couronne-victoire {
