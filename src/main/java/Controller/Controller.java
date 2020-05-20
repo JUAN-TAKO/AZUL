@@ -107,6 +107,8 @@ public class Controller {
 			for(Player player : this.players) {
 				player.setBoard(getCurrentBoard());
 			}
+			setAIHasPlayed(false);
+			setFrontUpdated(true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
