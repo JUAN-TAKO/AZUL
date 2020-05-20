@@ -81,13 +81,25 @@
                         setTimeout(() => {
                             this.waitingReponse = false
                         },500)
-                        console.log(response);
-                        // if(response.data.GlobalBoard != null)
-                        //     this.$store.commit("setBoard", response.data.GlobalBoard);
-                        // if(response.data.GlobalBoard != null)
+                        console.log(response.data.GlobalBoard);
                         this.$store.state.animationIAEnCours = false;
                         this.$store.state.hasAIPlayed = false;
-                        this.$store.dispatch('getBoard');
+                        this.$store.state.selection = {
+                            selectionner:false,
+                            donnees: {
+
+                            }
+                        };
+                        // this.$store.commit("setBoard",response.data.GlobalBoard)
+                        let interval = setInterval(() => {
+                            if(JSON.stringify(response.data.GlobalBoard) !== JSON.stringify(this.$store.state.board)){
+                                this.$store.state.animationIAEnCours = false;
+                                this.$store.state.hasAIPlayed = false;
+                                this.$store.dispatch('getBoard');
+                            } else {
+                                clearInterval(interval)
+                            }
+                        },1000);
                     })
                     .catch(() => {
                         setTimeout(() => {

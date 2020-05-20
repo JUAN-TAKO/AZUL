@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="player-card" @click="selectPlayer(player)">
-                        <img src="/img/plateau-joueur.png" class="w-100" :class="!player.selected ? 'not-selected': ''"/>
+                        <img src="img/plateau-joueur.png" class="w-100" :class="!player.selected ? 'not-selected': ''"/>
                         <p class="tooltip" v-html="player.selected ? 'Supprimer le joueur' : 'Ajouter le joueur'"/>
                     </div>
                 </div>
@@ -109,6 +109,9 @@
                         break;
                     case 2:
                         player.name = "AI Facile "
+                        break;
+                    case 3:
+                        player.name = "AI Moyen "
                         break;
                 }
                 player.name = player.name + player.id

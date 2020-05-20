@@ -12,17 +12,15 @@ export default new Vuex.Store({
 
             }
         },
+        retourCoup: null,
         lastMove:null,
         coupJouer : false,
         board: null,
         charge: false,
         hasAIPlayed : false,
         winner: null,
-        // animationDone:true,
         jeuxEnCours:false,
         retourMenu:false,
-        // animationOnGoing: false,
-        // playersAIStatus:null,
         animationIAEnCours:false,
         tutoEnCours: false,
         jaiCompris: false
@@ -69,6 +67,7 @@ export default new Vuex.Store({
     actions: {
         getBoard(context) {
             if(!this.state.animationIAEnCours) {
+                console.log("getBoard dans stores")
                 Axios.get('http://localhost:8000/getBoard')
                     .then(response => response.data)
                     .then( q => {

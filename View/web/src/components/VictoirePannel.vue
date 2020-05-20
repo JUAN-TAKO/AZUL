@@ -9,16 +9,16 @@
             <div class="col-12">
                 <div class=""><h2 class="text-white text-center victoire-titre text-warning">Victoire {{ $store.state.winner.name }} !</h2></div>
                 <div class=""><h2 class="text-white text-center victoire-score">Score : <span class="text-success">{{ getScore }}</span>
-                    {{ getSmiley }}</h2></div>
+                    <span class="smiley">{{ getSmiley }}</span></h2></div>
             </div>
             <div class="col-4 mx-auto d-flex flex-row px-5 m-0 my-2">
-                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : score > 25 }">
+                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : getScore > 20 }">
                     <img :src="'img/' + getStar1" alt="" class="embed-responsive-item">
                 </div>
-                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : score > 50 }">
+                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : getScore > 38 }">
                     <img :src="'img/' + getStar2" alt="" class="embed-responsive-item">
                 </div>
-                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : score > 75 }">
+                <div class="embed-responsive embed-responsive-1by1" :class="{ 'bounce-enter-active' : getScore > 58 }">
                     <img :src="'img/' + getStar3" alt="" class="embed-responsive-item">
                 </div>
             </div>
@@ -109,20 +109,20 @@
                 return this.score
             },
             getStar1() {
-                return this.getScore > 25 ? "star-winned.png" :  "star-unwinned.png"
+                return this.getScore > 20 ? "star-winned.png" :  "star-unwinned.png"
             },
             getStar2() {
-                return this.getScore > 50 ? "star-winned.png" :  "star-unwinned.png"
+                return this.getScore > 40 ? "star-winned.png" :  "star-unwinned.png"
             },
             getStar3() {
-                return this.getScore > 75 ? "star-winned.png" :  "star-unwinned.png"
+                return this.getScore > 60 ? "star-winned.png" :  "star-unwinned.png"
             },
             getSmiley() {
-                if(this.getScore < 25) {
+                if(this.getScore < 20) {
                     return ":("
-                } else if(this.getScore >= 25 && this.getScore < 50 ) {
+                } else if(this.getScore >= 20 && this.getScore < 40 ) {
                     return ":|"
-                } else if(this.getScore >= 50 && this.getScore < 75) {
+                } else if(this.getScore >= 40 && this.getScore < 60) {
                     return ":)"
                 } else {
                     return ":D"
@@ -140,5 +140,7 @@
 </script>
 
 <style scoped>
-
+    .smiley {
+        transform: rotate(180deg);
+    }
 </style>
