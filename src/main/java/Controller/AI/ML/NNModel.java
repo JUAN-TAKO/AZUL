@@ -1,4 +1,4 @@
-package Controller.AI.ML;
+/*package Controller.AI.ML;
 
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
@@ -107,4 +107,4 @@ public class NNModel
         model = new ComputationGraph(config);
         model.init();
     }
-}
+}*/

@@ -1,4 +1,4 @@
-package Controller.AI;
+/*package Controller.AI;
 
 import java.util.Random;
 
@@ -20,4 +20,4 @@ class LearningAI extends AIPlayer {
     protected boolean tick() {
         return true;
     }
-}
+}*/
