@@ -69,17 +69,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .fabrique {
-        background: center / contain no-repeat url("/img/fabrique.png");
-    }
-
-    .mozaique-fabrique {
-        cursor: pointer;
-    }
-
-    .container-fabrique-mozaiques {
-        /*border: 3px solid green !important;*/
-    }
-</style>

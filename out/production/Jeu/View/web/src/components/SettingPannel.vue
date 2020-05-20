@@ -19,10 +19,10 @@
             <h2 class="text-center py-4 text-primary setting-titre">Menu</h2>
             <div class="p-2">
                 <div class="d-flex flex-column menu-liste align-items-st art">
-                    <button class="btn border-secondary" @click="retourMenu">Menu</button>
-                    <button class="btn border-secondary" @click="recommancer()">Recommencer</button>
-                    <button class="btn border-secondary">Sauvegarder</button>
-                    <button class="btn border-secondary" @click="changeTuto"> {{ textTuto }} </button>
+                    <button class="btn btn-outline-primary" @click="retourMenu">Menu</button>
+                    <button class="btn btn-outline-primary" @click="recommancer()">Recommencer</button>
+                    <button class="btn btn-outline-primary">Sauvegarder</button>
+                    <button class="btn btn-outline-primary" @click="changeTuto"> {{ textTuto }} </button>
                     <button class="btn btn-outline-primary" @click="regles = true">Règles</button>
                 </div>
             </div>
