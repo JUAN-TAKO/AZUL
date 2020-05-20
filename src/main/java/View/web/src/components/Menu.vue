@@ -13,13 +13,17 @@
                 </div>
             </div>
         </div>
-        <div v-if="this.$store.state.retourCoup" class="alert alert-danger" role="alert">
-            {{ this.$store.state.retourCoup }}
-            <button type="button" class="close" aria-label="Close" @click="fermerRetourCoup()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
         <SettingPannel></SettingPannel>
+        <div class="divRetourCoup" v-if="affichageRetourCoup">
+            <div class="col-10 my-3 mx-auto">
+                <div class="alert alert-danger d-inline-block w-100 text-center align-middle" role="alert">
+                        {{ textRetourCoup }}
+                    <button type="button" class="close" aria-label="Close" @click="fermerRetourCoup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="row m-auto p-0 col-11 align-items-center">
             <PlateauJoueur v-for="(player, index) in players" :key="index" class="p-1 col-6" :plateauJoueur="player" :id="index"></PlateauJoueur>
         </div>
@@ -65,6 +69,12 @@
         computed: {
             tuto() {
                 return this.$store.state.tutoEnCours && !this.$store.state.selection.selectionner
+            },
+            textRetourCoup() {
+                return this.$store.state.retourCoup === null ? " Rien" : this.$store.state.retourCoup
+            },
+            affichageRetourCoup() {
+                return this.$store.state.retourCoup === false
             }
         },
         updated() {
@@ -78,5 +88,13 @@
     #menu {
         /*background-color: #131417;*/
         border-right:2px solid white;
+    }
+
+    .divRetourCoup {
+        position: absolute;
+        top:0;
+        right: 0;
+        left: 0;
+        z-index: 600;
     }
 </style>

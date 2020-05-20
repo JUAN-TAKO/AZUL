@@ -12,17 +12,15 @@ export default new Vuex.Store({
 
             }
         },
+        retourCoup: null,
         lastMove:null,
         coupJouer : false,
         board: null,
         charge: false,
         hasAIPlayed : false,
         winner: null,
-        // animationDone:true,
         jeuxEnCours:false,
         retourMenu:false,
-        // animationOnGoing: false,
-        // playersAIStatus:null,
         animationIAEnCours:false,
         tutoEnCours: false,
         jaiCompris: false
