@@ -111,6 +111,7 @@
                         if(r.data.success){
                             this.$store.dispatch("getGame");
                             this.$store.state.jeuxEnCours = true;
+                            this.$store.state.retourMenu = false;
                         } else {
                             this.message.text = "Impossible de charger la dernière partie."; this.message.error = true;
                         }
