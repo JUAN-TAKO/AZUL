@@ -24,7 +24,7 @@ export default new Vuex.Store({
         // animationOnGoing: false,
         // playersAIStatus:null,
         animationIAEnCours:false,
-        tutoEnCours: true,
+        tutoEnCours: false,
         jaiCompris: false
     },
     mutations: {
