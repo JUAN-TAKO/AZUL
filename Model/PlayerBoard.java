@@ -1,9 +1,14 @@
 package Model;
 
-import java.lang.*;
+import java.io.Serializable;
 
-public class PlayerBoard {
+public class PlayerBoard implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6613068462722023964L;
+	
 	private String name;
 	private int score;
 	private int[] linesColor;

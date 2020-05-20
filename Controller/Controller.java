@@ -3,6 +3,14 @@ package Controller;
 import Model.GlobalBoard;
 import View.AdaptateurTemps;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
@@ -62,9 +70,58 @@ public class Controller {
 //					players[i] = new Mo
 			}
 	}
+	
+	public boolean saveGame() {
+		if(isGameOnGoing()) {
+			File game = new File("game.save");
+			File players = new File("game_players.save");
+			try {
+				ObjectOutputStream oos_game = new ObjectOutputStream(new FileOutputStream(game));
+				ObjectOutputStream oos_players = new ObjectOutputStream(new FileOutputStream(players));
+				oos_game.writeObject(getCurrentBoard());
+				oos_players.writeObject(this.players);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean loadGame() {
+		File players = new File("game_players.save");
+		File game = new File("game.save");
+		if(!(players.exists() && game.exists()))
+			return false;
+		try {
+			ObjectInputStream ois_players = new ObjectInputStream(new FileInputStream(players));
+			ObjectInputStream ois_game = new ObjectInputStream(new FileInputStream(game));
+			this.boards.clear();
+			this.boards.add((GlobalBoard) ois_game.readObject());
+			this.players = (Player[]) ois_players.readObject();
+			for(Player player : this.players) {
+				player.setBoard(getCurrentBoard());
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 	public void tick() {
-		if (getCurrentBoard() != null && getCurrentBoard().isOnGoing()) {
+		if (isGameOnGoing()) {
 			if (countdown == 0) {
 				// Lorsque le temps est écoulé on le transmet au joueur courant.
 				// On verifie que le front est pret pour le prochain coup.
@@ -117,5 +174,9 @@ public class Controller {
 
 	public void setFrontUpdated(boolean isFrontUpdated) {
 		this.isFrontUpdated = isFrontUpdated;
+	}
+	
+	public boolean isGameOnGoing() {
+		return getCurrentBoard() != null && getCurrentBoard().isOnGoing();
 	}
 }

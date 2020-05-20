@@ -4,9 +4,15 @@ import java.util.*;
 import Controller.Server.*;
 import Utils.Triplet;
 
+import java.io.Serializable;
 import java.net.*;
 
-public class GlobalBoard {
+public class GlobalBoard implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9202646242592953014L;
 	
 	private int nPlayers;
 	private boolean onGoing;

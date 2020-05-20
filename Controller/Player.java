@@ -1,5 +1,7 @@
 package Controller;
 
+import java.io.Serializable;
+
 import Model.GlobalBoard;
 import Model.PlayerBoard;
 
@@ -11,7 +13,12 @@ import Model.PlayerBoard;
 // - provoquer une temporisation (utilisé dans une IA)
 // - tenir compte d'une temporisation écoulée (utilisé dans une IA)
 // - tenir compte d'un coup joué à la souris (utilisé par un joueur humain)
-public abstract class Player {
+public abstract class Player implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2528152765780409692L;
+	
 	protected GlobalBoard globalBoard;
 	protected PlayerBoard playerBoard;
 	protected int num;

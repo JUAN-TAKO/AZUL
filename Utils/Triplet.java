@@ -1,10 +1,17 @@
 package Utils;
 
+import java.io.Serializable;
+
 import Controller.Server.JSONException;
 import Controller.Server.JSONObject;
-public class Triplet<T, U, V> {
+public class Triplet<T, U, V> implements Serializable {
 
-    private final T first;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8619715733601523353L;
+	
+	private final T first;
     private final U second;
     private final V third;
 

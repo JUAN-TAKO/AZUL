@@ -18,10 +18,14 @@
         }">
             <h2 class="text-center py-4 text-primary setting-titre">Menu</h2>
             <div class="p-2">
+                <div class="alert" :class="this.message.error ? 'alert-danger' : 'alert-success'" v-if="this.message.text != ''">
+                    {{this.message.text}}
+                    <h2 class="float-right " @click="message.text = ''" style="line-height:0.5em; cursor:pointer">&times;</h2>
+                </div>
                 <div class="d-flex flex-column menu-liste align-items-st art">
                     <button class="btn btn-outline-primary" @click="retourMenu">Menu</button>
                     <button class="btn btn-outline-primary" @click="recommancer()">Recommencer</button>
-                    <button class="btn btn-outline-primary">Sauvegarder</button>
+                    <button class="btn btn-outline-primary" @click="saveGame()">Sauvegarder</button>
                     <button class="btn btn-outline-primary" @click="changeTuto"> {{ textTuto }} </button>
                     <button class="btn btn-outline-primary" @click="regles = true">Règles</button>
                 </div>
@@ -46,9 +50,24 @@
                 waitingReponse: false,
                 el: null,
                 regles: false,
+                message : {
+                    text: "",
+                    error: false,
+                },
             }
         },
         methods: {
+            saveGame(){
+                axios.post('http://localhost:8000/saveGame', {})
+                    .then((r) => {
+                        if(!r.data.success){                            
+                            this.message.text = "Aucune partie en cours."; this.message.error = true;
+                        }
+                        else {
+                            this.message.text = "Partie sauvegardée !"; this.message.error = false;
+                        }
+                    });
+            },
             openSettingPanel() {
                 this.scale === "0" ? this.scale = "1" : this.scale = "0"
             },

@@ -148,6 +148,14 @@ public class JavaHTTPServer implements Runnable{
                     		jsonObjectOut.put("GlobalBoard", Controller.getInstance().goPrevious() ? Controller.getInstance().getCurrentBoard().toJSON() : null);
                     		send200(out);
                     		break;
+                    	case "/saveGame":
+                    		jsonObjectOut.put("success", Controller.getInstance().saveGame());
+                    		send200(out);
+                    		break;
+                    	case "/loadGame":
+                    		jsonObjectOut.put("success", Controller.getInstance().loadGame());
+                    		send200(out);
+                    		break;
                         default :
                             send404(out);
                             break;

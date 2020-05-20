@@ -8,10 +8,18 @@
             </div>
         </div>
         <div class="col-4 p-sm-3 p-1 p-xl-5 liste-btn-mainMenu">
+            <div class="alert" :class="this.message.error ? 'alert-danger' : 'alert-success'" v-if="this.message.text != ''">
+                {{this.message.text}}
+                <h2 class="float-right " @click="message.text = ''" style="line-height:0.5em; cursor:pointer">&times;</h2>
+            </div>
             <button v-if="this.$store.state.jeuxEnCours" class="btn btn-primary w-100" @click="revenirJeu">Reprendre la partie</button>
             <button class="btn btn-primary w-100" @click="startGame">Commencer la partie</button>
+            <hr>
             <button class="btn btn-primary w-100" @click="setRegles(true)" type="button" data-toggle="modal" data-target="#modalRegles">Règles</button>
             <button class="btn btn-primary w-100" @click="startTuto" type="button" data-toggle="modal" data-target="#modalRegles">Tutoriel</button>
+            <hr>
+            <button class="btn btn-primary w-100" @click="loadGame()" type="button" data-toggle="modal" data-target="#modalRegles">Charger la dernière partie</button>
+            <button class="btn btn-primary w-100" @click="saveGame()" type="button" data-toggle="modal" data-target="#modalRegles">Sauvegarder</button>
         </div>
         <div class="col azul-bg pt-5">
             <div class="player-slots row m-0">
@@ -68,7 +76,11 @@
                         AI: 0,
                     },
                 ],
-                regles : false
+                regles : false,
+                message : {
+                    text: "",
+                    error: false,
+                },
             }
         },
         computed:{
@@ -82,6 +94,28 @@
             }
         },
         methods:{
+            saveGame(){
+                axios.post('http://localhost:8000/saveGame', {})
+                    .then((r) => {
+                        if(!r.data.success){                            
+                            this.message.text = "Aucune partie en cours."; this.message.error = true;
+                        }
+                        else {
+                            this.message.text = "Partie sauvegardée !"; this.message.error = false;
+                        }
+                    });
+            },
+            loadGame(){
+                axios.post('http://localhost:8000/loadGame', {})
+                    .then((r) => {
+                        if(r.data.success){
+                            this.$store.dispatch("getGame");
+                            this.$store.state.jeuxEnCours = true;
+                        } else {
+                            this.message.text = "Impossible de charger la dernière partie."; this.message.error = true;
+                        }
+                    })
+            },
             selectPlayer(player){
                 if(!player.selected){
                     player.selected = true;
