@@ -156,6 +156,7 @@ public class Controller {
 			for(Player player : players) {
 				player.setBoard(getCurrentBoard());
 			}
+			setAIHasPlayed(false);
 			return true;
 		} else {
 			return false;
