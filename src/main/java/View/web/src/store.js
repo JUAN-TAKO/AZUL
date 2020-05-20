@@ -81,10 +81,15 @@ export default new Vuex.Store({
                                 let factory = parseInt(q.GlobalBoard.lastMove.factory,10)
                                 let line = parseInt(q.GlobalBoard.lastMove.line,10)
                                 let nSelected
-                                if(factory === -1)
-                                    nSelected = Array.from(context.state.board.center).filter(el => el === color).length
-                                else
-                                    nSelected = Array.from(context.state.board.factories[factory]).filter(el => el === color).length
+                                if(factory > 4 || factory < 0)
+                                    nSelected = Array.from(context.state.board.center)
+                                                    .filter(el => el === color)
+                                                    .length
+                                else 
+                                    nSelected = Array.from(context.state.board.factories[factory])
+                                                    .filter(el => el === color)
+                                                    .length
+                                
 
                                 let selection = {
                                     donnees : {
