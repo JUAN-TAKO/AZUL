@@ -152,11 +152,12 @@ public class Controller {
 	// Return true if successful
 	public boolean goPrevious() {
 		if(this.boards.size() > 1) {
+			setAIHasPlayed(false);
+			setFrontUpdated(true);
 			boards.remove(0);
 			for(Player player : players) {
 				player.setBoard(getCurrentBoard());
 			}
-			setAIHasPlayed(false);
 			return true;
 		} else {
 			return false;
