@@ -77,7 +77,7 @@
             goPrevious(){
                 this.waitingReponse = true
                 axios.post('http://localhost:8000/goPrevious', {})
-                    .then(() => {
+                    .then((response) => {
                         setTimeout(() => {
                             this.waitingReponse = false
                         },500)
@@ -90,18 +90,18 @@
 
                             }
                         };
-                        this.$store.dispatch('getBoard');
+                        // this.$store.dispatch('getBoard');
                         // this.$store.commit("setBoard",response.data.GlobalBoard)
-                        // let interval = setInterval(() => {
-                        //     if(JSON.stringify(response.data.GlobalBoard) !== JSON.stringify(this.$store.state.board)){
-                        //         console.log("getBoard dans board")
-                        //         this.$store.state.animationIAEnCours = false;
-                        //         this.$store.state.hasAIPlayed = false;
-                        //         this.$store.dispatch('getBoard');
-                        //     } else {
-                        //         clearInterval(interval)
-                        //     }
-                        // },1000);
+                        let interval = setInterval(() => {
+                            if(JSON.stringify(response.data.GlobalBoard) !== JSON.stringify(this.$store.state.board)){
+                                console.log("getBoard dans board")
+                                this.$store.state.animationIAEnCours = false;
+                                this.$store.state.hasAIPlayed = false;
+                                this.$store.dispatch('getBoard');
+                            } else {
+                                clearInterval(interval)
+                            }
+                        },1000);
                     })
                     .catch(() => {
                         setTimeout(() => {
