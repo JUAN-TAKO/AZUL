@@ -158,7 +158,5 @@ public class PlayerBoard implements Serializable {
 			if(isColumnCompleted(i)) score += 7;
 			if(isColorCompleted(i+1)) score += 10;
 		}
-
 	}
-
 }
