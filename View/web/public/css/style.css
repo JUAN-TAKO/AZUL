@@ -185,6 +185,9 @@ body {
     transition: box-shadow 0.3s;
 }
 
+#board {
+    background: center no-repeat url("../img/fond.png"), radial-gradient(white,#5ac5d4);
+}
 
 /* ANIMATIONS */
 
