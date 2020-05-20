@@ -1,89 +1,101 @@
 package Controller.AI;
 
-import java.util.ArrayList;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.TreeMap;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import Controller.AIPlayer;
 import Model.*;
 import Utils.Move;
+import Utils.Pair;
 
 public class MonteCarloAI extends AIPlayer {
     Random random;
-    int maxMovesAhead = 2;
-    int randomSampleSize = 10;
+    int maxMovesAhead = 1;
+    int randomSampleSize = 1000;
+    double growth = 3;
 
     public MonteCarloAI(int n, GlobalBoard g) {
         super(n, g);
         random = new Random();
     }
-    public int randomSimulation(GlobalBoard g){
+    public ArrayList<Float> randomSimulation(GlobalBoard g){
+        float avg = 0.0f;
         RandomAI agent = new RandomAI(0, g);
-        ArrayList<Integer> scores = new ArrayList<>();
+        ArrayList<Float> scores = new ArrayList<>();
         for(int i=0; i < g.getNPlayers();i++){
-            scores.add(g.getPlayerBoard(i).getScore());
+            scores.add((float)g.getPlayerBoard(i).getScore());
         }
-        System.out.println("Start round sim");
         do {
             agent.setNum(g.getCurrentPlayer());
             agent.tick();
         } while (g.isRoundActive());
-        System.out.println("End round sim");
-        int max = 0;
-        int maxVal = -99999;
         for(int i=0; i < g.getNPlayers();i++){
-            int v = g.getPlayerBoard(i).getScore() - scores.get(i);
-            System.out.println("score " + i + " = " + v);
-            if(v > maxVal){
-                maxVal = v;
-                max = i;
-            }
+            float v = g.getPlayerBoard(i).getScore() - scores.get(i);
+            avg += v/g.getNPlayers();
+            scores.set(i, v);
         }
-        System.out.println("winner: " + max);
-        return max;
+        for(int i=0; i < g.getNPlayers();i++){
+            scores.set(i, scores.get(i) - avg);
+        }
+        return scores;
     }
-    public float estimateBoard(int pnum, GlobalBoard g, int movesAhead){
-        System.out.println("estimate");
+
+    public float valueFunction(float x){
+        return (float)(Math.pow(growth, x)/growth);
+    }
+    public float weightScores(GlobalBoard g, ArrayList<Float> scores, ArrayList<Float> sum){
+        float w = valueFunction(scores.get(g.getCurrentPlayer()));
+        for(int i=0; i < g.getNPlayers(); i++){
+            sum.set(i, sum.get(i) + scores.get(i)*w);
+        }
+        return w;
+    }
+    public ArrayList<Float> estimateBoard(GlobalBoard g, int movesAhead){
+        ArrayList<Float> sum = new ArrayList<>();
+        for(int j=0; j<g.getNPlayers();j++){
+            sum.add(0.0f);
+        }
+        float total = 0.0f;
         if(movesAhead+1 >= maxMovesAhead){
-            int nb_wins = 0;
             for(int i=0; i < randomSampleSize; i++){
                 GlobalBoard sim = new GlobalBoard(g);
-                while(sim.isOnGoing()) {
-                    if (randomSimulation(sim) == pnum) {
-                        nb_wins++;
-                    }
-                }
-                System.out.println("sample " + i);
+                total += weightScores(g, randomSimulation(sim), sum);
             }
-            return (float)nb_wins/(float)randomSampleSize;
         }
         else{
             ArrayList<Move> moves = this.getAllMoves(g);
-            float sum = 0.0f;
             for(int i=0; i < moves.size(); i++){
                 GlobalBoard sim = new GlobalBoard(g);
                 Move move = moves.get(i);
                 sim.currentPlayerDraw(move.factory, move.color, move.line);
-                sum += estimateBoard(pnum, sim, movesAhead+1);
+                total += weightScores(g, estimateBoard(sim, movesAhead+1), sum);
             }
-            return sum / moves.size();
         }
+        for(int i=0; i < g.getNPlayers(); i++){
+            sum.set(i, sum.get(i) / total);
+        }
+        return sum;
     }
     @Override
     protected boolean tick() {
         ArrayList<Move> moves = this.getAllMoves(globalBoard);
         NavigableMap<Float, Move> map = new TreeMap<Float, Move>();
-        float sum = 0.0f;
+        ArrayList<Float> scores;
         for(int i=0; i < moves.size(); i++){
-            System.out.println("conf");
             GlobalBoard sim = new GlobalBoard(globalBoard);
-            sum += estimateBoard(num, sim, 1);
-            map.put(sum, moves.get(i));
+            Move move = moves.get(i);
+            sim.currentPlayerDraw(move.factory, move.color, move.line);
+            scores = estimateBoard(sim, 0);
+            float v = valueFunction(scores.get(globalBoard.getCurrentPlayer()));
+            map.put(v, moves.get(i));
+            Move m = moves.get(i);
+            System.out.println("Move: " + m.color + " from " + m.factory + " to " + m.line + " - score " + v);
         }
-        float r = random.nextFloat() * sum;
-        Move move = map.higherEntry(r).getValue();
-        globalBoard.currentPlayerDraw(move.factory, move.color, move.line);
+
+        Move move = map.lastEntry().getValue();
+        System.out.println("chosen: " + move.color + " from " + move.factory + " to " + move.line);
+        System.out.println(globalBoard.currentPlayerDraw(move.factory, move.color, move.line));
+        System.out.println("score IA:" + globalBoard.getPlayerBoards()[1].getScore());
         return true;
     }
 }

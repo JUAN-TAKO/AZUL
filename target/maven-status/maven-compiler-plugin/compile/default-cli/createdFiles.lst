@@ -10,6 +10,7 @@ Model\TestGlobalBoard.class
 Utils\Utils.class
 Azul.class
 Controller\AIPlayer.class
+Utils\Pair.class
 Controller\Server\JSONStringer.class
 Model\PlayerBoard.class
 Controller\AI\LearningAI.class

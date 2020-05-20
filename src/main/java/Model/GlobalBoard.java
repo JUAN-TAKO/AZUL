@@ -141,16 +141,13 @@ public class GlobalBoard {
 	}
 
 	private void initRound(){
-		System.out.println("init round");
 		currentPlayer = futureFirstPlayer;
 		futureFirstPlayer = -1;
 		initFactories();
 		iCenter = 0;
-		roundActive = false;
 	}
 
 	private void endOfTurn(){
-		System.out.println("EOT");
 		nextPlayer();
 		if(isRoundOver())
 			endOfRound();
@@ -159,6 +156,7 @@ public class GlobalBoard {
 	private void endOfRound(){
 		for(int i = 0; i < nPlayers; i++)
 			PB[i].decoration();
+		roundActive = false;
 		if(isGameOver())
 			endOfGame();
 		else initRound();

@@ -26,7 +26,7 @@ public class AIPlayer extends Player {
 					continue;
 
 				for(int k = 0; k < 5; k++){
-					if(!state.getPlayerBoard(this.num).canLineBeColor(k, j))
+					if(!state.getPlayerBoard(this.num).canLineBeColor(k, j) || state.getPlayerBoard(this.num).isLineFull(k))
 						continue;
 					moves.add(new Move(i, j, k));
 				}
@@ -38,7 +38,7 @@ public class AIPlayer extends Player {
 				continue;
 
 			for(int k = 0; k < 5; k++){
-				if(!state.getPlayerBoard(this.num).canLineBeColor(k, j))
+				if(!state.getPlayerBoard(this.num).canLineBeColor(k, j) || state.getPlayerBoard(this.num).isLineFull(k))
 					continue;
 				moves.add(new Move(state.getNFactories(), j, k));
 			}

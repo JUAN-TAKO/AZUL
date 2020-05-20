@@ -105,7 +105,7 @@ public class PlayerBoard {
 			floor[i] = 0;
 		}
 		nfloor = 0;
-		if(score < 0) score = 0;
+		//if(score < 0) score = 0;
 	}
 
 	private void updatePoints(int x, int y){
@@ -153,7 +153,7 @@ public class PlayerBoard {
 			if(isColumnCompleted(i)) score += 7;
 			if(isColorCompleted(i+1)) score += 10;
 		}
-		System.out.println("update " + score);
+
 	}
 
 }
