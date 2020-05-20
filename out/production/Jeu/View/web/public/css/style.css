@@ -132,23 +132,18 @@ body {
 }
 
 .close-selection {
-    border: solid 3px white;
     border-radius: 10%;
     background: rgba(10,10,10,0.7);
     display: inline-block;
-    width: 70px;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    line-height: 0.5em;
 }
 
 .close-selection:hover {
     background: rgba(10,10,10,0.3);
 }
-
-.close > span {
-    vertical-align: super;
-}
-
-
-
 
 
 /* ANIMATIONS */
@@ -276,10 +271,12 @@ img.couronne-victoire {
     overflow: hidden;
     transition: transform 0.3s ease-out;
     transform-origin:left;
+    width: 250px;
 }
 
 #setting-aria {
-    border-right: solid 5px rgb(97,197,212) !important;
+    box-shadow: 0 0 5px rgb(0,0,0,0.3) !important;
+    clip-path: inset(-5px -5px -5px 0);
 }
 
 #setting-img {
@@ -287,6 +284,10 @@ img.couronne-victoire {
     min-height : 30px;
     max-width : 30px;
     max-height : 30px;
+}
+
+#setting-img svg {
+    fill: white;
 }
 
 .setting-btn-aria {
@@ -297,14 +298,15 @@ img.couronne-victoire {
 }
 
 .setting-titre {
-    border-top: solid 5px rgb(97,197,212);
-    border-bottom: solid 5px rgb(97,197,212);
+    box-shadow: 0 0 5px rgb(0,0,0,0.3) !important;
+    clip-path: inset(0 0 -5px 0);
 }
 
 #setting-btn {
-    background: rgba(97,197,212,1);
-    box-shadow: 0 0 5px #5ac5d4;
-    border : 1px solid /*#5ac5d4*/ white;
+    background: white;
+    box-shadow: 0 0 5px rgb(0,0,0,0.3);
+    clip-path: inset(-5px -5px -5px 0);
+    border-radius: 0 0 0.25rem 0;
 }
 
 .setting-btn-aria:hover {
