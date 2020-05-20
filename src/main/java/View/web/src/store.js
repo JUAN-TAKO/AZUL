@@ -67,7 +67,6 @@ export default new Vuex.Store({
     actions: {
         getBoard(context) {
             if(!this.state.animationIAEnCours) {
-                console.log("getBoard dans stores")
                 Axios.get('http://localhost:8000/getBoard')
                     .then(response => response.data)
                     .then( q => {
