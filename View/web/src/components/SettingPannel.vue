@@ -16,6 +16,7 @@
                     <button class="btn border-secondary" @click="retourMenu">Menu</button>
                     <button class="btn border-secondary" @click="recommancer()">Recommencer</button>
                     <button class="btn border-secondary">Sauvegarder</button>
+                    <button class="btn border-secondary" @click="changeTuto"> {{ textTuto }} </button>
                 </div>
             </div>
         </div>
@@ -77,6 +78,9 @@
             },
             retourMenu() {
                 this.$store.state.retourMenu = true
+            },
+            changeTuto() {
+                this.$store.state.tutoEnCours = !this.$store.state.tutoEnCours
             }
         },computed: {
             getLeftButton() {
@@ -95,6 +99,12 @@
             },
             boxShadow() {
                 return this.scale === "1" ? '0px 0 5px #5ac5d4' : 'none'
+            },
+            textTuto() {
+                if(this.$store.state.tutoEnCours)
+                    return "Arrêter le tutoriel"
+                else
+                    return "Tutoriel"
             }
         },
         mounted() {

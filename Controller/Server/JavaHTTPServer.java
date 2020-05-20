@@ -66,6 +66,7 @@ public class JavaHTTPServer implements Runnable{
                 if (method.equals("GET")) { // GET method so we return content
 
                     JSONObject jsonObject = new JSONObject("{}");
+                    GlobalBoard gb;
                     //System.out.println(url);
 
                     //CREATION OF JSON IN FUNCTION OF THE URL
@@ -77,10 +78,21 @@ public class JavaHTTPServer implements Runnable{
                     		break;
                         case "/getBoard":
                             send200(out);
-                        	GlobalBoard gb = Controller.getInstance().getCurrentBoard();
+                        	 gb = Controller.getInstance().getCurrentBoard();
                         	if(gb != null) 
                         		jsonObject.put("GlobalBoard",gb.toJSON());
                         	jsonObject.put("hasAIPlayed", Controller.getInstance().hasAIPlayed());
+                            break;
+                        case "/getBoardTuto":
+                            send200(out);
+                            String names[] = new String[4];
+                            for(int i = 0; i < 4; i++) {
+                                names[i] = "Joueur tutoriel " + i;
+                            }
+                            gb = new GlobalBoard(4,names);
+                            if(gb != null)
+                                jsonObject.put("GlobalBoard",gb.toJSON());
+                            jsonObject.put("hasAIPlayed", Controller.getInstance().hasAIPlayed());
                             break;
                         default:
                             send404(out);

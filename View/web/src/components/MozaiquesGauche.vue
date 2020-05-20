@@ -1,5 +1,8 @@
 <template>
     <div class="mozaiques-gauche" :class="{ 'light-around' : this.$store.state.selection.selectionner && isCurrent }">
+        <div v-if="tuto" class="tuto-selection-done">
+            <img class="fleche-tuto w-100" src="img/fleche-gauche.png" alt="">
+        </div>
         <div class="ligne flex-row-reverse" @click="mouseClick(index,couleurs[index])" @mouseover="mouseOver(index)" @mouseleave="mouseOut()" v-for="(nbMozaiques, index) in this.lignes" :key="index">
             <Mozaique v-for="(mozaique,i) in getNbMozaiqueLigne(nbMozaiques,couleurs[index],index)"
                       :key="i" :couleur="getCouleurMozaiqueLigne(couleurs[index])"
@@ -74,8 +77,8 @@
             }
         },
         computed: {
-            nameTransition() {
-                return this.$store.state.hasAIPlayed ? 'bounce' : 'none'
+            tuto() {
+                return this.$store.state.selection.selectionner && this.$store.state.tutoEnCours && this.isCurrent
             }
         }
     }
@@ -93,6 +96,7 @@
     .ligne {
         /*border: 3px solid pink;*/
         height: 20%;
+        cursor: pointer;
     }
 
     /*.mozaique {*/

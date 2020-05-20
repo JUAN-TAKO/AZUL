@@ -114,6 +114,7 @@
                 player.name = player.name + player.id
             },
             startGame () {
+                this.$store.state.tutoEnCours = false;
                 let json = {
                     nPlayers: this.numberOfPlayers,
                     AI: this.availablePlayers.filter(a => a.selected).map(a => a.AI),
@@ -123,9 +124,7 @@
                 .then(() => {
                     // this.$emit("gameStarted");
                     this.$store.dispatch("reset")
-                    this.$store.state.jeuxEnCours = true
-                    this.$store.state.retourMenu = false
-                    this.$store.state.winner = null
+                    this.$store.state.jeuxEnCours = true;
                 })
                 .catch(() => {
                 });
@@ -134,10 +133,8 @@
                 this.$store.state.retourMenu = false
             },
             startTuto() {
-                this.$store.dispatch('getBoardTuto');
-                this.$store.state.jeuxEnCours = true;
-                this.$store.state.retourMenu = false
-                this.$store.state.winner = null;
+                this.startGame()
+                this.$store.state.tutoEnCours = true
             },
             setRegles(valeur) {
                 this.regles = valeur;

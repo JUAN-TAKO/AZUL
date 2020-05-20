@@ -100,6 +100,7 @@
         background: center / contain no-repeat url("/img/plateau-joueur.png");
         position: relative;
         border-radius: 3%;
+        overflow: visible;
     }
 
     .mozaiques {
@@ -117,6 +118,7 @@
         bottom: 9%;
         right: 31%;
         left: 4%;
+        cursor: pointer;
     }
 
     .not-current-player {

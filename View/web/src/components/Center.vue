@@ -7,7 +7,7 @@
         </div>
         <div :class="{ 'col-1 m-0 m-2 p-0 p-md-1' : pionPremier === true }">
             <transition name="bounce" v-on:leave-cancelled="animationFinished()">
-                <Mozaique v-if="pionPremier === true" :scale="getScaleCenter" :couleur="6"></Mozaique>
+                <Mozaique v-if="pionPremier === true" :scale="getScaleCenter" :couleur="6" class="mozaique-fabrique"></Mozaique>
             </transition>
         </div>
     </div>
@@ -80,6 +80,10 @@
 </script>
 
 <style scoped>
+
+    .mozaique-fabrique {
+        cursor: pointer;
+    }
 
     .container-fabrique-mozaiques {
         /*border: 3px solid green !important;*/

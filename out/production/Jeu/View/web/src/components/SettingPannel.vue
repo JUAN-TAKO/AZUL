@@ -15,9 +15,8 @@
                 <div class="d-flex flex-column menu-liste align-items-st art">
                     <button class="btn border-secondary" @click="retourMenu">Menu</button>
                     <button class="btn border-secondary" @click="recommancer()">Recommencer</button>
-                    <button class="btn border-secondary">Abandonner</button>
-                    <button class="btn border-secondary">Annuler mouvement</button>
                     <button class="btn border-secondary">Sauvegarder</button>
+                    <button class="btn border-secondary" @click="changeTuto"> {{ textTuto }} </button>
                 </div>
             </div>
         </div>
@@ -63,8 +62,10 @@
                 axios.post('http://localhost:8000/startGame', json)
                     .then(() => {
                         this.$emit("gameStarted");
-                        this.$store.state.winner = null
-                        this.$store.state.animationIAEnCours = false
+                        // this.$store.state.winner = null
+                        // this.$store.state.animationIAEnCours = false
+                        this.$store.dispatch("reset")
+                        this.$store.dispatch('getBoard');
                         setTimeout(() => {
                             this.waitingReponse = false
                         },1000)
@@ -77,6 +78,9 @@
             },
             retourMenu() {
                 this.$store.state.retourMenu = true
+            },
+            changeTuto() {
+                this.$store.state.tutoEnCours = !this.$store.state.tutoEnCours
             }
         },computed: {
             getLeftButton() {
@@ -95,6 +99,12 @@
             },
             boxShadow() {
                 return this.scale === "1" ? '0px 0 5px #5ac5d4' : 'none'
+            },
+            textTuto() {
+                if(this.$store.state.tutoEnCours)
+                    return "Arrêter le tutoriel"
+                else
+                    return "Tutoriel"
             }
         },
         mounted() {

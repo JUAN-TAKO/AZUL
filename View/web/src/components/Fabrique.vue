@@ -5,7 +5,7 @@
                 <div class="row m-auto p-0 col-8">
                     <div class="col-6 m-0 p-0 p-md-1" v-for="(mozaique, index) in mozaiques" :key="index" @mouseover="mouseOver(mozaique)" @mouseout="mouseOut()" @click="clickMozaique()">
                         <transition name="bounce" v-on:after-leave="animationFinished()">
-                            <Mozaique v-if="mozaique != 0 && !isSelected(mozaique)" :scale="getScale(index)" :couleur="mozaique"></Mozaique>
+                            <Mozaique v-if="mozaique != 0 && !isSelected(mozaique)" :scale="getScale(index)" :couleur="mozaique" class="mozaique-fabrique"></Mozaique>
                         </transition>
                     </div>
                 </div>
@@ -73,6 +73,10 @@
 <style scoped>
     .fabrique {
         background: center / contain no-repeat url("/img/fabrique.png");
+    }
+
+    .mozaique-fabrique {
+        cursor: pointer;
     }
 
     .container-fabrique-mozaiques {

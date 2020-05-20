@@ -23,7 +23,9 @@ export default new Vuex.Store({
         retourMenu:false,
         // animationOnGoing: false,
         // playersAIStatus:null,
-        animationIAEnCours:false
+        animationIAEnCours:false,
+        tutoEnCours: true,
+        jaiCompris: false
     },
     mutations: {
         setBoard(state, data) {
@@ -167,6 +169,7 @@ export default new Vuex.Store({
             this.state.coupJouer = false;
             this.state.retourMenu = false;
             this.state.winner = null;
+            this.state.jaiCompris = false
         }
     }
 })

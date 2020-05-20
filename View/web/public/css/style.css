@@ -48,7 +48,7 @@ body {
     bottom:0;
     right:0;
     left:0;
-    background-color: rgba(110,110,110,0.3);
+    background-color: rgba(50,50,50,0.5);
     z-index: 10;
 }
 
@@ -354,4 +354,65 @@ img.couronne-victoire {
 .btn-avis:hover {
     border-color : #0056b3 !important;
     color : #0056b3 !important;
+}
+
+
+
+/* *************** TUTO ******************* */
+
+.text-tuto {
+    border: solid 3px white;
+    border-radius: 10px;
+    font-size: 3vw;
+    background: rgba(10,10,10,0.7);
+    padding: 20px;
+}
+
+.fleche-tuto {
+    filter: drop-shadow(0 0 5px black);
+}
+
+.tuto-selection-done {
+    position: absolute;
+    width: 100%;
+    left: 100%;
+    animation: deplacementFlecheTutoDone 1.5s linear infinite;
+}
+
+
+@keyframes deplacementFlecheTutoDone {
+    0% {
+        left: 100%;
+    }
+    25% {
+        left: 105%;
+    }
+    50% {
+        left:115%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.div-fleche-tuto {
+    margin-right: 150px;
+    animation: deplacementFlecheTuto 1.5s linear infinite;
+    overflow: hidden;
+}
+
+
+@keyframes deplacementFlecheTuto {
+    0% {
+        margin-right: 150px;
+    }
+    25% {
+        margin-right: 90px;
+    }
+    50% {
+        margin-right: 0;
+    }
+    100% {
+        margin-right: 150px;
+    }
 }
