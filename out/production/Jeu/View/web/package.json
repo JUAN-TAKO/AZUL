@@ -12,7 +12,6 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.13.0",
     "core-js": "^3.6.4",
-    "postscribe": "^2.0.8",
     "vue": "^2.6.11",
     "vuex": "^3.3.0"
   },

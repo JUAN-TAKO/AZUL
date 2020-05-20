@@ -1,5 +1,18 @@
 <template>
     <div id="menu" class="col-7 m-0 p-0 d-flex flex-column justify-content-end">
+        <div v-if="tuto" class="overlay row m-0 p-0 d-flex">
+            <div class="col-10 m-auto row p-0">
+                <p class="text-white text-tuto">
+                    <!--Séléctionnez les mozaiques d'une couleur sur une des fabriques en cliquant sur l'unes d'elles-->
+                    {{ $store.state.board.PB[$store.state.board.currentPlayer].name }}
+                    <br>
+                    Clique sur les tuiles désirées
+                </p>
+                <div class="d-flex col-4 p-0 div-fleche-tuto ml-auto">
+                    <img class="mr-0 fleche-tuto" src="img/fleche.png" alt="">
+                </div>
+            </div>
+        </div>
         <div v-if="this.$store.state.retourCoup" class="alert alert-danger" role="alert">
             {{ this.$store.state.retourCoup }}
             <button type="button" class="close" aria-label="Close" @click="fermerRetourCoup()">
@@ -50,6 +63,9 @@
             players: {}
         },
         computed: {
+            tuto() {
+                return this.$store.state.tutoEnCours && !this.$store.state.selection.selectionner
+            }
         },
         updated() {
         },
@@ -60,5 +76,7 @@
 
 <style scoped>
     #menu {
+        /*background-color: #131417;*/
+        border-right:2px solid white;
     }
 </style>

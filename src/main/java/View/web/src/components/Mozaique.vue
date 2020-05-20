@@ -1,6 +1,6 @@
 <template>
     <div class="embed-responsive embed-responsive-1by1 mozaique" :style="{ scale : this.scale }">
-        <img v-if="this.getSrc != null" class="embed-responsive-item" :src="this.getSrc">
+        <img v-if="this.getSrc != null" class="embed-responsive-item mozaique-img" :src="this.getSrc">
     </div>
 </template>
 <script>
@@ -33,7 +33,7 @@
                         couleur = "bleu"
                         break;
                     case 2:
-                        couleur = "jaune"
+                        couleur = "jaune-v2"
                         break;
                     case 3:
                         couleur = "rouge"
@@ -52,7 +52,7 @@
                         break;
                 }
                 if(couleur != null)
-                    return 'img/mozaique-' + couleur + '.png'
+                    return 'img/mozaique-' + couleur + '-bordure.png'
                 else
                     return null
             }
@@ -71,6 +71,13 @@
 <style scoped>
     .mozaique {
         overflow: visible;
+        /*border: 1px solid white;*/
+        /*border-radius: 10%;*/
+    }
+
+    .mozaique-img {
+        /*filter: drop-shadow(2px -2px 2px black);*/
+        border-radius: 10%;
     }
 
     .ligne > .mozaique {

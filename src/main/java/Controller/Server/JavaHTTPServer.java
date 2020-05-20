@@ -66,6 +66,7 @@ public class JavaHTTPServer implements Runnable{
                 if (method.equals("GET")) { // GET method so we return content
 
                     JSONObject jsonObject = new JSONObject("{}");
+                    GlobalBoard gb;
                     //System.out.println(url);
 
                     //CREATION OF JSON IN FUNCTION OF THE URL
@@ -73,14 +74,25 @@ public class JavaHTTPServer implements Runnable{
                     switch(url) {
                     	case "/getGameStatus":
                             send200(out);
-                    		jsonObject.put("onGoing",  Controller.getInstance().getBoard() != null);
+                    		jsonObject.put("onGoing",  Controller.getInstance().getCurrentBoard() != null);
                     		break;
                         case "/getBoard":
                             send200(out);
-                        	GlobalBoard gb = Controller.getInstance().getBoard();
+                        	 gb = Controller.getInstance().getCurrentBoard();
                         	if(gb != null) 
                         		jsonObject.put("GlobalBoard",gb.toJSON());
                         	jsonObject.put("hasAIPlayed", Controller.getInstance().hasAIPlayed());
+                            break;
+                        case "/getBoardTuto":
+                            send200(out);
+                            String names[] = new String[4];
+                            for(int i = 0; i < 4; i++) {
+                                names[i] = "Joueur tutoriel " + i;
+                            }
+                            gb = new GlobalBoard(4,names);
+                            if(gb != null)
+                                jsonObject.put("GlobalBoard",gb.toJSON());
+                            jsonObject.put("hasAIPlayed", Controller.getInstance().hasAIPlayed());
                             break;
                         default:
                             send404(out);
@@ -123,11 +135,18 @@ public class JavaHTTPServer implements Runnable{
                     		int color = (int) jsonObjectIn.get("color");
                     		int line = (int) jsonObjectIn.get("line");
                     		jsonObjectOut.put("value", Controller.getInstance().playMove(factory, color, line));
+                        	GlobalBoard gb = Controller.getInstance().getCurrentBoard();
+                        	jsonObjectOut.put("GlobalBoard",gb.toJSON());
+                        	jsonObjectOut.put("hasAIPlayed", Controller.getInstance().hasAIPlayed());
                             send200(out);
                     		break;
                     	case "/setFrontUpdated":
                     		Controller.getInstance().setFrontUpdated(true);
                             send200(out);
+                    		break;
+                    	case "/goPrevious":
+                    		jsonObjectOut.put("GlobalBoard", Controller.getInstance().goPrevious() ? Controller.getInstance().getCurrentBoard().toJSON() : null);
+                    		send200(out);
                     		break;
                         default :
                             send404(out);

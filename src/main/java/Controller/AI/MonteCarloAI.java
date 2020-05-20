@@ -10,9 +10,9 @@ import Utils.Pair;
 
 public class MonteCarloAI extends AIPlayer {
     Random random;
-    int maxMovesAhead = 1;
-    int randomSampleSize = 1000;
-    double growth = 3;
+    int maxMovesAhead = 2;
+    int randomSampleSize = 200;
+    double growth = 4;
 
     public MonteCarloAI(int n, GlobalBoard g) {
         super(n, g);
@@ -88,8 +88,6 @@ public class MonteCarloAI extends AIPlayer {
             scores = estimateBoard(sim, 0);
             float v = valueFunction(scores.get(globalBoard.getCurrentPlayer()));
             map.put(v, moves.get(i));
-            Move m = moves.get(i);
-            System.out.println("Move: " + m.color + " from " + m.factory + " to " + m.line + " - score " + v);
         }
 
         Move move = map.lastEntry().getValue();

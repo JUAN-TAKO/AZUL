@@ -2,6 +2,8 @@ package Model;
 
 import java.util.*;
 import Controller.Server.*;
+import Utils.Triplet;
+
 import java.net.*;
 
 public class GlobalBoard {
@@ -25,6 +27,8 @@ public class GlobalBoard {
 
 	private int currentPlayer;
 	private int futureFirstPlayer;
+	
+	private Triplet<Integer, Integer, Integer> lastMove;
 
 	private String address;
 
@@ -74,6 +78,7 @@ public class GlobalBoard {
 		this.lid = gb.lid.clone();
 		this.currentPlayer = gb.currentPlayer;
 		this.futureFirstPlayer = gb.futureFirstPlayer;
+		this.lastMove = gb.getLastMove() != null ? new Triplet<Integer,Integer,Integer>(gb.getLastMove().getFirst(), gb.getLastMove().getSecond(), gb.getLastMove().getThird()) : null;
 	}
 
 	public int getNPlayers() {return nPlayers;}
@@ -81,7 +86,7 @@ public class GlobalBoard {
 	public boolean isRoundActive(){return roundActive;}
 	public int getNFactories() {return 2*nPlayers + 1;}
 	public int[][] getFactories() {return factories;}
-	
+
 	public PlayerBoard[] getPlayerBoards() {return PB;}
 	public PlayerBoard getPlayerBoard(int plyr) {return PB[plyr];}
 	public PlayerBoard getCurrentPlayerBoard() {return PB[currentPlayer];}
@@ -90,6 +95,8 @@ public class GlobalBoard {
 	public int[] getCenter() {return center;}
 	public int getCurrentPlayer() {return currentPlayer;}
 	public int getFutureFirstPlayer() {return futureFirstPlayer;}
+	public Triplet<Integer, Integer, Integer> getLastMove() {return lastMove;}
+	public void setLastMove(Triplet<Integer, Integer, Integer> lastMove) {this.lastMove = lastMove;}
 
 	public String getBoardAddress(){return address;}
 
@@ -202,13 +209,15 @@ public class GlobalBoard {
 	//It ends current player turn if successful
 	public int currentPlayerDraw(int whereToDraw, int color, int line){
 		int r;
-		if((r = playerDraw(currentPlayer, whereToDraw, color, line)) == 0)
-			endOfTurn();
+		if((r = playerDraw(currentPlayer, whereToDraw, color, line)) == 0) {
+			setLastMove(new Triplet<Integer,Integer,Integer>(whereToDraw, color, line));
+			endOfTurn();			
+		}
 		return r;
 	}
 
 	public int playerDraw(int plyr, int whereToDraw, int color, int line){
-		if(whereToDraw >= 0 && whereToDraw < getNFactories() )
+		if(whereToDraw >= 0 && whereToDraw < getNFactories())
 			return playerDrawFromFactory(plyr, whereToDraw, color, line);
 		else return playerDrawFromCenter(plyr, color, line);
 	}
@@ -322,6 +331,7 @@ public class GlobalBoard {
 			jsonObject.put("currentPlayer", getCurrentPlayer());
 			jsonObject.put("futureFirstPlayer", getFutureFirstPlayer());
 			jsonObject.put("isOnGoing", isOnGoing());
+			jsonObject.put("lastMove", getLastMove() != null ? getLastMove().toJSON("factory", "color", "line") : null);
 			return jsonObject;
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -26,6 +26,7 @@ Controller\AI\ML\ModelLoader.class
 Controller\Server\JSONWriter.class
 Controller\Server\JSONArray.class
 Controller\Server\JSONObject$1.class
+Utils\Triplet.class
 Controller\Server\CDL.class
 Controller\AI\MonteCarloAI.class
 Controller\Server\XML.class

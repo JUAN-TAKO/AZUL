@@ -1,13 +1,14 @@
 <template>
     <div class="">
-        <div class="bord er border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
-            <div>
-                <h3 :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">{{plateauJoueur.name}} - Score : {{ plateauJoueur.score }}</h3>
+        <div class="plateau-joueur-div bord er border-secondary rounded p-md-3 plateau-joueur-shadow" :class="{'plateau-joueur-shadow-current' : isCurrent}">
+            <div class="d-flex justify-content-between" :class="{'text-primary' : isCurrent, 'text-secondary' : !isCurrent}">
+                <h3>{{ plateauJoueur.name }}</h3>
+                <h3>Score : {{ plateauJoueur.score }}</h3>
             </div>
             <div class="plateau-joueur embed-responsive embed-responsive-4by3" :class="{ 'not-current-player' : !isCurrent }">
                 <div class="embed-responsive-item">
                     <div class="mozaiques d-flex">
-                        <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent"></MozaiquesGauche>
+                        <MozaiquesGauche :lignes="plateauJoueur.linesNb" :couleurs="plateauJoueur.linesColor" @ajoutplancher="ajoutPlancher" :isCurrent="isCurrent" :id="id"></MozaiquesGauche>
                         <MozaiquesDroite :mur="plateauJoueur.wall" :isCurrent="isCurrent"></MozaiquesDroite>
                     </div>
                     <div class="plancher d-flex flex-row" :class="{'shadow-danger' : plancherAjout !== 0, 'light-around' : this.$store.state.selection.selectionner && isCurrent}" @mouseover="ajoutPlancher($store.state.selection.donnees.nSelected,$store.state.selection.donnees.color)" @click="clickPlancher()" @mouseleave="ajoutPlancher(0,0)">
@@ -43,28 +44,40 @@
         },
         methods: {
             ajoutPlancher(valeur,couleur) {
-                if(valeur !== undefined && couleur !== undefined) {
+                if(valeur !== undefined && couleur !== undefined && this.isCurrent && !this.isCurrentAI) {
                     this.plancherAjout = valeur;
                     this.couleurPlancherAjout = couleur;
+                } else if(valeur == 0 && couleur == 0 ) {
+                    this.plancherAjout = valeur;
+                    this.couleurPlancherAjout = couleur;
+
                 }
             },
             clickPlancher() {
-                if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner) {
-                    this.$store.dispatch("jouerCoup",5)
+                if(!this.$store.state.coupJouer && this.$store.state.selection.selectionner && this.isCurrent) {
+                    this.$store.dispatch("jouerCoup",5);
+                    this.ajoutPlancher(0,0);
                 }
-            }
+            },
+
         },
         computed: {
+            isCurrentAI(){
+                return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
+            },
             isCurrent() {
                 return this.$store.state.board.currentPlayer === this.id
+            },
+            plancherAjoutComputed(){
+                return this.plancherAjout;
             },
             plancher() {
                 // console.log(this.plancherAjout, this.couleurPlancherAjout)
                 let plancher = Array.from(this.$store.state.board.PB[this.id].floor)
                 let cpt = 0;
                 let i = 0;
-                if(this.plancherAjout !== 0) {
-                    cpt += this.plancherAjout;
+                if(this.plancherAjoutComputed !== 0) {
+                    cpt += this.plancherAjoutComputed;
                     while(i < plancher.length && cpt > 0) {
                         if(plancher[i] === 0) {
                             plancher[i] = this.couleurPlancherAjout
@@ -90,6 +103,7 @@
         background: center / contain no-repeat url("/img/plateau-joueur.png");
         position: relative;
         border-radius: 3%;
+        overflow: visible;
     }
 
     .mozaiques {
@@ -107,6 +121,7 @@
         bottom: 9%;
         right: 31%;
         left: 4%;
+        cursor: pointer;
     }
 
     .not-current-player {

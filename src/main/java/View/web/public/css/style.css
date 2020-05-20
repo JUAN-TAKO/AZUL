@@ -3,7 +3,7 @@
     /*max-height: 100vh;*/
 }
 
-*::selection {
+*:not(input)::selection {
     background: none;
 }
 
@@ -48,8 +48,23 @@ body {
     bottom:0;
     right:0;
     left:0;
+    background-color: rgba(50,50,50,0.5);
+    z-index: 10;
+}
+
+.modal-regles-overlay {
+    position: absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
     background-color: rgba(110,110,110,0.3);
     z-index: 10;
+ }
+
+#modalRegles {
+    z-index: 11;
+    height: 85vh;
 }
 
 .player-slots {
@@ -83,6 +98,23 @@ body {
     filter: grayscale(1);
 }
 
+.input-main-menu {
+    transition: max-height 0.3s linear;
+    max-height:200px;
+}
+
+.not-selected-input {
+    max-height: 0;
+}
+
+.input-group-append button {
+    z-index:0 !important;
+}
+
+.group-btn-main-menu {
+    flex-wrap: wrap;
+}
+
 .mozaique-selected{
     text-align: center;
     position: relative;
@@ -99,12 +131,19 @@ body {
     font-size: 3rem !important;
 }
 
-.close > span {
-    vertical-align: super;
+.close-selection {
+    border-radius: 10%;
+    background: rgba(10,10,10,0.7);
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    line-height: 0.5em;
 }
 
-
-
+.close-selection:hover {
+    background: rgba(10,10,10,0.3);
+}
 
 
 /* ANIMATIONS */
@@ -204,7 +243,8 @@ img.couronne-victoire {
 }
 
 .btn-victoire {
-    background-color: rgba(97,197,212,0.7);
+    /*background-color: rgba(97,197,212,0.7);*/
+    background-color: rgba(255,255,255,0.08);
     border-radius: 10px;
     border: solid 3px white;
     cursor: pointer;
@@ -216,7 +256,7 @@ img.couronne-victoire {
 }
 
 .text-btn-victoire {
-    font-size : 1.5vw !important;
+    font-size : 1.1vw !important;
     font-weight: bold;
     color: white;
 }
@@ -231,6 +271,12 @@ img.couronne-victoire {
     overflow: hidden;
     transition: transform 0.3s ease-out;
     transform-origin:left;
+    width: 250px;
+}
+
+#setting-aria {
+    box-shadow: 0 0 5px rgb(0,0,0,0.3) !important;
+    clip-path: inset(-5px -5px -5px 0);
 }
 
 #setting-img {
@@ -240,6 +286,10 @@ img.couronne-victoire {
     max-height : 30px;
 }
 
+#setting-img svg {
+    fill: white;
+}
+
 .setting-btn-aria {
     position:fixed;
     top:0;
@@ -247,10 +297,16 @@ img.couronne-victoire {
     transition: left 0.3s ease-out;
 }
 
+.setting-titre {
+    box-shadow: 0 0 5px rgb(0,0,0,0.3) !important;
+    clip-path: inset(0 0 -5px 0);
+}
+
 #setting-btn {
-    background: rgba(97,197,212,1);
-    box-shadow: 0 0 5px #5ac5d4;
-    border : 1px solid /*#5ac5d4*/ white;
+    background: white;
+    box-shadow: 0 0 5px rgb(0,0,0,0.3);
+    clip-path: inset(-5px -5px -5px 0);
+    border-radius: 0 0 0.25rem 0;
 }
 
 .setting-btn-aria:hover {
@@ -280,4 +336,85 @@ img.couronne-victoire {
 .close {
     opacity: 1 !important;
     font-size: 5em !important;
+}
+
+.btn-annuler-action {
+    position: absolute;
+    overflow: hidden;
+    border: solid 3px white;
+    box-shadow: 0 0 15px black;
+    z-index: 500;
+    right:0;
+}
+
+.btn-avis {
+    border: solid 2px #0056b3 !important;
+    /*border: solid 2px white !important;*/
+    font-size : 1vw !important;
+}
+
+.btn-avis:hover {
+    border-color : #0056b3 !important;
+    color : #0056b3 !important;
+}
+
+
+
+/* *************** TUTO ******************* */
+
+.text-tuto {
+    border: solid 3px white;
+    border-radius: 10px;
+    font-size: 3vw;
+    background: rgba(10,10,10,0.7);
+    padding: 20px;
+}
+
+.fleche-tuto {
+    filter: drop-shadow(0 0 5px black);
+}
+
+.tuto-selection-done {
+    position: absolute;
+    width: 100%;
+    left: 100%;
+    animation: deplacementFlecheTutoDone 1.5s linear infinite;
+}
+
+
+@keyframes deplacementFlecheTutoDone {
+    0% {
+        left: 100%;
+    }
+    25% {
+        left: 105%;
+    }
+    50% {
+        left:115%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.div-fleche-tuto {
+    margin-right: 150px;
+    animation: deplacementFlecheTuto 1.5s linear infinite;
+    overflow: hidden;
+}
+
+
+@keyframes deplacementFlecheTuto {
+    0% {
+        margin-right: 150px;
+    }
+    25% {
+        margin-right: 90px;
+    }
+    50% {
+        margin-right: 0;
+    }
+    100% {
+        margin-right: 150px;
+    }
 }

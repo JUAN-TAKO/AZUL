@@ -5,7 +5,7 @@
                 <div class="row m-auto p-0 col-8">
                     <div class="col-6 m-0 p-0 p-md-1" v-for="(mozaique, index) in mozaiques" :key="index" @mouseover="mouseOver(mozaique)" @mouseout="mouseOut()" @click="clickMozaique()">
                         <transition name="bounce" v-on:after-leave="animationFinished()">
-                            <Mozaique v-if="mozaique != 0" :scale="getScale(index)" :couleur="mozaique"></Mozaique>
+                            <Mozaique v-if="mozaique != 0 && !isSelected(mozaique)" :scale="getScale(index)" :couleur="mozaique" class="mozaique-fabrique"></Mozaique>
                         </transition>
                     </div>
                 </div>
@@ -29,6 +29,11 @@
             mozaiques: {},
             id : Number
         },
+        computed:{
+            isAI() {
+                return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
+            }
+        },
         methods: {
             mouseOver (el) {
                 this.over = el;
@@ -40,6 +45,9 @@
                 return this.mozaiques[i] === this.over || (this.mozaiques[i] === this.$store.state.selection.donnees.color && this.id === this.$store.state.selection.donnees.factory) ? 1.3 : 1;
             },
             clickMozaique() {
+                if(this.isAI)
+                    return;
+
                 let selection = {
                     donnees:{
                         factory : this.id,
@@ -54,6 +62,9 @@
                 if(this.$store.state.hasAIPlayed) {
                     this.$store.state.animationDone = true;
                 }
+            },
+            isSelected(couleur) {
+                return this.id == this.$store.state.selection.donnees.factory && couleur == this.$store.state.selection.donnees.color
             }
         }
     }
@@ -62,6 +73,10 @@
 <style scoped>
     .fabrique {
         background: center / contain no-repeat url("/img/fabrique.png");
+    }
+
+    .mozaique-fabrique {
+        cursor: pointer;
     }
 
     .container-fabrique-mozaiques {
