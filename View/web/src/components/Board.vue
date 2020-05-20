@@ -9,13 +9,8 @@
             <div class="btn btn-secondary" @click="goPrevious()"> Annuler la dernière action</div>
         </div>
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
-            <p class="text-tuto text-white mx-5" v-if="tuto">
-                {{ $store.state.board.PB[$store.state.board.currentPlayer].name }}
-                <br>
-                Place les tuiles sur ton plateau
-            </p>
             <div class="w-50 mx-auto pb-5 px-1">
-                <button type="button" class="close text-white" aria-label="Close" @click="annulerSelection()">
+                <button type="button" class="close text-white" aria-label="Close" @click="annulerSelection()" v-if="!isCurrentAI">
                     <span class="close-selection" aria-hidden="true">&times;</span>
                 </button>
                 <p class="text-tuto text-white" v-if="tuto">Annuler la séléction</p>
@@ -64,6 +59,9 @@
             },
             tuto() {
                 return this.$store.state.tutoEnCours && this.$store.state.selection.selectionner
+            },
+            isCurrentAI(){
+                return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
             }
         },
         methods: {

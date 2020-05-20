@@ -1,5 +1,11 @@
 <template>
     <div class="">
+        <div v-if="regles" @click="regles = false" class="modal-regles-overlay d-flex row m-0 p-0" style="z-index: 9999">
+            <div id="modalRegles" class="col-10 m-auto">
+                <iframe src="NO-AZUL.pdf" class="w-100 h-100">
+                </iframe>
+            </div>
+        </div>
         <div class="waiting-reponse" :class="{ 'd-flex' : this.waitingReponse, 'd-none' : !this.waitingReponse, }">
             <div class="spinner-border text-primary m-auto spinner-border-lg" role="status">
                 <span class="sr-only">Loading...</span>
@@ -11,18 +17,22 @@
                 boxShadow: this.boxShadow
         }">
             <h2 class="text-center py-4 text-primary setting-titre">Menu</h2>
-            <div class="m-5">
+            <div class="p-2">
                 <div class="d-flex flex-column menu-liste align-items-st art">
                     <button class="btn border-secondary" @click="retourMenu">Menu</button>
                     <button class="btn border-secondary" @click="recommancer()">Recommencer</button>
                     <button class="btn border-secondary">Sauvegarder</button>
                     <button class="btn border-secondary" @click="changeTuto"> {{ textTuto }} </button>
+                    <button class="btn btn-outline-primary" @click="retourMenu">Menu</button>
+                    <button class="btn btn-outline-primary" @click="recommancer()">Recommencer</button>
+                    <button class="btn btn-outline-primary">Sauvegarder</button>
+                    <button class="btn btn-outline-primary" @click="regles = true">Règles</button>
                 </div>
             </div>
         </div>
         <div class="setting-btn-aria" @click="openSettingPanel()" :style="{ left : getLeftButton + 'px' }">
-            <div id="setting-btn" class="p-3 m-2 rounded-circle float-left">
-                <img id="setting-img" class="rounded-circle" :src="'img/' + getImage" alt="">
+            <div id="setting-btn" class="p-3 float-left">
+                <img id="setting-img" class="rounded-circle" src="img/menu-icon.svg" alt="">
             </div>
         </div>
     </div>
@@ -37,7 +47,8 @@
             return {
                 scale: "0",
                 waitingReponse: false,
-                el: null
+                el: null,
+                regles: false,
             }
         },
         methods: {
@@ -88,13 +99,6 @@
                     return this.el.getElementsByClassName("setting-aria")[0].clientWidth
                 } else {
                     return 0
-                }
-            },
-            getImage() {
-                if(this.scale !== "0") {
-                    return "retour.png"
-                } else {
-                    return "setting.png"
                 }
             },
             boxShadow() {
