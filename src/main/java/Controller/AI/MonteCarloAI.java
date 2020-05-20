@@ -17,6 +17,7 @@ public class MonteCarloAI extends AIPlayer {
     public MonteCarloAI(int n, GlobalBoard g) {
         super(n, g);
         random = new Random();
+        maxMovesAhead = maxMovesAhead - (g.getNPlayers()+1)/2 + 1;
     }
     public ArrayList<Float> randomSimulation(GlobalBoard g){
         float avg = 0.0f;

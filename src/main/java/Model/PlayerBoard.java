@@ -110,7 +110,7 @@ public class PlayerBoard implements Serializable {
 			floor[i] = 0;
 		}
 		nfloor = 0;
-		//if(score < 0) score = 0;
+		if(score < 0) score = 0;
 	}
 
 	private void updatePoints(int x, int y){
