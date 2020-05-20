@@ -80,9 +80,9 @@
             nameTransition() {
                 return this.$store.state.hasAIPlayed ? 'bounce' : 'none'
             },
-            isCurrentAI(){
+            isCurrentAI() {
                 return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
-            tuto() {
+            },tuto() {
                 return this.$store.state.selection.selectionner && this.$store.state.tutoEnCours && this.isCurrent
             }
         }

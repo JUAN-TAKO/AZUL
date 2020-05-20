@@ -23,9 +23,6 @@
                     <button class="btn border-secondary" @click="recommancer()">Recommencer</button>
                     <button class="btn border-secondary">Sauvegarder</button>
                     <button class="btn border-secondary" @click="changeTuto"> {{ textTuto }} </button>
-                    <button class="btn btn-outline-primary" @click="retourMenu">Menu</button>
-                    <button class="btn btn-outline-primary" @click="recommancer()">Recommencer</button>
-                    <button class="btn btn-outline-primary">Sauvegarder</button>
                     <button class="btn btn-outline-primary" @click="regles = true">Règles</button>
                 </div>
             </div>
