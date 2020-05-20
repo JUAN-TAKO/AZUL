@@ -44,7 +44,7 @@
         },
         methods: {
             ajoutPlancher(valeur,couleur) {
-                if(valeur !== undefined && couleur !== undefined && this.isCurrent) {
+                if(valeur !== undefined && couleur !== undefined && this.isCurrent && !this.isCurrentAI) {
                     this.plancherAjout = valeur;
                     this.couleurPlancherAjout = couleur;
                 } else if(valeur == 0 && couleur == 0 ) {
@@ -62,6 +62,9 @@
 
         },
         computed: {
+            isCurrentAI(){
+                return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
+            },
             isCurrent() {
                 return this.$store.state.board.currentPlayer === this.id
             },

@@ -10,7 +10,7 @@
         </div>
         <div v-if="this.$store.state.selection.selectionner" class="overlay d-flex flex-column justify-content-center">
             <div class="w-50 mx-auto pb-5 px-1">
-                <button type="button" class="close text-white" aria-label="Close" @click="annulerSelection()">
+                <button type="button" class="close text-white" aria-label="Close" @click="annulerSelection()" v-if="!isCurrentAI">
                     <span class="close-selection" aria-hidden="true">&times;</span>
                 </button>
                 <div class="container d-flex mozaique-selected row px-4 m-0">
@@ -52,6 +52,9 @@
             },
             couleurMozaique () {
                 return this.$store.state.selection.donnees.color;
+            },
+            isCurrentAI(){
+                return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
             }
         },
         methods: {

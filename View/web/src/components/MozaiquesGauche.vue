@@ -29,7 +29,7 @@
         },
         methods: {
             mouseOver (i) {
-                if(this.isCurrent)
+                if(this.isCurrent && !this.isCurrentAI)
                     this.ligneOver = i
             },
             mouseOut () {
@@ -76,6 +76,9 @@
         computed: {
             nameTransition() {
                 return this.$store.state.hasAIPlayed ? 'bounce' : 'none'
+            },
+            isCurrentAI(){
+                return this.$store.state.board.PB[this.$store.state.board.currentPlayer].name.includes("AI");
             }
         }
     }
