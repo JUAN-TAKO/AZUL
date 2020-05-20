@@ -69,7 +69,6 @@ public class Controller {
 				// Lorsque le temps est écoulé on le transmet au joueur courant.
 				// On verifie que le front est pret pour le prochain coup.
 				if(isFrontUpdated()) {
-					boards.add(1, new GlobalBoard(getCurrentBoard())); // Add board to the list
 					setAIHasPlayed(false);
 					// Si un coup a été joué (IA) on change de joueur.
 					if (players[getCurrentBoard().getCurrentPlayer()].tick()) {
@@ -80,7 +79,6 @@ public class Controller {
 						// Sinon on indique au joueur qui ne réagit pas au temps (humain) qu'on l'attend.
 						//System.out.println("On vous attend, joueur " + players[currentPlayer].num());
 						countdown = delay;
-						boards.remove(1); // There was no move played, remove the recently added board.
 					}
 				} else {
 					System.out.println("Waiting for front to update..");

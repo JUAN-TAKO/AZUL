@@ -18,7 +18,7 @@
                 <div v-for="(player,index) in availablePlayers" v-bind:key="index" class="player-slot col-sm-6 col-xl-3 mb-3">
                     <div class="input-main-menu" :class="{ 'not-selected-input' : !player.selected }">
                         <div class="input-group">
-                            <input type="text" class="form-control" v-model="player.name" :disabled="!player.selected || player.AI!=0" style="border-radius:0.25rem 0 0 0">
+                            <input type="text" class="form-control" v-model="player.name" :disabled="!player.selected || player.AI!=0" style="border-radius:0.25rem 0.25rem 0 0">
                         </div>
                         <div class="btn-group w-100 group-btn-main-menu" role="group" aria-label="Basic example">
                             <button @click="setAI(player,0)" class="btn btn-sm" :class="player.AI === 0 ? 'btn-primary' : 'btn-secondary'" :disabled="!player.selected" style="border-radius:0 0 0 0">Humain</button>
