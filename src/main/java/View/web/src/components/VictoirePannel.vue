@@ -59,6 +59,8 @@
                             return 2;
                         } else if(!el.name.includes("AI")){
                             return 0;
+                        } else if(el.name.includes("AI Moyen")) {
+                            return 3;
                         }
                     }),
                     names: this.$store.state.board.PB.map(a => a.name),
