@@ -104,7 +104,8 @@ export default new Vuex.Store({
                                 context.state.lastMove = selection.donnees;
 
                                 setTimeout(()=>{
-                                    context.commit("setBoard", q)
+                                    if(context.state.board.PB[context.state.board.currentPlayer].name.includes("AI"))
+                                        context.commit("setBoard", q)
                                 },2000)
                             },50)
                         } else if( context.state.board != null ){
