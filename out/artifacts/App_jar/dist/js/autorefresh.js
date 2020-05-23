@@ -13,4 +13,5 @@ setInterval( () => {
 
 window.addEventListener('click', reset);
 window.addEventListener('mousemove', reset);
-document.addEventListener('touchEnd', reset);
+document.addEventListener('touchmove', reset);
+document.addEventListener('touchend', reset);
