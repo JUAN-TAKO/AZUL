@@ -4,13 +4,13 @@
 #TCPPORT=<port here>
 source wan.config
 
+cd $PROJECT_DIR/out/artifacts/App_jar/distWAN
 shopt -s globstar
-for f in $PROJECT_DIR/out/artifacts/App_jar/distWAN/**
+for f in **
 do
 	[ -f $f ] && grep -q localhost $f && mv $f $f.tmp && sed s/localhost/$YOUR_IP/g $f.tmp >$f && rm $f.tmp && echo $f cleaned.
 done
 
-cd $PROJECT_DIR/out/artifacts/App_jar/distWAN
 echo
 echo AZUL can now be accessed at $YOUR_IP:$TCPPORT/index.html
 python3 -m http.server $TCPPORT
