@@ -8,5 +8,4 @@ game_players.save
 target
 .idea
 out/production
-indexLAN.html
-lan.config
+wan.config
