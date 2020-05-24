@@ -1,6 +1,8 @@
-PROJECT_DIR=.
-YOUR_IP=192.168.0.10
-TCPPORT=9958
+# You need a lan.config file with the following content (uncommented) :
+#PROJECT_DIR=.
+#YOUR_IP=<ip here>
+#TCPPORT=<port here>
+source lan.config
 
 shopt -s globstar
 for f in $PROJECT_DIR/src/main/java/View/** $PROJECT_DIR/out/**
