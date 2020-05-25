@@ -8,7 +8,7 @@ cd $PROJECT_DIR/out/artifacts/App_jar/distWAN
 shopt -s globstar
 for f in **
 do
-	[ -f $f ] && grep -q localhost $f && mv $f $f.old && sed s/localhost/$YOUR_IP/g $f.old >$f && echo $f changed for network use.
+	[ -f $f ] && grep -q localhost $f && echo ok && mv $f $f.old && sed s/localhost/$YOUR_IP/g $f.old >$f && echo $f changed for network use.
 done
 
 echo
@@ -17,5 +17,5 @@ python3 -m http.server $TCPPORT
 
 for f in **
 do
-	[-f $f.old ] && rm $f && mv $f.old $f && echo $f reverted.
+	[ -f $f.old ] && rm $f && mv $f.old $f && echo $f reverted.
 done
